@@ -9,7 +9,7 @@ export const HeaderContainer = styled.div`
     overflow: hidden;
   /* ou */
   /* overflow: scroll; */
-
+	
 	position: static;
 	left: 0;
 	top: 0;
@@ -36,12 +36,18 @@ export const ContainerNavegacao = styled.nav`
 	/* padding-top: 2rem; */
 
 	padding: 2rem 0rem 0;
+
+	position: relative;
 `;
 
 export const ContainerLinksUl = styled.ul`
 	list-style: none;
 	display: flex;
 	flex-direction: column;
+
+	position: relative;
+
+	height: 100%;
 
 	li {
 		margin-bottom: 1rem;
@@ -94,4 +100,14 @@ export const LinkStyle = styled(Link)`
 	color: ${theme.colors.gray[800]};
 
 	font-weight: 500;
+`;
+
+
+export const LogoutAdm = styled.div`
+
+	position: absolute;
+	bottom: -400px;
+
+	width: 100%;
+
 `;

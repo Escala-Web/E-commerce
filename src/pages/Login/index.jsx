@@ -1,14 +1,17 @@
+import { useNavigate } from "react-router-dom"
 import { Button } from "../../components/Button"
 import { Formulario } from "../../components/Formulario"
 import { Input } from "../../components/Input"
 
 export const Login = () => {
 
+    const navigate = useNavigate()
+
     function submit(event) {
         event.preventDefault();
 
         console.log(event.target)
-
+        navigate('/administrativo')
     }
 
     return (

@@ -40,6 +40,24 @@ export const CardBody = styled.div`
         font-weight: 600;
     }
 
+    a {
+        background-color: ${theme.colors.black['600']};
+        padding: .4rem 1.4rem;
+        border-radius: 6px;
+        color: ${theme.colors.white['300']};
+        font-weight: 600;
+
+        text-decoration: none;
+
+        transition: .2s;
+
+        &:hover {
+            background-color: ${theme.colors.black['500']};
+
+            color: ${theme.colors.white['200']};
+        }
+    }
+
 `;
 
 export const CardLink = styled(Link)`
