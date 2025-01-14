@@ -15,18 +15,20 @@ export const ContainerInput = styled.div`
     label {
         color: ${theme.colors.black['600']};
         font-weight: 500;
-        margin-top: 1rem;
+        /* margin-top: 1rem; */
     }
 
 `;
 
 export const InputStyle = styled.input`
 
-    padding: .6rem 1rem;
+    padding: .4rem 1rem;
     outline: 0;
 
     border: 1px solid rgb(222, 222, 222);
 
     border-radius: 4px;
+
+    width: 100%;
 
 `;

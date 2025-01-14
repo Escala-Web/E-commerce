@@ -11,7 +11,10 @@ export const Container = styled.div`
     border-radius: .5rem;
 
     width: ${({w}) => w};
+    height: ${({h}) => h};
 
     border: 1px solid rgba(50, 50, 50, 0.16);
+
+    overflow-y: ${({scroll}) => scroll || 'none'};
 
 `;

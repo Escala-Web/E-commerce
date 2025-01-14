@@ -1,6 +1,6 @@
-import { Breadcrumb } from "../../components/Breadcrumb"
-import { CardSection } from "../../components/CardSection"
-import { CardThemes } from "../../components/CardThemes/index.jsx"
+import { Breadcrumb } from "../../../components/Breadcrumb/index.jsx"
+import { CardSection } from "../../../components/CardSection"
+import { CardThemes } from "../../../components/CardThemes/index.jsx"
 import { ContainerBody } from "./styles.js"
 
 export const LojaPage = () => {

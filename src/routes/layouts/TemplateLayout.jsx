@@ -1,20 +1,5 @@
-import { BrowserRouter, Routes } from "react-router-dom";
-import { ContainerContent, ContainerRouter } from "../style";
+import { Outlet } from "react-router-dom";
 
-export const TemplateLayout = ({header, children, footer}) => {
-    return (
-		<>
-			
-			
-					{header}
-					<ContainerContent>
-						<Routes>
-                            {children}
-                        </Routes>
-					</ContainerContent>
-                    {footer}
-				
-			
-		</>
-	);
-}
+export const TemplateLayout = () => {
+  return <Outlet />; 
+};

@@ -23,6 +23,8 @@ export const ContainerButton = styled.div`
 
         transition: .2s;
 
+
+
         &:hover {
             background-color: ${theme.colors.black['500']};
             color: ${theme.colors.white['100']};

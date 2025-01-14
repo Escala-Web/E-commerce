@@ -1,4 +1,4 @@
-import { Link } from "react-router-dom";
+import { Link, useParams } from "react-router-dom";
 import { theme } from "../../theme/theme";
 import {
 	HeaderContainer,
@@ -16,27 +16,29 @@ import { BiSolidLabel } from "react-icons/bi";
 import { useContext, useState } from "react";
 import { FaMoneyBillTransfer } from "react-icons/fa6";
 import { IoLogOutSharp } from "react-icons/io5";
-import { useSession } from "../../hooks/sessions";
 import { HeaderConsume } from "../../context/Header";
 import { IoMdArrowRoundBack } from "react-icons/io";
 import { MdInsertPageBreak } from "react-icons/md";
+import { TemplateContext } from "../../context/Template";
 
 export const Header = () => {
 	const [activeLink, setActiveLink] = useState("painel");
 	const { session, setSession } = useContext(HeaderConsume);
 
-	console.log(session);
+	const {template} = useContext(TemplateContext);
 
 	function onClickActiveLink(e) {
 		const active = e.target.title;
 		setActiveLink(active);
 	}
 
+	console.log(template)
+
 	return (
 		<>
 			<HeaderContainer>
 				<ContainerLogo>
-					<img src="https://escalaweb.com.br/images/logo-nova.png" />
+					<img  src="https://escalaweb.com.br/images/logo-nova.png" />
 				</ContainerLogo>
 				<ContainerNavegacao>
 					<ContainerLinksUl onClick={onClickActiveLink}>
@@ -128,13 +130,13 @@ export const Header = () => {
 						) : (
 							<>
 								<LILInk
-									to="/administrativo"
-									className={activeLink == "voltar" ? "active" : ""}
-									title="voltar"
+									to="/administrativo/loja"
+									className={activeLink == "loja" ? "active" : ""}
+									title="loja"
 									onClick={() => setSession(false)}
 								>
 									<IoMdArrowRoundBack color={theme.colors.gray[800]} />
-									<LinkStyle to="/administrativo" title="voltar">
+									<LinkStyle to="/administrativo/loja" title="loja">
 										Voltar
 									</LinkStyle>
 								</LILInk>
@@ -142,32 +144,31 @@ export const Header = () => {
 								<p style={{
 									color: '#374151',
 									fontWeight: '600',
-									paddingBottom: '.6rem',
+									paddingBottom: '1rem',
 									paddingLeft: '20px',
-									borderBottom: '1px solid rgba(65, 65, 65, 0.42)'
 								}}>Criar página</p>
 								
 
 								<LILInk
-									to="/administrativo/cabecario"
+									to={`/administrativo/${template}/cabecario`}
 									className={activeLink == "cabecario" ? "active" : ""}
 									title="cabecario"
 								>
 									<FaPager color={theme.colors.gray[800]} />
 
-									<LinkStyle to="/administrativo/cabecario" title="cabecario">
+									<LinkStyle to={`/administrativo/${template}/cabecario`} title="cabecario">
 										Cabeçario
 									</LinkStyle>
 								</LILInk>
 
 								<LILInk
-									to="/administrativo/conteudo"
+									to={`/administrativo/${template}/conteudo`}
 									className={activeLink == "conteudo" ? "active" : ""}
 									title="conteudo"
 								>
 									<MdInsertPageBreak color={theme.colors.gray[800]} />
 
-									<LinkStyle to="/administrativo/conteudo" title="conteudo">
+									<LinkStyle to={`/administrativo/${template}/conteudo`} title="conteudo">
 										Conteudo
 									</LinkStyle>
 								</LILInk>

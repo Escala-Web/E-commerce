@@ -6,7 +6,7 @@ export const HeaderContainer = styled.div`
 	width: 14%;
 	background-color: ${theme.colors.white[100]};
 
-    overflow: hidden;
+    /* overflow: hidden; */
   /* ou */
   /* overflow: scroll; */
 	
