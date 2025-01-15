@@ -1,10 +1,10 @@
 import { FormularioStyle } from "./styles"
 
-export const Formulario = ({children}) => {
+export const Formulario = ({children, w, submit}) => {
 
     return (
         <>
-            <FormularioStyle>
+            <FormularioStyle onSubmit={submit} w={w}>
                 {children}
             </FormularioStyle>
 

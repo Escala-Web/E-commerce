@@ -7,19 +7,26 @@ import { Title } from "../../../../../components/Title";
 import { TemplateContext } from "../../../../../context/Template";
 import { HeaderPage } from "../../components/HeaderPage";
 import { Form } from "./styles";
+import { useCreate } from "../../../../../hooks/useCreate";
+import axios from "axios";
 
 export const HeaderEditorPage = () => {
 	const { theme } = useParams();
-	const [links, setLinks] = useState("");
+	const [link, setLink] = useState('');
 	const { headerLinks, setHeaderLinks } = useContext(TemplateContext);
 
-	function addLinkToHeaderr(event) {
+	async function addLinkToHeaderr(event) {
 		event.preventDefault();
-
-		if (links) {
-			setHeaderLinks((prev) => [...prev, links]);
+		
+		try {
+			await axios.post('http://localhost:3001/template', {
+				link
+			})
+			console.log('Cadasytr')
+		} catch (error) {
+			console.log(error)
 		}
-		setLinks("");
+		
 	}
 
 	return (
@@ -41,14 +48,14 @@ export const HeaderEditorPage = () => {
 								<Title fontSize="18px">
 									<p>Adicionar menu</p>
 								</Title>
-								<Form onClick={addLinkToHeaderr}>
+								<Form >
 									<input
 										placeholder="Nome do link"
-										value={links}
-										onChange={(e) => setLinks(e.target.value)}
+										value={link}
+										onChange={(e) => setLink(e.target.value)}
 										name="link"
 									/>
-									<button type="submit">Adicionar +</button>
+									<button onClick={addLinkToHeaderr}>Adicionar +</button>
 								</Form>
 							</Formulario>
 						</div>

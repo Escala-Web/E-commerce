@@ -10,7 +10,7 @@ export const FormularioStyle = styled.form`
 
     height: 100%;
     
-    /* width: 100%; */
+    width: ${({w}) => w || '100%'};
 
     display: flex;
     flex-direction: column;

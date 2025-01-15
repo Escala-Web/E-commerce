@@ -1,28 +1,31 @@
 import { Swiper, SwiperSlide } from 'swiper/react';
 import 'swiper/css';
+import { useSearchParams } from 'react-router-dom';
+import { useContext, useEffect } from 'react';
+import { BannerPageOne } from './BannerPageOne';
+import { BannerPageTwo } from './BannerPageTwo';
+import { TemplateContext } from '../../../../../context/Template';
 
 export const Banners = () => {
+
+  const [searchBanner, setSearchBanner] = useSearchParams();
+
+  const bannerSelecionado = searchBanner.get('banner');
+
+  const {banner} = useContext(TemplateContext);
+  
+  
+
+
   return (
     <div>
-      {/* Primeiro Slider */}
     
-      <Swiper
-        spaceBetween={10} // Define o espaçamento entre os slides
-        slidesPerView={1} // Mostra 1 slide ao mesmo tempo
-        loop={true} // Faz com que o slider seja cíclico
-        
-      >
-        <SwiperSlide>
-          <img src="https://placehold.co/1900x600/png" alt="second banner 1" />
-        </SwiperSlide>
-        <SwiperSlide>
-          <img src="https://placehold.co/1900x600/png" alt="second banner 1" />
-        </SwiperSlide>
-        <SwiperSlide>
-          <img src="https://placehold.co/1900x600/png" alt="second banner 1" />
-        </SwiperSlide>
-        
-      </Swiper>
+      {bannerSelecionado == '2' ? (
+        <BannerPageOne />
+      ) : (
+        <BannerPageTwo />
+      ) }
+    
     </div>
   );
 };

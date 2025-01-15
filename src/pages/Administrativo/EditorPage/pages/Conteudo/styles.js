@@ -9,3 +9,18 @@ export const Form = styled.form`
     gap: .6rem;
 
 `;
+
+export const SectionPageStyle = styled.div`
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-direction:  ${({display}) => display || 'row'};
+
+    margin: ${({m}) => m || '0'};
+    
+    gap: 1rem;
+
+    width: ${({w}) => w || '100%'};
+
+`;
