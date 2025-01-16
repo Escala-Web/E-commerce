@@ -1,5 +1,5 @@
 import { Container } from "./styles";
 
-export const Title = ({ children, fontSize }) => {
-	return <Container fontSize={fontSize}>{children}</Container>;
+export const Title = ({ children, fontSize, textAlign }) => {
+	return <Container fontSize={fontSize} textAlign={textAlign}>{children}</Container>;
 };

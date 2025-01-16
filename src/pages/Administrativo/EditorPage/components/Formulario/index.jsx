@@ -1,3 +1,4 @@
+import { Title } from "../../../../../components/Title"
 import { FormularioStyle } from "./styles"
 
 export const Formulario = ({children, w, submit}) => {

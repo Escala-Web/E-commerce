@@ -8,18 +8,31 @@ export const FormularioStyle = styled.form`
 
     /* background-color: aqua; */
 
-    height: 100%;
-    
-    width: ${({w}) => w || '100%'};
-
     display: flex;
     flex-direction: column;
-    gap: 1rem;
+    justify-content: center;
+    align-items: center;
 
+    width: 100%;
+
+    box-sizing: border-box;
+
+    gap: .6rem;
+    padding: 4rem 2rem;
+    min-height: 50vh;
+    border-radius: 8px;
+    /* border: 1px solid #ccc; */
     /* padding: 2rem 0rem; */
 
+    h3 {
+        font-size: 2rem;
+        color: #374151;
+        padding-bottom: 4rem;
+        text-align: center;
+    }
+
     input {
-        padding: .6rem 1rem;
+        padding: .8rem 1rem;
         border-radius: 6px;
         
         border: 1px solid ${theme.colors.black['500']};
@@ -43,11 +56,14 @@ export const FormularioStyle = styled.form`
         background-color: #009ae3;
         color: ${theme.colors.white['100']};
 
+        font-size: 1rem;
         font-weight: 700;
+
+        margin-top: 1.4rem;
     }
 
     select {
-        padding: .6rem 1rem;
+        padding: .8rem 1rem;
         border-radius: 6px;
 
         border: 1px solid ${theme.colors.black['500']};

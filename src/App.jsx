@@ -4,10 +4,8 @@ import { RoutesApp } from "./routes";
 import { AuthProvider } from "./context/Auth";
 import { HeaderProvider } from "./context/Header";
 import { TemplateProvider } from "./context/Template";
-
+import { ToastContainer } from "react-toastify";
 function App() {
-
-	
 	return (
 		<>
 			<TemplateProvider>
@@ -15,6 +13,7 @@ function App() {
 					<HeaderProvider>
 						<ThemeProvider theme={theme}>
 							<RoutesApp />
+							<ToastContainer />
 						</ThemeProvider>
 					</HeaderProvider>
 				</AuthProvider>

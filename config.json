@@ -1,8 +1,24 @@
 {
   "menu": [
     {
-      "id": "5d38",
-      "links": "Home"
+      "id": "8e13",
+      "name": "Home",
+      "link": "/"
+    },
+    {
+      "id": "e8e0",
+      "name": "Sobre",
+      "link": "/sobre"
+    },
+    {
+      "id": "7cbd",
+      "name": "Moedas",
+      "link": "/moedas"
+    },
+    {
+      "id": "fb03",
+      "name": "s",
+      "link": "s"
     }
   ],
   "config": [

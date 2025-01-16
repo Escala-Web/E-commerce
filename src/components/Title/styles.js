@@ -8,4 +8,6 @@ export const Container = styled.h1`
     color: ${theme.colors.black['600']};
     font-weight: 600;
 
+    text-align: ${({textAlign}) => textAlign};
+
 `;

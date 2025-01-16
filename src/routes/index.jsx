@@ -5,12 +5,13 @@ import { Dashboard } from "../pages/Administrativo/Dashboard";
 import { Pedidos } from "../pages/Administrativo/Pedidos";
 import { LojaPage } from "../pages/Administrativo/Loja";
 import { HeaderEditorPage } from "../pages/Administrativo/EditorPage/pages/Header";
-import { EditorPage } from "../pages/Administrativo/EditorPage";
+// import { EditorPage } from "../pages/Administrativo/EditorPage";
 import { DashboardLayout } from "./layouts/Dashboard";
 import { TemplateLayout } from "./layouts/TemplateLayout";
 import { HomeEcommece } from "../pages/Ecommerce/Home";
 import { LoginPage } from "../pages/Administrativo/Login";
 import { ConteudoEditorPage } from "../pages/Administrativo/EditorPage/pages/Conteudo";
+import { EditorPage } from "../pages/Administrativo/EditorPage/views/Header";
 
 
 export const RoutesApp = () => {

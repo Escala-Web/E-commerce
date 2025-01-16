@@ -22,6 +22,7 @@ import { IoSearch } from "react-icons/io5";
 import { useFecth } from "../../../../../hooks/useFecth";
 import { CgClose } from "react-icons/cg";
 import { FaCartShopping } from "react-icons/fa6";
+import { useApi } from "../../../../../hooks/useApi";
 
 export const HeaderPage = () => {
 	const uri = "https://fakestoreapi.com/products";
@@ -29,6 +30,9 @@ export const HeaderPage = () => {
 	const { headerLinks } = useContext(TemplateContext);
 
 	const { data, erro, loading } = useFecth(uri);
+
+	const {items, error} = useApi('/menu');
+
 	const [openHeader, setOpenHeader] = useState(false);
 
 	const [search, setSearch] = useState("");
@@ -88,9 +92,9 @@ export const HeaderPage = () => {
 
 					<Navegacao>
 						<ul>
-							{headerLinks.map((header) => (
+							{items.map((header) => (
 								<li>
-									<LinkNavigation>{header}</LinkNavigation>
+									<LinkNavigation>{header.name}</LinkNavigation>
 								</li>
 							))}
 						</ul>
