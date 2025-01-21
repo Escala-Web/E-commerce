@@ -1,10 +1,9 @@
 import styled from "styled-components";
-import { theme } from "../../theme/theme";
 
 export const Container = styled.div`
 
     padding: 1rem 2rem;
-    background-color: ${theme.colors.white['100']};
+    background-color: #FFF;
 
     box-sizing: border-box;
 

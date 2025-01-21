@@ -1,22 +1,24 @@
 import { ThemeProvider } from "styled-components";
-import { theme } from "./theme/theme";
+
+import { blueTheme, orangeTheme, greenTheme, redTheme, purpleTheme,blackTheme} from './theme/themeTemplates';
+
 import { RoutesApp } from "./routes";
 import { AuthProvider } from "./context/Auth";
-import { HeaderProvider } from "./context/Header";
 import { TemplateProvider } from "./context/Template";
 import { ToastContainer } from "react-toastify";
+import { ThemeColorContetx } from "./context/ThemeContext";
 function App() {
 	return (
 		<>
 			<TemplateProvider>
+					<ThemeColorContetx>
 				<AuthProvider>
-					<HeaderProvider>
-						<ThemeProvider theme={theme}>
+						<ThemeProvider theme={blueTheme}>
 							<RoutesApp />
 							<ToastContainer />
 						</ThemeProvider>
-					</HeaderProvider>
 				</AuthProvider>
+					</ThemeColorContetx>
 			</TemplateProvider>
 		</>
 	);

@@ -1,14 +1,21 @@
-import { Banners } from "../../Administrativo/EditorPage/components/Banners"
-import { HeaderPage } from "../../Administrativo/EditorPage/components/HeaderPage"
-import { BannerPage } from "../components/Banner"
+import { useState } from "react";
+
+import { HomePage02 } from "../../templates/template02/pages/home";
+import { HomePage01 } from "../../templates/template01/pages/Home";
 
 export const HomeEcommece = () => {
-    return (
-        <>
+	const [template, setTemplate] = useState(1);
 
-        <HeaderPage />
-        <BannerPage />
+	switch (template) {
+		case 1:
+			return <HomePage01 />;
+			break;
+		case 2:
+			return <HomePage02 />
+			break;
+		default:
+			break;
+	}
 
-        </>
-    )
-}
+
+};

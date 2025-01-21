@@ -1,5 +1,4 @@
 import styled from "styled-components";
-import { theme } from "../../theme/theme";
 
 export const Container = styled.div`
 
@@ -12,7 +11,7 @@ export const Container = styled.div`
     border-bottom: 1px solid rgba(50, 50, 50, 0.16);
 
     p {
-        color: ${theme.colors.gray[800]};
+        color: #CCC;
         
             font-weight: 500;
     }

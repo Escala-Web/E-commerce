@@ -1,5 +1,4 @@
-import { Link, useParams } from "react-router-dom";
-import { theme } from "../../theme/theme";
+import { useNavigate, useSearchParams } from "react-router-dom";
 import {
 	HeaderContainer,
 	ContainerLogo,
@@ -9,30 +8,33 @@ import {
 	LILInk,
 	LogoutAdm,
 } from "./styles";
-import { FaHome, FaPager, FaStore, FaUser } from "react-icons/fa";
-import { RiLogoutCircleRFill, RiShoppingCart2Fill } from "react-icons/ri";
+import { FaHome, FaStore, FaUser } from "react-icons/fa";
+import { RiShoppingCart2Fill } from "react-icons/ri";
 import { LuMousePointerClick } from "react-icons/lu";
 import { BiSolidLabel } from "react-icons/bi";
 import { useContext, useState } from "react";
 import { FaMoneyBillTransfer } from "react-icons/fa6";
-import { IoLogOutSharp } from "react-icons/io5";
-import { HeaderConsume } from "../../context/Header";
-import { IoMdArrowRoundBack } from "react-icons/io";
-import { MdInsertPageBreak } from "react-icons/md";
-import { TemplateContext } from "../../context/Template";
+import { toast } from "react-toastify";
+import { AuthContext } from "../../context/Auth";
 
 export const Header = () => {
 	const [activeLink, setActiveLink] = useState("painel");
-	const { session, setSession } = useContext(HeaderConsume);
 
-	const {template} = useContext(TemplateContext);
+	const navigate = useNavigate()
+
+	const { setLogin } = useContext(AuthContext);
 
 	function onClickActiveLink(e) {
 		const active = e.target.title;
 		setActiveLink(active);
 	}
 
-	console.log(template)
+	function toggleLogout() {
+		localStorage.removeItem("userLogin");
+        toast.success('Até a próxima');
+		setLogin(null)
+		navigate('/');
+	}
 
 	return (
 		<>
@@ -42,14 +44,13 @@ export const Header = () => {
 				</ContainerLogo>
 				<ContainerNavegacao>
 					<ContainerLinksUl onClick={onClickActiveLink}>
-						{!session ? (
-							<>
+						
 								<LILInk
 									to="/administrativo"
 									className={activeLink == "painel" ? "active" : ""}
 									title="painel"
 								>
-									<FaHome color={theme.colors.gray[800]} />
+									<FaHome  />
 									<LinkStyle to="/administrativo" title="painel">
 										Painel
 									</LinkStyle>
@@ -60,7 +61,7 @@ export const Header = () => {
 									className={activeLink == "pedidos" ? "active" : ""}
 									title="pedidos"
 								>
-									<RiShoppingCart2Fill color={theme.colors.gray[800]} />
+									<RiShoppingCart2Fill  />
 
 									<LinkStyle to="/administrativo/pedidos" title="pedidos">
 										Pedidos
@@ -72,7 +73,7 @@ export const Header = () => {
 									className={activeLink == "produtos" ? "active" : ""}
 									title="produtos"
 								>
-									<BiSolidLabel color={theme.colors.gray[800]} />
+									<BiSolidLabel  />
 
 									<LinkStyle to="/administrativo/produtos" title="produtos">
 										Produtos
@@ -84,7 +85,7 @@ export const Header = () => {
 									className={activeLink == "clientes" ? "active" : ""}
 									title="clientes"
 								>
-									<FaUser color={theme.colors.gray[800]} />
+									<FaUser  />
 
 									<LinkStyle to="/administrativo/clientes" title="clientes">
 										Clientes
@@ -96,7 +97,7 @@ export const Header = () => {
 									className={activeLink == "loja" ? "active" : ""}
 									title="loja"
 								>
-									<FaStore color={theme.colors.gray[800]} />
+									<FaStore  />
 
 									<LinkStyle to="/administrativo/loja" title="loja">
 										Loja
@@ -108,7 +109,7 @@ export const Header = () => {
 									className={activeLink == "pagamentos" ? "active" : ""}
 									title="pagamentos"
 								>
-									<FaMoneyBillTransfer color={theme.colors.gray[800]} />
+									<FaMoneyBillTransfer  />
 
 									<LinkStyle to="/administrativo/pagamentos" title="pagamentos">
 										Pagamentos
@@ -120,62 +121,16 @@ export const Header = () => {
 									className={activeLink == "marketing" ? "active" : ""}
 									title="marketing"
 								>
-									<LuMousePointerClick color={theme.colors.gray[800]} />
+									<LuMousePointerClick  />
 
 									<LinkStyle to="/administrativo/marketing" title="marketing">
 										Seo
 									</LinkStyle>
 								</LILInk>
-							</>
-						) : (
-							<>
-								<LILInk
-									to="/administrativo/loja"
-									className={activeLink == "loja" ? "active" : ""}
-									title="loja"
-									onClick={() => setSession(false)}
-								>
-									<IoMdArrowRoundBack color={theme.colors.gray[800]} />
-									<LinkStyle to="/administrativo/loja" title="loja">
-										Voltar
-									</LinkStyle>
-								</LILInk>
+						
 
-								<p style={{
-									color: '#374151',
-									fontWeight: '600',
-									paddingBottom: '1rem',
-									paddingLeft: '20px',
-								}}>Criar página</p>
-								
-
-								<LILInk
-									to={`/administrativo/${template}/cabecario`}
-									className={activeLink == "cabecario" ? "active" : ""}
-									title="cabecario"
-								>
-									<FaPager color={theme.colors.gray[800]} />
-
-									<LinkStyle to={`/administrativo/${template}/cabecario`} title="cabecario">
-										Cabeçario
-									</LinkStyle>
-								</LILInk>
-
-								<LILInk
-									to={`/administrativo/${template}/conteudo`}
-									className={activeLink == "conteudo" ? "active" : ""}
-									title="conteudo"
-								>
-									<MdInsertPageBreak color={theme.colors.gray[800]} />
-
-									<LinkStyle to={`/administrativo/${template}/conteudo`} title="conteudo">
-										Conteudo
-									</LinkStyle>
-								</LILInk>
-							</>
-						)}
-
-						<LogoutAdm>
+						<LogoutAdm onClick={toggleLogout}>
+						
 							<LILInk
 								to="/"
 								title="Sair"

@@ -8,7 +8,7 @@ export const TemplateProvider = ({children}) => {
     const [headerLinks, setHeaderLinks] = useState([]);
     const [banner, setBanner] = useState([]);
 
-    console.log(banner)
+    const [theme, setTheme] = useState()
 
     const value = {
         template,

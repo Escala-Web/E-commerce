@@ -1,5 +1,4 @@
 import styled from "styled-components";
-import { theme } from "../../theme/theme";
 
 export const ContainerInput = styled.div`
 
@@ -13,7 +12,7 @@ export const ContainerInput = styled.div`
     
 
     label {
-        color: ${theme.colors.black['600']};
+        color: #343434;
         font-weight: 500;
         /* margin-top: 1rem; */
     }

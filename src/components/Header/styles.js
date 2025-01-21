@@ -1,10 +1,9 @@
 import styled from "styled-components";
-import { theme } from "../../theme/theme";
 import { Link } from "react-router-dom";
 
 export const HeaderContainer = styled.div`
 	width: 14%;
-	background-color: ${theme.colors.white[100]};
+	background-color: ${({theme}) => theme.colors.primary};
 
     /* overflow: hidden; */
   /* ou */
@@ -20,12 +19,12 @@ export const HeaderContainer = styled.div`
 
 	padding: 2rem 1rem;
 
-	box-shadow: 0 0 4px ${theme.colors.black[400]};
+	box-shadow: 0 0 4px #CCC;
 `;
 
 export const ContainerLogo = styled.div`
 	padding-bottom: 2rem;
-	border-bottom: 1px solid ${theme.colors.gray[400]};
+	border-bottom: 1px solid #CCC;
 
 	display: flex;
 	align-items: center;
@@ -63,7 +62,7 @@ export const ContainerLinksUl = styled.ul`
 
 		cursor: pointer;
 		&:hover {
-			background-color: ${theme.colors.gray[300]};
+			background-color: #F6F6F6;
 		}
 	}
 `;
@@ -79,7 +78,7 @@ export const LILInk = styled(Link)`
 	border-radius: 6px;
 
 	text-decoration: none;
-	color: ${theme.colors.gray[800]};
+	color: ${({theme}) => theme.colors.text_primary};
 
 	font-weight: 500;
 
@@ -87,17 +86,18 @@ export const LILInk = styled(Link)`
 
 	cursor: pointer;
 	&:hover {
-		background-color: ${theme.colors.gray[300]};
+		transform: scale(1.02);
 	}
 
     &.active {
-        background-color: ${theme.colors.gray[300]};
+        background-color: ${({theme}) => theme.colors.accent};
+		transform: scale(1.04);
     }
 `;
 
 export const LinkStyle = styled(Link)`
 	text-decoration: none;
-	color: ${theme.colors.gray[800]};
+	color: ${({theme}) => theme.colors.text_primary};
 
 	font-weight: 500;
 `;

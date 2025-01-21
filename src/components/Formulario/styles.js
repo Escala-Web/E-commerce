@@ -1,5 +1,4 @@
 import styled from "styled-components";
-import { theme } from "../../theme/theme";
 
 export const Container = styled.div`
 
@@ -16,7 +15,7 @@ export const Container = styled.div`
 
 export const Form = styled.form`
 
-    background-color: ${theme.colors.white['100']};
+    background-color: #FFFFFF;
     border-radius: 12px;
     border: 1px solid rgb(222, 222, 222);
     padding: 2rem;
@@ -25,7 +24,7 @@ export const Form = styled.form`
 
     h1 {
         margin-bottom: .6rem;
-        color: ${theme.colors.black['600']};
+        color: #343434;
         font-weight: 600;
     }
 

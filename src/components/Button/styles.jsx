@@ -1,5 +1,4 @@
 import styled from "styled-components";
-import { theme } from "../../theme/theme";
 
 export const ContainerButton = styled.div`
 
@@ -12,8 +11,9 @@ export const ContainerButton = styled.div`
         width: 100%;
         border: none;
 
-        background-color: ${theme.colors.black['600']};
-        color: ${theme.colors.white['100']};
+        background-color: ${({theme}) => theme.colors.primary};
+
+        color: #FFF;
 
         font-size: 1.1rem;
 
@@ -26,8 +26,8 @@ export const ContainerButton = styled.div`
 
 
         &:hover {
-            background-color: ${theme.colors.black['500']};
-            color: ${theme.colors.white['100']};
+            background-color: #343434;
+            color: #FFF;
         }
     }
 

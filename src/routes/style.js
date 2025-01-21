@@ -5,7 +5,8 @@ export const ContainerRouter = styled.div`
 
     display: flex;
 
-    background-color: ${theme.colors.white['200']};
+    background-color: ${({theme}) => theme.colors.background};
+
 `;
 
 export const ContainerContent = styled.div`

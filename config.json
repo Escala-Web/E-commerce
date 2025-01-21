@@ -1,33 +1,30 @@
 {
   "menu": [
     {
-      "id": "8e13",
-      "name": "Home",
+      "id": "d1a4",
+      "name": "Página Inicial",
       "link": "/"
     },
     {
-      "id": "e8e0",
+      "id": "d447",
       "name": "Sobre",
       "link": "/sobre"
     },
     {
-      "id": "7cbd",
-      "name": "Moedas",
-      "link": "/moedas"
+      "id": "38d2",
+      "name": "Produtos",
+      "link": "/produtos"
     },
     {
-      "id": "fb03",
-      "name": "s",
-      "link": "s"
+      "id": "7070",
+      "name": "Contato",
+      "link": "/contato"
     }
   ],
   "config": [
     {
-      "logo": "",
-      "favincon": "",
-      "font": "",
-      "endereco": "",
-      "id": "0e50"
+      "id": "9a28",
+      "logo_frete": "Cópia_de_segurança_de_Logo NSA RARIDADES1.png"
     }
   ]
 }
