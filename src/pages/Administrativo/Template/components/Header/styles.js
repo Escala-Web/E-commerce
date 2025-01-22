@@ -12,6 +12,8 @@ export const Container = styled.div`
 
     border: 1px solid #ccc;
 
+    width: 100%;
+
 `;
 
 export const ContainerMenu = styled.div`

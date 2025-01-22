@@ -117,13 +117,13 @@ export const Header = () => {
 								</LILInk>
 
 								<LILInk
-									to="/administrativo/marketing"
-									className={activeLink == "marketing" ? "active" : ""}
-									title="marketing"
+									to="/administrativo/seo"
+									className={activeLink == "seo" ? "active" : ""}
+									title="seo"
 								>
 									<LuMousePointerClick  />
 
-									<LinkStyle to="/administrativo/marketing" title="marketing">
+									<LinkStyle to="/administrativo/seo" title="seo">
 										Seo
 									</LinkStyle>
 								</LILInk>

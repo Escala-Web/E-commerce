@@ -1,45 +1,48 @@
 import { createContext, useEffect, useState } from "react";
 import { blackTheme, greenTheme, purpleTheme, blueTheme, orangeTheme, redTheme } from '../theme/themeTemplates';
 
-export const ThemeColorContetx = createContext();
+export const ThemeColorContext = createContext();
 
 export const ThemeColorProvider = ({ children }) => {
-
-    const storedTheme = localStorage.getItem('themeColor');
-    const [theme, setTheme] = useState(storedTheme ? JSON.parse(storedTheme) : blueTheme);
-
-    useEffect(() => {
-        localStorage.setItem('themeColor', JSON.stringify(theme));
-    }, [theme]);
+    const [theme, setTheme] = useState(blueTheme);
+    const [colorName, setColorName] = useState('blue'); 
 
     const changeTheme = (themeName) => {
+        let selectedTheme;
+
         switch (themeName) {
             case 'black':
-                setTheme(blackTheme);
+                selectedTheme = blackTheme;
                 break;
             case 'green':
-                setTheme(greenTheme);
+                selectedTheme = greenTheme;
                 break;
             case 'purple':
-                setTheme(purpleTheme);
+                selectedTheme = purpleTheme;
                 break;
             case 'blue':
-                setTheme(blueTheme);
+                selectedTheme = blueTheme;
                 break;
             case 'orange':
-                setTheme(orangeTheme);
+                selectedTheme = orangeTheme;
                 break;
             case 'red':
-                setTheme(redTheme);
+                selectedTheme = redTheme;
                 break;
             default:
-                setTheme(blueTheme); 
+                selectedTheme = blueTheme;  
         }
+
+        setTheme(selectedTheme);
+        setColorName(themeName); 
+        localStorage.setItem('color', colorName)
     };
 
+
+
     return (
-        <ThemeColorContetx.Provider value={{ theme, setTheme: changeTheme }}>
+        <ThemeColorContext.Provider value={{ theme, colorName, setTheme: changeTheme }}>
             {children}
-        </ThemeColorContetx.Provider>
+        </ThemeColorContext.Provider>
     );
 };

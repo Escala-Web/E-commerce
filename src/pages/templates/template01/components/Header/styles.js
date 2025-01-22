@@ -129,11 +129,11 @@ export const HeaderIconLogin = styled.div`
         right: -5px;
         font-weight: 600;
         font-size: 12px;
-        background-color: red;
+        background-color: ${({theme}) => theme.colors.secondary};
         width: 20px;
         height: 20px;
 
-        color: ${({theme}) => theme.colors.text_primary};
+        color: ${({theme}) => theme.colors.text_secondary};
 
         display: flex;
         align-items: center;

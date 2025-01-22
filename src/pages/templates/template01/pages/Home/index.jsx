@@ -15,6 +15,10 @@ export const HomePage01 = () => {
 				<CardSection title='Populares' m='2rem 0'>
 					<CardProduct />
 				</CardSection>
+
+				<CardSection title='Mais pesquisados' m='2rem 0'>
+					<CardProduct />
+				</CardSection>
 			</Container>
 		</>
 	);

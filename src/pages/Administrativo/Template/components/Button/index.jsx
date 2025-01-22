@@ -1,8 +1,12 @@
-import { Container } from "./styles"
+import { Container, LinkContainer } from "./styles"
 
-export const ButtonTemplate = ({children, active}) => {
+export const ButtonTemplate = ({children, active, click, name}) => {
 
     return (
-        <Container className={active ? 'active' : ''}>{children}</Container>
+        <div>
+            <Container className={active ? 'active' : ''} onClick={click}>{children}</Container>
+    
+
+        </div>
     )
 }
