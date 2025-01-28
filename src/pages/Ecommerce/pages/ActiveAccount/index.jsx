@@ -10,7 +10,7 @@ import {
 	LinkStyle,
 } from "./styles";
 import { https } from "../../../../config/https";
-import { useNavigate, useSearchParams } from "react-router-dom";
+import { useNavigate, useParams, useSearchParams } from "react-router-dom";
 import { toast } from "react-toastify";
 import { GiPadlock } from "react-icons/gi";
 import { Input } from "../../../../components/Input";
@@ -21,33 +21,36 @@ export const ActiveAccountPage = () => {
 	const [param, setParam] = useSearchParams();
 	const [active, setActive] = useState(false);
 	const [isActiveModal, setIsActiveModal] = useState(false);
-    const [email, setEmail] = useState('');
+	const [email, setEmail] = useState("");
 
 	const navigate = useNavigate();
 
 	const tokenActive = param.get("token");
+	const firstAccess = param.get("first-access");
+
+	console.log(firstAccess)
 
 	function toggleActiveModal() {
 		setIsActiveModal((prevActive) => !prevActive);
 	}
 
-    async function submitActive(event) {
-        event.preventDefault();
+	async function submitActive(event) {
+		event.preventDefault();
 
-        try {
-            const { data } = await https.post('/admin/send-active-account', {
-                email
-            });
+		try {
+			const { data } = await https.post("/admin/send-active-account", {
+				email,
+			});
 
-            toast.success(data.message)
-            toast.success(data.response.message)
-        } catch (error) {
-            toast.error(error.response.data.message);
-        }
-    }
-
+			toast.success(data.message);
+			toast.success(data.response.message);
+		} catch (error) {
+			toast.error(error.response.data.message);
+		}
+	}
+	
+	if(firstAccess === null) {
 	async function toogleActiveAccount() {
-
 		try {
 			await https.put("/admin/active-account", {
 				token: tokenActive,
@@ -56,40 +59,57 @@ export const ActiveAccountPage = () => {
 			setActive(true);
 			toast.success("Conta ativada com sucesso!");
 			setTimeout(() => {
-                navigate("/login");
-            }, 5000)
+				navigate("/login");
+			}, 5000);
 		} catch (error) {
 			toast.error(error.response.data.message);
 			setActive(false);
-            console.log(error)
+			console.log(error);
 		}
 	}
 
 	useEffect(() => {
-		toogleActiveAccount();
-        
-	}, [tokenActive]);
-
+			toogleActiveAccount();
+			
+			
+		}, [tokenActive]);
+		
+	}
 	return (
 		<>
 			<Container>
 				<ContainerModal>
-					{active ? (
+					{firstAccess !== null ? (
 						<>
-							<h2>Conta ativada com sucesso</h2>
+							<h2>Foi enviado um email para ativar sua conta!</h2>
 							<FaCheckCircle size={150} color="#4ab4ff" />
-							<LinkStyle to="/login">Entrar</LinkStyle>
+							<p>Não recebeu email? Clique abaixo para receber o link</p>
+							<LinkStyle>Enviar link</LinkStyle>
 						</>
+
 					) : (
+
 						<>
-							<h2>Link invalido</h2>
-							<GiPadlock size={150} color="#e74d3c" />
-							<p>Clique abaixo para receber um novo link de</p>
-							<LinkStyle color="#e74d3c" onClick={toggleActiveModal}>
-								Reenviar link de ativação
-							</LinkStyle>
+							{active ? (
+								<>
+									<h2>Conta ativada com sucesso</h2>
+									<FaCheckCircle size={150} color="#4ab4ff" />
+									<LinkStyle to="/login">Entrar</LinkStyle>
+								</>
+							) : (
+								<>
+									<h2>Link invalido</h2>
+									<GiPadlock size={150} color="#e74d3c" />
+									<p>Clique abaixo para receber um novo link de</p>
+									<LinkStyle color="#e74d3c" onClick={toggleActiveModal}>
+										Reenviar link de ativação
+									</LinkStyle>
+								</>
+							)}
 						</>
 					)}
+					
+					
 				</ContainerModal>
 			</Container>
 			{isActiveModal ? (
@@ -106,8 +126,8 @@ export const ActiveAccountPage = () => {
 									type="email"
 									label="E-mail"
 									name="email"
-                                    value={email}
-                                    onChange={(e) => setEmail(e.target.value)}
+									value={email}
+									onChange={(e) => setEmail(e.target.value)}
 								/>
 								<br />
 								<Button color="#343434" name="Receber Codigo" />

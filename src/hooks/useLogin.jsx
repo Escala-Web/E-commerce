@@ -17,7 +17,11 @@ export const useLogin = (email, password) => {
 				password: password,
 			});
 
-			console.log(data);
+			if(data.firstAccess) {
+				navigate('/active-account?first-access');
+				return;
+			}
+
 			const userLogin = [
 				{
 					token: data.token,
