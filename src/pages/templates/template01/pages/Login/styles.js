@@ -12,6 +12,8 @@ export const Container = styled.div`
     padding: 1rem;
     height: 100vh;
 
+    width: ${({ w }) => w};
+
 `;
 
 export const ContainerInfos = styled.div`
@@ -25,6 +27,11 @@ export const ContainerInfos = styled.div`
     align-items: center;
     position: relative;
     justify-content: center;
+
+    img {
+        width: 70%;
+        background-color: transparent;
+    }
 
 `;
 

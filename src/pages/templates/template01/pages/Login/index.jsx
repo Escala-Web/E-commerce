@@ -69,7 +69,7 @@ export const LoginPageTemplate01 = () => {
                             onChange={(event) => setPassword(event.target.value)}
                             />
                         
-                        <LinkEsqueciASenha>Esqueci a senha</LinkEsqueciASenha>
+                        <LinkEsqueciASenha to="/esqueci-senha">Esqueci a senha</LinkEsqueciASenha>
                         <button>Entrar</button>
 					</Formulario>
 				</ContainerLogin>

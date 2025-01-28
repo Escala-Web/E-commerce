@@ -1,10 +1,12 @@
-import { useState } from "react";
+import { useContext, useState } from "react";
 
 import { HomePage02 } from "../../templates/template02/pages/home";
 import { HomePage01 } from "../../templates/template01/pages/Home";
+import { TemplateContext } from "../../../context/Template";
 
 export const HomeEcommece = () => {
-	const [template, setTemplate] = useState(1);
+
+	const {template} = useContext(TemplateContext);
 
 	switch (template) {
 		case 1:

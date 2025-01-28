@@ -16,9 +16,14 @@ import { Products } from "../pages/Administrativo/Products";
 import { CreatePageProduct } from "../pages/Administrativo/Products/Create";
 import { SeoPageAdm } from "../pages/Administrativo/Seo";
 import { CreatePageAdministrador } from "../pages/Administrativo/Template/pages/CreatePage";
+import { useApi } from "../hooks/useApi";
+import { Pesonalizar } from "../pages/Administrativo/Template/pages/Personaliza";
+import { ResetPassword } from "../pages/templates/template01/pages/ResetPassword";
+import { ResetPasswordAccess } from "../pages/templates/template01/pages/ResetPasswordAccess";
 
 export const RoutesApp = () => {
 	const { login } = useContext(AuthContext);
+	const { items } = useApi("/pages");
 
 	return (
 		<BrowserRouter>
@@ -32,10 +37,9 @@ export const RoutesApp = () => {
 							<Route path="produtos" element={<Products />} />
 							<Route path="produtos/create" element={<CreatePageProduct />} />
 							<Route path="seo" element={<SeoPageAdm />} />
-							<Route
-								path=":theme/editor"
-								element={<ConteudoTemplateAdministrador />}/>
+							<Route path=":theme/editor" element={<ConteudoTemplateAdministrador />}/>
 							<Route path=":theme/editor/create-page" element={<CreatePageAdministrador /> } />
+							<Route path=":theme/editor/personalizar/:page" element={<Pesonalizar /> } />
 						</Route>
 						<Route path="/admin">
 							<Route index element={<AdminPage />} />
@@ -45,7 +49,12 @@ export const RoutesApp = () => {
 				<Route path="/" element={<TemplateLayout />}>
 					<Route index element={<HomeEcommece />} />
 					<Route path="login" element={<LoginEcommece />} />
+					<Route path="esqueci-senha" element={<ResetPassword />} />
+					<Route path="reset-password" element={<ResetPasswordAccess />} />
 					<Route path="/administrativo" element={<Navigate to="/" />} />
+					{items.map((p) => (
+						<Route path={p.link} element={p.page} />
+					))}
 				</Route>
 			</Routes>
 		</BrowserRouter>

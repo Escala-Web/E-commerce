@@ -1,35 +1,30 @@
+import { useContext } from "react"
 import { Breadcrumb } from "../../../components/Breadcrumb/index.jsx"
 import { CardSection } from "../../../components/CardSection"
 import { CardThemes } from "../../../components/CardThemes/index.jsx"
 import { ContainerBody } from "./styles.js"
+import { TemplateContext } from "../../../context/Template.jsx"
+
+import theme01 from '../assets/thema01.jpg'
+import theme02 from '../assets/thema02.jpg'
 
 export const LojaPage = () => {
+
+    
 
     const themes = [
         {
             id: 1,
-            name: 'Loja 1',
-            image: 'https://placehold.co/480x320',
+            name: 'Template 01',
+            image: theme01,
             link: '/loha-01'
         },
         {
             id: 2,
-            name: 'Loja 2',
-            image: 'https://placehold.co/480x320',
+            name: 'Template 02',
+            image: theme02,
             link: '/loha-02'
-        },
-        {
-            id: 3,
-            name: 'Loja 3',
-            image: 'https://placehold.co/480x320',
-            link: '/loha-03'
-        },
-        {
-            id: 4,
-            name: 'Loja 4',
-            image: 'https://placehold.co/480x320',
-            link: '/loha-04'
-        },
+        }
     ]
 
     return(

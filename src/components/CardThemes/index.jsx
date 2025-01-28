@@ -1,3 +1,4 @@
+import { useContext } from "react";
 import {
 	Card,
 	CardBody,
@@ -5,8 +6,19 @@ import {
 	ConatinerCard,
 	ContainerTitle,
 } from "./styles";
+import { TemplateContext } from "../../context/Template";
 
 export const CardThemes = ({ data, title }) => {
+
+	const { setTemplate, template } = useContext(TemplateContext);
+
+	function templateSelectd(theplate) {
+		setTemplate(theplate.id)
+		localStorage.setItem('_template', JSON.stringify(theplate.id));
+	}
+
+	console.log(template)
+
 	return (
 		<>
 			<ContainerTitle>
@@ -21,7 +33,7 @@ export const CardThemes = ({ data, title }) => {
 							<CardBody>
 								<p>{the.name}</p>
 								<CardLink
-									onClick={() => setSession(true)}
+									onClick={() => templateSelectd(the)}
 									to={`/administrativo/${the.id}/editor`}
 								>
 									Adicionar

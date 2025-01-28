@@ -1,38 +1,37 @@
 import { useContext, useState } from "react";
 import { TemplateContext } from "../../../../../context/Template";
-import logo from "../../../../../assets/logo.png";
-
-import { FaBars, FaUserAlt } from "react-icons/fa";
-
-import { IoSearch } from "react-icons/io5";
+import logo from "../../../../../assets/logo_nsa.png";
 import { useFecth } from "../../../../../hooks/useFecth";
-import { CgClose } from "react-icons/cg";
-import { FaCartShopping } from "react-icons/fa6";
 import { useApi } from "../../../../../hooks/useApi";
 import {
 	ContainerDesktop,
-	ContainerHeader,
-	ContainerHeaderMobile,
-	ContainerHeaderOpenMbStyle,
+	ContainerImage,
+	ContainerLoginToCart,
+	ContainerNavegation,
+	ContainerIcons,
+	LinkMenu,
 	ContainerMobile,
-	ContainerSearch,
-	ContainerSearchResults,
-	ContainerSearchStyle,
-	HeaderSearchMobile,
-	LinkNavigation,
-	LinkNavigationLogin,
-	Navegacao,
-	SearchIcon,
+	ContainerMenuMobile,
+	ContainerMenuMobileLogin,
+	ContainerNumberFavorite,
 } from "./styles";
+import { Link } from "react-router-dom";
+import { SlHandbag } from "react-icons/sl";
+import { IoIosSearch } from "react-icons/io";
+
+import { LinkButton } from "../LinkButton";
+import { FaBarsStaggered } from "react-icons/fa6";
+import { IoCloseSharp } from "react-icons/io5";
+import { FavoriteContext } from "../../../../../context/Favorite";
 
 export const HeaderPageTemplate02 = () => {
 	const uri = "https://fakestoreapi.com/products";
 
-	const { headerLinks } = useContext(TemplateContext);
+	const { data} = useFecth(uri);
 
-	const { data, erro, loading } = useFecth(uri);
+	const { items } = useApi("/pages");
 
-	const { items, error } = useApi("/menu");
+	const {favorite} = useContext(FavoriteContext);
 
 	const [openHeader, setOpenHeader] = useState(false);
 
@@ -46,119 +45,79 @@ export const HeaderPageTemplate02 = () => {
 		setOpenHeader((prevOpen) => !prevOpen);
 	}
 
+	const favorid = favorite.length > 0 ? favorite.length : 0;
+
+	console.log(favorid)
+
+
+	const currentPath = window.location.pathname;
+
 	return (
 		<>
 			<ContainerDesktop>
-				<ContainerHeader>
-					<div>
-						<img src={logo} />
-					</div>
-					<ContainerSearchStyle w="50%">
-						<SearchIcon>
-							<IoSearch />
-						</SearchIcon>
-						<input
-							placeholder="Pesquisar"
-							value={search}
-							onChange={(e) => setSearch(e.target.value)}
-						/>
-						{search == "" ? (
-							""
-						) : (
-							<ContainerSearchResults>
-								{filter.map((f) => (
-									<p>{f.title}</p>
-								))}
-							</ContainerSearchResults>
-						)}
-					</ContainerSearchStyle>
-					<Navegacao>
-						<ul>
-							<li>
-								<LinkNavigationLogin bg="transparent" to="/carrinho">
-									<FaCartShopping color="#fff" size={22} />
-								</LinkNavigationLogin>
+				<ContainerImage>
+					<img src={logo} />
+				</ContainerImage>
+				<ContainerNavegation>
+					<ul>
+						{items.map((item) => (
+							<li key={item.id}>
+								<LinkMenu to={item.link} isActive={currentPath === item.link}>
+									{item.page}
+								</LinkMenu>
 							</li>
-							<li>
-								<LinkNavigationLogin to="/login">
-									<FaUserAlt />
-									Entrar
-								</LinkNavigationLogin>
-							</li>
-						</ul>
-					</Navegacao>
-				</ContainerHeader>
-				<ContainerSearch>
-					<p>Informe seu cep</p>
+						))}
+					</ul>
+				</ContainerNavegation>
+				<ContainerLoginToCart>
+					<ContainerIcons>
+						<IoIosSearch size={20} style={{ zIndex: "999" }} />
+					</ContainerIcons>
+					<ContainerIcons>
+						<SlHandbag size={20} style={{ zIndex: "999" }} />
+						<ContainerNumberFavorite>
+							<span>{favorid}</span>
+						</ContainerNumberFavorite>
+					</ContainerIcons>
+					<LinkButton link="/login">Login</LinkButton>
+				</ContainerLoginToCart>
+			</ContainerDesktop>
 
-					<Navegacao>
+			<ContainerMobile>
+				<ContainerImage>
+					<img src={logo} />
+				</ContainerImage>
+
+						
+				<ContainerLoginToCart>
+					<ContainerIcons>
+						<SlHandbag size={30} style={{ zIndex: "999" }} />
+					</ContainerIcons>
+					<ContainerIcons onClick={clickOpenHeader}>
+						{openHeader ? <FaBarsStaggered size={30} style={{ zIndex: "999" }} /> : <IoCloseSharp size={30} style={{ zIndex: "999" }}/>}
+					</ContainerIcons>
+				</ContainerLoginToCart>
+
+				{!openHeader && (
+					<ContainerMenuMobile>
+					<ContainerNavegation>
 						<ul>
-							{items.map((header) => (
-								<li>
-									<LinkNavigation>{header.name}</LinkNavigation>
+							{items.map((item) => (
+								<li key={item.id}>
+									<LinkMenu to={item.link} isActive={currentPath === item.link}>
+										{item.page}
+									</LinkMenu>
 								</li>
 							))}
 						</ul>
-					</Navegacao>
-				</ContainerSearch>
-			</ContainerDesktop>
-			<ContainerMobile>
-				<ContainerHeaderMobile>
-					<LinkNavigationLogin bg="transparent" to="/carrinho">
-						<FaCartShopping color="#fff" size={22} />
-					</LinkNavigationLogin>
-					<div>
-						<img src={logo} />
-					</div>
-					<div onClick={clickOpenHeader}>
-						{!openHeader ? (
-							<FaBars size={30} color="#fff" />
-						) : (
-							<CgClose size={30} color="#fff" />
-						)}
-					</div>
+					</ContainerNavegation>
+					<ContainerMenuMobileLogin>
+						<LinkButton link="/login">Entrar</LinkButton>
+						<LinkButton link="/login">Criar Conta</LinkButton>
+					</ContainerMenuMobileLogin>
+				</ContainerMenuMobile>
+				)}
 
-					{openHeader && (
-						<ContainerHeaderOpenMbStyle>
-							<Navegacao>
-								<div>
-									<LinkNavigationLogin to="/login">
-										<FaUserAlt />
-										Entrar
-									</LinkNavigationLogin>
-								</div>
-								<ul>
-									{headerLinks.map((header) => (
-										<li>
-											<LinkNavigation>{header}</LinkNavigation>
-										</li>
-									))}
-								</ul>
-							</Navegacao>
-						</ContainerHeaderOpenMbStyle>
-					)}
-				</ContainerHeaderMobile>
-				<HeaderSearchMobile>
-					<ContainerSearchStyle w="100%">
-						<SearchIcon>
-							<IoSearch />
-						</SearchIcon>
-						<Input
-							placeholder="Pesquisar"
-							value={search}
-							onChange={(e) => setSearch(e.target.value)}
-						/>
-						{search == "" ? (
-							""
-						) : (
-							<ContainerSearchResults>
-								{filter.map((f) => (
-									<p>{f.title}</p>
-								))}
-							</ContainerSearchResults>
-						)}
-					</ContainerSearchStyle>
-				</HeaderSearchMobile>
 			</ContainerMobile>
 		</>
 	);

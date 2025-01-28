@@ -7,10 +7,19 @@ import "swiper/css/pagination";
 import "swiper/css/scrollbar";
 import { useContext } from "react";
 import { TemplateContext } from "../../../../../context/Template";
+import { ContainerImage } from "./styles";
 
 
 export const BannerTemplate02 = () => {
-	const { banner } = useContext(TemplateContext);
+	// const { banner } = useContext(TemplateContext);
+
+	const banner = [
+		{
+			image:
+				"https://mir-s3-cdn-cf.behance.net/project_modules/1400/371cef178509439.64e8f951aab97.jpg",
+		},
+		
+	];
 
 	return (
 		<>
@@ -27,15 +36,13 @@ export const BannerTemplate02 = () => {
 				{banner.map((b) => {
 					return (
 						<SwiperSlide>
-							<img
-								style={{
-									width: "100%",
-									height: "600px",
-									borderRadius: "4px",
-								}}
+						<ContainerImage>
+							<img	
 								src={b.image}
 								alt="second banner 1"
 							/>
+
+						</ContainerImage>
 						</SwiperSlide>
 					);
 				})}

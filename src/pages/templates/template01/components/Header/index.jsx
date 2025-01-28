@@ -30,7 +30,7 @@ export const HeaderPageTemplate01 = () => {
 
 	const { data, erro, loading } = useFecth(uri);
 
-	const { items, error } = useApi("/menu");
+	const { items, error } = useApi("/pages");
 
 	const [openHeader, setOpenHeader] = useState(false);
 
@@ -41,8 +41,6 @@ export const HeaderPageTemplate01 = () => {
 	const filter = data.filter((f) =>
 		f.title.toLowerCase().includes(search.toLowerCase())
 	);
-
-	console.log(login)
 
 	function clickOpenHeader() {
 		setOpenHeader((prevOpen) => !prevOpen);
@@ -57,9 +55,10 @@ export const HeaderPageTemplate01 = () => {
 					</ContainerHeaderLogo>
 					<ContainerHeaderNavegacao>
 						<ul>
+							<li><HeaderLink to='/'>Página Inicial</HeaderLink></li>
 							{items.map((link) => (
 								<li key={link.id}>
-								<HeaderLink to={link.link}>{link.name}</HeaderLink>
+								<HeaderLink to={link.link}>{link.page}</HeaderLink>
 							</li>
 							))}
 						</ul>

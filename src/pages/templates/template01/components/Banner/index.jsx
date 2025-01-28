@@ -14,6 +14,7 @@ import bannerL from "../../../../../assets/bannerL.png";
 
 export const BannerPageOne = () => {
 	// const { banner } = useContext(TemplateContext);
+	"banner01"
 
 	const banner = [
 		{

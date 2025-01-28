@@ -14,6 +14,9 @@ export const Card = styled.div`
 
 	img {
 		filter: brightness(0.8);
+		border: 1px solid #ccc;
+		border-radius: 6px;
+		width: 600px;
 	}
 `;
 
