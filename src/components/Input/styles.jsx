@@ -9,7 +9,7 @@ export const ContainerInput = styled.div`
 
     gap: .6rem 0;
 
-    
+    box-sizing: border-box;
 
     label {
         color: #343434;
@@ -27,7 +27,7 @@ export const InputStyle = styled.input`
     border: 1px solid rgb(222, 222, 222);
 
     border-radius: 4px;
-
+    box-sizing: border-box;
     width: 100%;
 
 `;

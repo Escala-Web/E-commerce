@@ -1,8 +1,8 @@
 import { useContext, useState } from "react";
 
-import { HomePage02 } from "../../templates/template02/pages/home";
-import { HomePage01 } from "../../templates/template01/pages/Home";
-import { TemplateContext } from "../../../context/Template";
+import { HomePage02 } from "../../../templates/template02/pages/home";
+import { HomePage01 } from "../../../templates/template01/pages/Home";
+import { TemplateContext } from "../../../../context/Template";
 
 export const HomeEcommece = () => {
 

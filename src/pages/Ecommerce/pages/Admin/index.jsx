@@ -1,5 +1,6 @@
 import { useState } from "react";
-import { AdminTemplate01 } from "../../templates/template01/pages/Admin";
+import { AdminTemplate01 } from "../../../templates/template01/pages/Admin";
+
 
 export const AdminPage = () => {
 

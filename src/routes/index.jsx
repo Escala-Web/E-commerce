@@ -8,9 +8,6 @@ import { Pedidos } from "../pages/Administrativo/Pedidos";
 import { LojaPage } from "../pages/Administrativo/Loja";
 import { DashboardLayout } from "./layouts/Dashboard";
 import { TemplateLayout } from "./layouts/TemplateLayout";
-import { HomeEcommece } from "../pages/Ecommerce/Home";
-import { LoginEcommece } from "../pages/Ecommerce/Login";
-import { AdminPage } from "../pages/Ecommerce/Admin";
 import { ConteudoTemplateAdministrador } from "../pages/Administrativo/Template/pages/Conteudo";
 import { Products } from "../pages/Administrativo/Products";
 import { CreatePageProduct } from "../pages/Administrativo/Products/Create";
@@ -20,10 +17,16 @@ import { useApi } from "../hooks/useApi";
 import { Pesonalizar } from "../pages/Administrativo/Template/pages/Personaliza";
 import { ResetPassword } from "../pages/templates/template01/pages/ResetPassword";
 import { ResetPasswordAccess } from "../pages/templates/template01/pages/ResetPasswordAccess";
+import { HomeEcommece } from "../pages/Ecommerce/pages/Home";
+import { LoginEcommece } from "../pages/Ecommerce/pages/Login";
+import { AdminPage } from "../pages/Ecommerce/pages/Admin";
+import { ActiveAccountPage } from "../pages/Ecommerce/pages/ActiveAccount";
 
 export const RoutesApp = () => {
 	const { login } = useContext(AuthContext);
 	const { items } = useApi("/pages");
+
+	console.log(login)
 
 	return (
 		<BrowserRouter>
@@ -51,6 +54,7 @@ export const RoutesApp = () => {
 					<Route path="login" element={<LoginEcommece />} />
 					<Route path="esqueci-senha" element={<ResetPassword />} />
 					<Route path="reset-password" element={<ResetPasswordAccess />} />
+					<Route path="active-account" element={<ActiveAccountPage />} />
 					<Route path="/administrativo" element={<Navigate to="/" />} />
 					{items.map((p) => (
 						<Route path={p.link} element={p.page} />

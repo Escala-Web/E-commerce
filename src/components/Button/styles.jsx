@@ -11,7 +11,7 @@ export const ContainerButton = styled.div`
         width: 100%;
         border: none;
 
-        background-color: ${({theme}) => theme.colors.primary};
+        background-color: ${({theme, color}) => color || theme.colors.primary};
 
         color: #FFF;
 

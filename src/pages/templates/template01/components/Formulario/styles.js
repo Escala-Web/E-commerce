@@ -65,4 +65,11 @@ export const ContainerFormulario = styled.form`
         color: ${({theme}) => theme.colors.text_primary};
     }
 
+    label {
+        text-align: start;
+        width: 100%;
+        opacity: .9;
+        margin-bottom: .4rem;
+    }
+
 `;
