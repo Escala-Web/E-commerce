@@ -84,7 +84,7 @@ export const ActiveAccountPage = () => {
 							<h2>Foi enviado um email para ativar sua conta!</h2>
 							<FaCheckCircle size={150} color="#4ab4ff" />
 							<p>Não recebeu email? Clique abaixo para receber o link</p>
-							<LinkStyle>Enviar link</LinkStyle>
+							<button onClick={toggleActiveModal}>Enviar link</button>
 						</>
 
 					) : (

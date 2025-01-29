@@ -2,6 +2,7 @@ import { BannerPageOne } from "../../components/Banner";
 import { CardProduct } from "../../components/CardProduct";
 import { CardSection } from "../../components/CardSection";
 import { HeaderPageTemplate01 } from "../../components/Header";
+import { SectionDetails } from "../../components/SectionDetails";
 import { SectionOfTheDay } from "../../components/SectionOfTheDay";
 import { Container } from "./styles";
 
@@ -15,9 +16,8 @@ export const HomePage01 = () => {
 				<CardSection title='Populares' m='2rem 0'>
 					<CardProduct />
 				</CardSection>
-
-				<CardSection title='Mais pesquisados' m='2rem 0'>
-					<CardProduct />
+				<CardSection title='Melhores notebooks' m='2rem 0'>
+				<SectionDetails />
 				</CardSection>
 			</Container>
 		</>

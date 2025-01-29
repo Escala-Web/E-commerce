@@ -9,6 +9,19 @@ export const Container = styled.div`
 
     margin-top: 2rem;
 
+    overflow: hidden;
+
+    overflow-x: scroll;
+    padding: .6rem 0;
+
+    scrollbar-color: transparent;
+
+    ::-webkit-scrollbar {
+    display: none;
+  }
+  scrollbar-width: none;
+
+  
 `;
 
 export const ContainerCard = styled.div`
@@ -70,6 +83,12 @@ export const ContainerImageCategory = styled.div`
 
     &:hover::before {
         width: 100%;
+    }
+
+    @media (max-width: 500px) {
+
+        width: 80px;
+        height: 80px;
     }
 
 

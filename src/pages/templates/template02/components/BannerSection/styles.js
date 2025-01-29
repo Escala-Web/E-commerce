@@ -15,6 +15,10 @@ export const Container = styled.div`
     border-radius: 8px;
 
 
+    @media (max-width: 870px) {
+        flex-direction: column;
+        padding: 2rem 0 0;
+    }
 
     /* height: 200vh; */
 
@@ -24,6 +28,10 @@ export const Container = styled.div`
 export const ContainerDescription = styled.div`
 
     color: #fff;
+
+    @media (max-width: 870px) {
+        padding-bottom: 1rem;
+    }
 
     h2 {
         font-size: 2rem;

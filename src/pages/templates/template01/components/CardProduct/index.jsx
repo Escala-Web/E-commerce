@@ -34,6 +34,7 @@ export const CardProduct = () => {
 
 	return (
 		<>
+			
 			<Container>
 				
 					<CardContainer>
@@ -50,7 +51,7 @@ export const CardProduct = () => {
 								<p>{product.price}</p>
 							</CardContentPrice>
 							<CardContentButton>
-								<p>Ver mais</p>
+								<p>Comprar</p>
 							</CardContentButton>
 						</CardContent>
 					</ContainerCard>

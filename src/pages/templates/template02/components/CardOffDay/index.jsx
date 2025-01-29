@@ -31,7 +31,7 @@ export const CardOffDay = ({ data }) => {
 							<p>{d.title}</p>
 							<h4>R$ {d.price}</h4>
 						</div>
-						<LinkButton>Confira</LinkButton>
+						<LinkButton>Comprar</LinkButton>
 					</CardBody>
 
 					<CardHeart onClick={() => handleClick(d)}>

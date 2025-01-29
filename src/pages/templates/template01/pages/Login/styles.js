@@ -14,6 +14,10 @@ export const Container = styled.div`
 
     width: ${({ w }) => w};
 
+    @media (max-width: 1219px){
+        
+    }
+
 `;
 
 export const ContainerInfos = styled.div`

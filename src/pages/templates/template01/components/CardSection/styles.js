@@ -19,6 +19,8 @@ export const ContainerHeaderTitle = styled.div`
         color: ${({theme}) => theme.colors.text_primary};
         font-size: 2.2rem;
 
+        opacity: .9;
+
         margin-bottom: 2rem;
     }
 

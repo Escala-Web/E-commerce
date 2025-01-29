@@ -9,7 +9,19 @@ export const ContainerDesktop = styled.header`
 
 	padding: 2rem 14rem;
 
+	
+
+	@media (max-width: 1539px) {
+		padding: 0 6rem;
+	}
+
+	@media (max-width: 1109px) {
+		padding: 0 4rem;
+	}
+
+
 	@media (max-width: 999px) {
+		padding: 0 1rem;
 		display: none;
 	}
 `;

@@ -12,6 +12,10 @@ export const Container = styled.section`
 
     box-shadow: 0 0 4px #ccc;
 
+    @media (max-width: 500px) {
+        padding: .6rem;
+    }
+
 `;
 
 export const ContainerCard = styled.div`
@@ -33,5 +37,10 @@ export const ContainerPositionCard = styled.div`
     gap: 2rem;
 
     flex-direction: ${({direction}) => direction};
+
+    @media (max-width: 870px) {
+        width: 100%;
+        flex-direction: row;
+    }
 
 `;

@@ -1,116 +1,147 @@
 import styled from "styled-components";
 
 export const Container = styled.form`
-  width: 800px;
-  margin: 0 auto;
-  padding: 20px;
-  background-color: #f9f9f9;
-  border-radius: 8px;
-  box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+	width: 800px;
+	margin: 0 auto;
+	padding: 20px;
+	background-color: #f9f9f9;
+	border-radius: 8px;
+	box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
 
-  h2 {
-    text-align: start;
-    font-size: 24px;
-    color: #333;
+	h2 {
+		text-align: start;
+		font-size: 24px;
+		color: #333;
 
-    margin-bottom: 2rem;
-  }
+		margin-bottom: 2rem;
+	}
 `;
 
 export const ContainerFormControll = styled.div`
+	display: flex;
+	justify-content: space-between;
+	align-items: center;
 
-display: flex;
-justify-content: space-between;
-align-items: center;
-
-gap: 1rem;
-
+	gap: 1rem;
 `;
 
 export const ControlForm = styled.div`
-  margin-bottom: 15px;
-  width: ${({ w }) => w};
+	margin-bottom: 15px;
+	width: ${({ w }) => w};
 
-  label {
-    display: block;
-    font-weight: bold;
-    margin-bottom: 5px;
-    color: #555;
-  }
+	label {
+		display: block;
+		font-weight: bold;
+		margin-bottom: 5px;
+		color: #555;
+	}
 
-  input {
-    width: 100%;
-    padding: 10px;
-    font-size: 14px;
-    border: 1px solid #ccc;
-    border-radius: 4px;
-    box-sizing: border-box;
+	input {
+		width: 100%;
+		padding: 10px;
+		font-size: 14px;
+		border: 1px solid #ccc;
+		border-radius: 4px;
+		box-sizing: border-box;
 
-    margin-bottom: 1rem;
+		margin-bottom: 1rem;
 
-    &:focus {
-      border-color: #007bff;
-      outline: none;
-    }
-  }
+		&:focus {
+			border-color: #007bff;
+			outline: none;
+		}
+	}
+
+	select {
+		width: 100%;
+		padding: 10px;
+		font-size: 14px;
+		border: 1px solid #ccc;
+		border-radius: 4px;
+		box-sizing: border-box;
+
+		margin-bottom: 1rem;
+
+		&:focus {
+			border-color: #007bff;
+			outline: none;
+		}
+	}
+
+	button {
+		width: 100%;
+		padding: 12px;
+		background-color: #007bff;
+		color: white;
+		border: none;
+		border-radius: 6px;
+		font-size: 16px;
+		cursor: pointer;
+		transition: background-color 0.3s ease;
+
+		margin-top: 1rem;
+
+		&:hover {
+			background-color: #0056b3;
+		}
+
+		&:focus {
+			outline: none;
+		}
+	}
 `;
 
 export const ErrorMessageStyled = styled.div`
-  color: red;
-  font-size: 12px;
-  margin-top: 5px;
+	color: red;
+	font-size: 12px;
+	margin-top: 5px;
 `;
 
 export const SubmitButton = styled.button`
-  width: 100%;
-  padding: 12px;
-  background-color: #007bff;
-  color: white;
-  border: none;
-  border-radius: 4px;
-  font-size: 16px;
-  cursor: pointer;
-  transition: background-color 0.3s ease;
+	width: 100%;
+	padding: 12px;
+	background-color: #007bff;
+	color: white;
+	border: none;
+	border-radius: 4px;
+	font-size: 16px;
+	cursor: pointer;
+	transition: background-color 0.3s ease;
 
-  margin-top: 4rem;
+	margin-top: 4rem;
 
-  &:hover {
-    background-color: #0056b3;
-  }
+	&:hover {
+		background-color: #0056b3;
+	}
 
-  &:focus {
-    outline: none;
-  }
+	&:focus {
+		outline: none;
+	}
 `;
 
 export const ContainerPrevImage = styled.div`
+	display: flex;
+	align-items: center;
+	justify-content: space-between;
+	flex-wrap: wrap;
 
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  flex-wrap: wrap;
+	gap: 1rem;
 
-  gap: 1rem;
+	width: 100%;
 
-  width: 100%;
+	margin-bottom: 1rem;
 
+	img {
+		width: 40%;
+		height: 200px;
 
-  margin-bottom: 1rem;
+		object-fit: cover;
 
+		padding: 2rem;
+		background-color: aqua;
 
+		border-radius: 6px;
 
-img{
-    width: 40%;
-    height: 200px;
-
-    object-fit: cover;
-
-    padding: 2rem;
-    background-color: aqua;
-
-    border-radius: 6px;
-
-    background-color: #f4f4f4;
-
-}
+		background-color: #f4f4f4;
+	}
 `;
