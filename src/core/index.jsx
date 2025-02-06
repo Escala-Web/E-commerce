@@ -8,6 +8,8 @@ export const AppInit = () => {
 
     const { theme } = useContext(ThemeColorContext);
 
+	
+
 	return (
 		<>
 			<ThemeProvider theme={theme}>

@@ -7,7 +7,7 @@ export const Container = styled.div`
 
     margin: ${({m}) => m};
 
-    border: 1px solid #ccc;
+    /* border: 1px solid #ccc; */
 
     border-radius: 6px;
 

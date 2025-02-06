@@ -37,7 +37,7 @@ export const CreatePageProduct = () => {
 
 	return (
 		<>
-			<HeaderTemplateEditor>
+			<HeaderTemplateEditor page='Produtos'>
 				<ButtonTemplate click={goAllProduct}>Meus Produtos</ButtonTemplate>
 				<ButtonTemplate click={goCreateProduct}>Cadastrar</ButtonTemplate>
 			</HeaderTemplateEditor>

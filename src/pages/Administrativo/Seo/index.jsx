@@ -10,14 +10,42 @@ import {
 import { useState } from "react";
 import { Form } from "../components/Form";
 import { SubmitButton } from "../components/Form/styles";
+import { http } from "../../../config/http";
 
 export const SeoPageAdm = () => {
 	const { items } = useApi("/pages");
 	const [pagesSelect, setPagesSelect] = useState("");
+	const [formSubmit, setFormSubmit] = useState([]);
 
-	// const filter = pagesSelect.filter((f) => f.link === )
+	function handleSubmit(event) {
+		try {
+			const {name,value} = event.target;
+			setFormSubmit((prevForm) => ({
+				...prevForm,
+				[name]: value
+			}))
+		} catch (error) {
+			console.log(error)
+		}
+	}
 
-	console.log(pagesSelect);
+	async function submitForm(event) {
+		event.preventDefault();
+		try {
+			const {data} = await http.post('/seo', {
+				meta_title: formSubmit.meta_title,
+				meta_description: formSubmit.meta_description,
+				meta_keywords: formSubmit.meta_keywords,
+				google_analytics: formSubmit.google_analytics,
+				google_search_console: formSubmit.google_search_console,
+				pagina_link: pagesSelect
+			});
+
+			console.log(data)
+		} catch (error) {
+			console.log(error)
+		}
+	}
 
 	return (
 		<>
@@ -37,25 +65,38 @@ export const SeoPageAdm = () => {
 						))}
 					</ContainerCardContent>
 					<div style={{ marginTop: "2rem" }}>
-						<Form name="Seo para minha pagina">
+						<Form name="Seo para minha pagina" submit={submitForm}>
 							<label>Meta Title</label>
 							<input 
+								name="meta_title"
 								placeholder="Digite um meta title"
+								onChange={handleSubmit}
 							/>
 							<label>Meta Description</label>
 							<input 
+								name="meta_description"
 								placeholder="Digite a meta description da página"
+								onChange={handleSubmit}
 							/>
 							<label>Palavras chaves</label>
 							<input 
+								name="meta_keywords"
 								placeholder="Digite as palavras chaves desejadas"
+								onChange={handleSubmit}
 							/>
 							<label>Google Analytics</label>
 							<input 
+								name="google_analytics"
 								placeholder="Digite o ID DA MÉTRICA"
+								onChange={handleSubmit}
 							/>
 							<label>Google Search Console</label>
-							<input />
+							<input 
+								name="google_search_console"
+								placeholder="Google Search Console"
+								onChange={handleSubmit}
+							/>
+							
 							<SubmitButton>Cadastrar</SubmitButton>
 						</Form>
 					</div>

@@ -13,6 +13,9 @@ export const Container = styled.div`
     border: 1px solid #ccc;
 
     width: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
 
 `;
 
@@ -21,6 +24,8 @@ export const ContainerMenu = styled.div`
     display: flex;
     align-items: center;
     justify-content: space-between;
+
+    width: 100%;
 
 `;
 

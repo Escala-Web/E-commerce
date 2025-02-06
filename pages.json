@@ -1,6 +1,5 @@
 {
   "pages": [
-
     {
       "id": "2b9a",
       "page": "Produtos",
@@ -22,5 +21,25 @@
       "link": "/fale-conosco"
     }
   ],
-  "components": []
+  "components": [],
+  "seo": [
+    {
+      "id": "4903",
+      "meta_title": "Fale Conosco",
+      "meta_description": "Uma descrição",
+      "meta_keywords": "contato, fale, conosco, teste",
+      "google_analytics": "456rt498g4r894",
+      "google_search_console": "1rg12r+12rt+411rt61yt1yt1561ythn",
+      "pagina_link": "/contato"
+    },
+    {
+      "id": "96d4",
+      "meta_title": "Produtos",
+      "meta_description": "Tester Produtos",
+      "meta_keywords": "123",
+      "google_analytics": "45648441",
+      "google_search_console": "16189418489",
+      "pagina_link": "/produtos"
+    }
+  ]
 }

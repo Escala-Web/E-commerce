@@ -21,15 +21,18 @@ import { HomeEcommece } from "../pages/Ecommerce/pages/Home";
 import { LoginEcommece } from "../pages/Ecommerce/pages/Login";
 import { AdminPage } from "../pages/Ecommerce/pages/Admin";
 import { ActiveAccountPage } from "../pages/Ecommerce/pages/ActiveAccount";
+import { Seo } from "../core/seo";
+import { CategoryPageAdm } from "../pages/Administrativo/Category";
+import { CreateCategoryPageAdm } from "../pages/Administrativo/Category/CreateCategory";
 
 export const RoutesApp = () => {
 	const { login } = useContext(AuthContext);
 	const { items } = useApi("/pages");
 
-	console.log(login)
-
 	return (
 		<BrowserRouter>
+			
+			<Seo />
 			<Routes>
 				{login && (
 					<>
@@ -38,6 +41,8 @@ export const RoutesApp = () => {
 							<Route path="pedidos" element={<Pedidos />} />
 							<Route path="loja" element={<LojaPage />} />
 							<Route path="produtos" element={<Products />} />
+							<Route path="categoria" element={<CategoryPageAdm />} />
+							<Route path="categoria/create" element={<CreateCategoryPageAdm />} />
 							<Route path="produtos/create" element={<CreatePageProduct />} />
 							<Route path="seo" element={<SeoPageAdm />} />
 							<Route path=":theme/editor" element={<ConteudoTemplateAdministrador />}/>
@@ -49,6 +54,7 @@ export const RoutesApp = () => {
 						</Route>
 					</>
 				)}
+				
 				<Route path="/" element={<TemplateLayout />}>
 					<Route index element={<HomeEcommece />} />
 					<Route path="login" element={<LoginEcommece />} />

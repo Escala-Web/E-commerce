@@ -1,4 +1,5 @@
 import { BannerPageOne } from "../../components/Banner";
+import { CardCategory } from "../../components/CardCategory";
 import { CardProduct } from "../../components/CardProduct";
 import { CardSection } from "../../components/CardSection";
 import { HeaderPageTemplate01 } from "../../components/Header";
@@ -12,12 +13,15 @@ export const HomePage01 = () => {
 			<HeaderPageTemplate01 />
 			<Container>
 				<BannerPageOne />
+				<CardSection title="Categorias" m="2rem 0">
+					<CardCategory />
+				</CardSection>
 				<SectionOfTheDay />
-				<CardSection title='Populares' m='2rem 0'>
+				<CardSection title="Populares" m="2rem 0">
 					<CardProduct />
 				</CardSection>
-				<CardSection title='Melhores notebooks' m='2rem 0'>
-				<SectionDetails />
+				<CardSection title="Melhores notebooks" m="2rem 0">
+					<SectionDetails />
 				</CardSection>
 			</Container>
 		</>

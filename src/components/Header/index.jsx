@@ -16,6 +16,7 @@ import { useContext, useState } from "react";
 import { FaMoneyBillTransfer } from "react-icons/fa6";
 import { toast } from "react-toastify";
 import { AuthContext } from "../../context/Auth";
+import { TbCategoryFilled } from "react-icons/tb";
 
 export const Header = () => {
 	const [activeLink, setActiveLink] = useState("painel");
@@ -77,6 +78,17 @@ export const Header = () => {
 
 									<LinkStyle to="/administrativo/produtos" title="produtos">
 										Produtos
+									</LinkStyle>
+								</LILInk>
+								<LILInk
+									to="/administrativo/categoria"
+									className={activeLink == "categoria" ? "active" : ""}
+									title="categoria"
+								>
+									<TbCategoryFilled  />
+
+									<LinkStyle to="/administrativo/categoria" title="categoria">
+										Categorias
 									</LinkStyle>
 								</LILInk>
 
