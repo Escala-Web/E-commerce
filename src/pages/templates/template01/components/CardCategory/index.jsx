@@ -1,20 +1,21 @@
+import { useCategory } from "../../../../../hooks/useCategory";
 import { Container, ContainerCard, ContainerImageCategory } from "./styles";
 
 
 export const CardCategory = () => {
 
-    const arrayCategorys = ['Gaming', 'Sports', 'Mobiles', 'Offices', 'Cameras', 'Monitores'];
+    const { category } = useCategory();
 
     return (
         <>
             <Container>
-                {arrayCategorys.map((name) => (
+                {(category.content || []).map((cat) => (
                     <>
                         <ContainerCard>
                             <ContainerImageCategory>
                                 <p style={{zIndex: '9999'}}>Image</p>
                             </ContainerImageCategory>
-                            <p>{name}</p>
+                            <p>{cat.name}</p>
                         </ContainerCard>
                     </>
                 ))}

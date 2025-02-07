@@ -47,7 +47,6 @@ export const CategoryPageAdm = () => {
 		try {
 			const { data } = await https.get("/categories/get-parents");
 			setDatas(data);
-			console.log(data);
 		} catch (error) {
 			console.log(error);
 		}

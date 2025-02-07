@@ -24,10 +24,14 @@ import { ActiveAccountPage } from "../pages/Ecommerce/pages/ActiveAccount";
 import { Seo } from "../core/seo";
 import { CategoryPageAdm } from "../pages/Administrativo/Category";
 import { CreateCategoryPageAdm } from "../pages/Administrativo/Category/CreateCategory";
+import { useCategory } from "../hooks/useCategory";
+import { CategoriesPage } from "../pages/Ecommerce/pages/Categories";
 
 export const RoutesApp = () => {
 	const { login } = useContext(AuthContext);
 	const { items } = useApi("/pages");
+
+	const { category } = useCategory();
 
 	return (
 		<BrowserRouter>
@@ -65,6 +69,8 @@ export const RoutesApp = () => {
 					{items.map((p) => (
 						<Route path={p.link} element={p.page} />
 					))}
+
+					<Route path=":category" element={<CategoriesPage />}/>
 				</Route>
 			</Routes>
 		</BrowserRouter>
