@@ -26,6 +26,7 @@ import { CategoryPageAdm } from "../pages/Administrativo/Category";
 import { CreateCategoryPageAdm } from "../pages/Administrativo/Category/CreateCategory";
 import { useCategory } from "../hooks/useCategory";
 import { CategoriesPage } from "../pages/Ecommerce/pages/Categories";
+import { CartPage } from "../pages/Ecommerce/pages/Cart";
 
 export const RoutesApp = () => {
 	const { login } = useContext(AuthContext);
@@ -63,6 +64,7 @@ export const RoutesApp = () => {
 					<Route index element={<HomeEcommece />} />
 					<Route path="login" element={<LoginEcommece />} />
 					<Route path="esqueci-senha" element={<ResetPassword />} />
+					<Route path="carrinho" element={<CartPage />} />
 					<Route path="reset-password" element={<ResetPasswordAccess />} />
 					<Route path="active-account" element={<ActiveAccountPage />} />
 					<Route path="/administrativo" element={<Navigate to="/" />} />

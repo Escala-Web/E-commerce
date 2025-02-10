@@ -84,18 +84,7 @@ export const SeoPageAdm = () => {
 								placeholder="Digite as palavras chaves desejadas"
 								onChange={handleSubmit}
 							/>
-							<label>Google Analytics</label>
-							<input 
-								name="google_analytics"
-								placeholder="Digite o ID DA MÉTRICA"
-								onChange={handleSubmit}
-							/>
-							<label>Google Search Console</label>
-							<input 
-								name="google_search_console"
-								placeholder="Google Search Console"
-								onChange={handleSubmit}
-							/>
+						
 							
 							<SubmitButton>Cadastrar</SubmitButton>
 						</Form>

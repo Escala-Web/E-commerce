@@ -26,7 +26,7 @@ export const ContainerDesktop = styled.header`
 	}
 `;
 
-export const ContainerImage = styled.div`
+export const ContainerImage = styled(Link)`
 	img {
 		width: 150px;
 
@@ -46,6 +46,8 @@ export const ContainerNavegation = styled.nav`
         box-sizing: border-box;
 
 	}
+
+	position: relative;
 
 	ul {
 		list-style: none;
@@ -69,6 +71,31 @@ export const ContainerNavegation = styled.nav`
             }
 		}
 	}
+`;
+
+export const ContainerDrowMenu = styled.div`
+
+	position: absolute;
+	top: 30px;
+	left: 58%;
+	background-color: ${({theme}) => theme.colors.accent};
+
+	border: 1px solid #f3f3f3;
+
+	height: 40vh;
+	width: 60%;
+
+	z-index: 99999;
+	padding: 1rem;
+	box-sizing: border-box;
+
+	border-radius: 6px;
+
+	display: flex;
+	flex-direction: column;
+
+	gap: 1rem;
+
 `;
 
 export const ContainerLoginToCart = styled.div`
@@ -152,7 +179,8 @@ export const ContainerNumberFavorite = styled.div`
 export const LinkMenu = styled(Link)`
 	text-decoration: none;
 	color: ${({ theme }) => theme.colors.text_primary};
-	font-weight: 400;
+	font-weight: 500;
+
 	position: relative;
 
 	${({ isActive, theme }) =>

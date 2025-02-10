@@ -32,7 +32,6 @@ export const SubCategory = ({data}) => {
                                     <StyledTh>ID</StyledTh>
                                     <StyledTh>Categoria</StyledTh>
                                     <StyledTh>Descrição</StyledTh>
-                                    <StyledTh style={{textAlign:'center'}}>Sub categorias</StyledTh>
                                     <StyledTh style={{textAlign:'center'}}>Ação</StyledTh>
                                 </tr>
                             </thead>
@@ -44,7 +43,7 @@ export const SubCategory = ({data}) => {
                                         <StyledTd>{d.id_category}</StyledTd>
                                         <StyledTd>{d.name}</StyledTd>
                                         <StyledTd>{d.description}</StyledTd>
-                                        <StyledTd><ContainerActionEdit>Ver todas</ContainerActionEdit></StyledTd>
+                                    
                                         <StyledTd>
                                             <ContainerAction>
                                                 <ContainerActionEdit onClick={() => toggleEdit(d)}>

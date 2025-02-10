@@ -46,7 +46,7 @@ export const ContainerLinksUl = styled.ul`
 
 	position: relative;
 
-	height: 100%;
+	height: 90%;
 
 	li {
 		margin-bottom: 1rem;
@@ -106,7 +106,7 @@ export const LinkStyle = styled(Link)`
 export const LogoutAdm = styled.div`
 
 	position: absolute;
-	bottom: -400px;
+	bottom: -340px;
 
 	width: 100%;
 

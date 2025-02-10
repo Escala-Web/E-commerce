@@ -100,5 +100,6 @@ export const ContainerModal = styled.div`
 export const ContainerModalSection = styled.div`
 
   z-index: 9999999999999;
+  width: 40%;
 
 `;

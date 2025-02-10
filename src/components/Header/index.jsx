@@ -17,6 +17,7 @@ import { FaMoneyBillTransfer } from "react-icons/fa6";
 import { toast } from "react-toastify";
 import { AuthContext } from "../../context/Auth";
 import { TbCategoryFilled } from "react-icons/tb";
+import { IoSettings } from "react-icons/io5";
 
 export const Header = () => {
 	const [activeLink, setActiveLink] = useState("painel");
@@ -137,6 +138,18 @@ export const Header = () => {
 
 									<LinkStyle to="/administrativo/seo" title="seo">
 										Seo
+									</LinkStyle>
+								</LILInk>
+
+								<LILInk
+									to="/administrativo/configuracoes"
+									className={activeLink == "configuracoes" ? "active" : ""}
+									title="configuracoes"
+								>
+									<IoSettings  />
+
+									<LinkStyle to="/administrativo/configuracoes" title="configuracoes">
+										Configurações
 									</LinkStyle>
 								</LILInk>
 						

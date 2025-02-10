@@ -16,9 +16,9 @@ export const HomePage02 = () => {
 
 				<Category title="Categorias Populares" name="Ver mais" link="/" />
 				<CardCategory />
-				<SectionOffDay />
-				<BannerSection />
 				<SellersAll />
+				<BannerSection />
+				<SectionOffDay />
 			</Container>
 		</>
 	);

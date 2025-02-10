@@ -95,6 +95,7 @@ export const CreateCategoryPageAdm = () => {
                         name="parent_category"
                         onChange={handleChange}
                         >
+                        <option value=''>Nova</option>
                         {(categoryParent || []).map((d) => (
                             <option value={d.id_category}>{d.name}</option>
                         ))}
