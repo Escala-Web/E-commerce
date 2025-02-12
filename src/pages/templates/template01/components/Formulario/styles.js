@@ -19,9 +19,9 @@ export const ContainerFormulario = styled.form`
 
     box-sizing: border-box;
 
-    input {
+    input, select {
         width: 100%;
-        padding: .6rem 2rem;
+        padding: .6rem 1rem;
         border: none;
 
         border-radius: 8px;

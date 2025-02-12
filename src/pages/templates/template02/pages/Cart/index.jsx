@@ -13,6 +13,7 @@ import {
 } from "./styles";
 import { IoBagHandleSharp } from "react-icons/io5";
 import { FaMoneyCheck, FaTruck, FaUser } from "react-icons/fa6";
+import { FormatToReal } from "../../../../../helpers/FormatToReal";
 
 export const CartTemplate02 = () => {
 	const { favorite } = useContext(FavoriteContext);
@@ -74,12 +75,14 @@ export const CartTemplate02 = () => {
 								</div>
 
                                 <div>
-									<h4>{fav.price}</h4>
+									<h4>{FormatToReal(fav.price)}</h4>
 								</div>
 							</div>
 						))}
 					</CardProduct>
-					<div>Resumo</div>
+					<div>
+						Resumo
+					</div>
 				</ContainerCart>
 			</Container>
 		</>

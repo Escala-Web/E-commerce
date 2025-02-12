@@ -61,7 +61,7 @@ export const CardProduct = styled.div`
     display: flex;
     flex-direction: column;
 
-    gap: 1rem;
+    gap: .6rem;
 
     div {
         background-color: ${({theme}) => theme.colors.accent};
