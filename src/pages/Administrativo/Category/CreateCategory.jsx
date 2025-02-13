@@ -10,9 +10,7 @@ import { toast } from "react-toastify";
 
 export const CreateCategoryPageAdm = () => {
     
-    const navigate = useNavigate();
-	const goCreateProduct = () => navigate("/administrativo/categoria/create");
-	const goAllProduct = () => navigate("/administrativo/categoria");
+    
 
     const [category, setCategory] = useState({});
     const [categoryParent, setCategoryParent] = useState([]);
@@ -65,14 +63,10 @@ export const CreateCategoryPageAdm = () => {
         findAllParent();
     }, [])
 
-    console.log(categoryParent)
 
 	return (
 		<>
-			<HeaderTemplateEditor page="Categorias">
-				<ButtonTemplate click={goAllProduct}>Minhas Categorias</ButtonTemplate>
-				<ButtonTemplate click={goCreateProduct}>Cadastrar</ButtonTemplate>
-			</HeaderTemplateEditor>
+			
             <ContainerPage>
 				<Form submit={submit} name="Cadastre um categoria">
 					<label>Nome da Categoria</label>
@@ -102,7 +96,7 @@ export const CreateCategoryPageAdm = () => {
                     </select>
 				
 					
-					<button>Cadastrar</button>
+					<button>Incluir categoria</button>
 				</Form>
 			</ContainerPage>
 

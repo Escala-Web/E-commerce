@@ -41,5 +41,35 @@
       "google_search_console": "16189418489",
       "pagina_link": "/produtos"
     }
+  ],
+  "folder": [
+    {
+      "id": "7a4f",
+      "folder": "Trse"
+    },
+    {
+      "id": "dcc2",
+      "folder": "LG"
+    },
+    {
+      "id": "78f1",
+      "folder": "Motorola"
+    },
+    {
+      "id": "f79a",
+      "folder": "Motorola"
+    },
+    {
+      "id": "99bb",
+      "folder": "MotorolaS"
+    },
+    {
+      "id": "85be",
+      "folder": "Escala"
+    },
+    {
+      "id": "dccd",
+      "folder": "Produto"
+    }
   ]
 }

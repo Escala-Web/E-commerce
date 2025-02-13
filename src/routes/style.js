@@ -11,11 +11,13 @@ export const ContainerRouter = styled.div`
 
 export const ContainerContent = styled.div`
 
-    padding: 0 2rem;
+    /* padding: 0 2rem; */
 
     width: 100%;
     height: 100vh;
 
     overflow: auto;
+
+    background-color: #eceff3;
 
 `;

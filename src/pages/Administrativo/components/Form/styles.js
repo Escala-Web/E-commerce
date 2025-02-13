@@ -1,12 +1,11 @@
 import styled from "styled-components";
 
 export const Container = styled.form`
-	width: 800px;
+
 	margin: 0 auto;
-	padding: 20px;
-	background-color: #f9f9f9;
-	border-radius: 8px;
-	box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+
+
+
 
 	h2 {
 		text-align: start;
@@ -31,16 +30,17 @@ export const ControlForm = styled.div`
 
 	label {
 		display: block;
-		font-weight: bold;
-		margin-bottom: 5px;
-		color: #555;
+		font-weight: 400;
+		margin-bottom: 12px;
+		color: #20455e;
+		font-size: 14px;
 	}
 
 	input {
 		width: 100%;
-		padding: 10px;
+		padding: 8px;
 		font-size: 14px;
-		border: 1px solid #ccc;
+		border: 1px solid #c1e4fe;
 		border-radius: 4px;
 		box-sizing: border-box;
 
@@ -52,11 +52,52 @@ export const ControlForm = styled.div`
 		}
 	}
 
+	input[type="file"] {
+  width: 100%;
+  padding: 8px;
+  font-size: 14px;
+  border: 1px solid #c1e4fe;
+  border-radius: 4px;
+  box-sizing: border-box;
+  margin-bottom: 1rem;
+  display: none; /* Oculta o campo file */
+}
+
+/* Estilo para o botão customizado */
+.file-upload {
+  width: 100%;
+  padding: 8px;
+  font-size: 14px;
+  border: 1px solid #c1e4fe;
+  border-radius: 4px;
+  background-color:rgb(108, 179, 250);
+  cursor: pointer;
+  text-align: center;
+  display: inline-block;
+  color: #fff;
+  transition: background-color 0.3s ease;
+}
+
+.file-upload:hover {
+  background-color:rgb(118, 192, 248);
+}
+
+.file-upload:active {
+  background-color: #007bff;
+  color: white;
+}
+
+.file-upload span {
+  font-weight: bold;
+}
+
+
+
 	select {
 		width: 100%;
 		padding: 10px;
 		font-size: 14px;
-		border: 1px solid #ccc;
+		border: 1px solid #c1e4fe;
 		border-radius: 4px;
 		box-sizing: border-box;
 
@@ -88,6 +129,10 @@ export const ControlForm = styled.div`
 		&:focus {
 			outline: none;
 		}
+	}
+
+	.error {
+		border: 1px solid red;
 	}
 `;
 

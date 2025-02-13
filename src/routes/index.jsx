@@ -10,7 +10,7 @@ import { DashboardLayout } from "./layouts/Dashboard";
 import { TemplateLayout } from "./layouts/TemplateLayout";
 import { ConteudoTemplateAdministrador } from "../pages/Administrativo/Template/pages/Conteudo";
 import { Products } from "../pages/Administrativo/Products";
-import { CreatePageProduct } from "../pages/Administrativo/Products/Create";
+
 import { SeoPageAdm } from "../pages/Administrativo/Seo";
 import { CreatePageAdministrador } from "../pages/Administrativo/Template/pages/CreatePage";
 import { useApi } from "../hooks/useApi";
@@ -25,9 +25,9 @@ import { Seo } from "../core/seo";
 import { CategoryPageAdm } from "../pages/Administrativo/Category";
 import { CreateCategoryPageAdm } from "../pages/Administrativo/Category/CreateCategory";
 import { useCategory } from "../hooks/useCategory";
-import { CategoriesPage } from "../pages/Ecommerce/pages/Categories";
 import { CartPage } from "../pages/Ecommerce/pages/Cart";
 import { RegisterEcommerce } from "../pages/Ecommerce/pages/Register/RegisterEcommerce";
+import { CreatePageProduct } from "../pages/Administrativo/Products/Create/Create";
 
 export const RoutesApp = () => {
 	const { login } = useContext(AuthContext);
@@ -74,7 +74,7 @@ export const RoutesApp = () => {
 						<Route path={p.link} element={p.page} />
 					))}
 
-					<Route path=":category" element={<CategoriesPage />}/>
+					{/* <Route path=":category" element={<CategoriesPage />}/> */}
 				</Route>
 			</Routes>
 		</BrowserRouter>
