@@ -11,7 +11,9 @@ import { FaFolderOpen, FaPlus } from "react-icons/fa";
 import { FiFolderPlus } from "react-icons/fi";
 import { http } from "../../../../config/http";
 import { toast } from "react-toastify";
-import { FaFolderClosed } from "react-icons/fa6";
+import { FaFolderClosed, FaTrashCanArrowUp } from "react-icons/fa6";
+import { TieredMenu } from 'primereact/tieredmenu';
+
 
 export const FileManager = ({ name }) => {
 	const [isOpenMenagerModal, setIsOpenManagerModal] = useState(false);
@@ -20,7 +22,7 @@ export const FileManager = ({ name }) => {
     const [isActiveNewFolder, setIsActiveNewFolder] = useState(false);
     const [dataFolder, setDataFolder] = useState([]);
 
-    const [filterFolder, setFilterFolder] = useState();
+    const [headerFilter, setHeaderFilter] = useState('Adicionar Uploads');
     
     function toggleAddFolder() {
         setIsActiveNewFolder((prevActiveNewFolder) => !prevActiveNewFolder);
@@ -31,9 +33,13 @@ export const FileManager = ({ name }) => {
 	}
 
     async function addFolder(direction) {
+		if(direction === '') {
+			return;
+		}
         try {
             await http.post('/folder', {
-                folder: direction
+                folder: direction,
+				status: 0
             })
             setIsActiveNewFolder(false)
             setNewFolder('')
@@ -82,8 +88,8 @@ export const FileManager = ({ name }) => {
 								<div className="side-bar">
 									<h3>Gerenciador</h3>
 									<ul className="header-navegacao" onClick={(event) => console.log(event.target)}>
-										<li>Adicionar Uploads</li>
-										<li>Lixeira</li>
+										<li onClick={() => setHeaderFilter('Adicionar Uploads')}>Adicionar Uploads</li>
+										<li onClick={() => setHeaderFilter('Lixeira')}>Lixeira</li>
 									</ul>
 
 									<h3 className="pastas-title">Minhas pastas</h3>
@@ -93,19 +99,41 @@ export const FileManager = ({ name }) => {
                                         ))}
 									</ul>
 								</div>
+								
 								<ContentFiles>
 									<div className="content-header">
 										<div>
 											<input type="search" />
 										</div>
 										<div className="content-filter">
-											<p>Adicionar Uploads</p>
+											<p>{headerFilter === 'Lixeira' ? 'Lixeira' : 'Adicionar Uploads'}</p>
 											<div>
+											{headerFilter === 'Lixeira' ? (
+												<FaTrashCanArrowUp onClick={toggleAddFolder} className="dirname-icon" color="#555" />
+											) : (
 												<FiFolderPlus onClick={toggleAddFolder} className="dirname-icon" color="#555" />
+											)}
 											</div>
 										</div>
 
-										<CardDir>
+										{headerFilter === 'Lixeira' ? (
+											<CardDir>
+                                        {
+											(dataFolder || []).filter((f) => f.status === 0)
+											.map((data) => (
+                                                <div className="card-add-folder">
+													<FaFolderClosed className="add-folder-icon" />
+													
+                                                    <p>{data.folder}</p>
+											    </div>
+                                            ))
+                                        }
+											
+                                        
+                                            
+										</CardDir>
+										) : (
+											<CardDir>
 
                                         {isActiveNewFolder  && 
                                             <div className="card-add-folder">
@@ -120,11 +148,14 @@ export const FileManager = ({ name }) => {
                                                     />
 											</div>
                                         }
-
                                         {
-                                            (dataFolder || []).map((data) => (
+                                            (dataFolder || []).filter((f) => f.status === 1)
+											.map((data) => (
                                                 <div className="card-add-folder">
 													<FaFolderClosed className="add-folder-icon" />
+													<div className="setting-container">
+
+													</div>
                                                     <p>{data.folder}</p>
 											    </div>
                                             ))
@@ -137,8 +168,11 @@ export const FileManager = ({ name }) => {
 											</div>
                                             
 										</CardDir>
+										) }
+
 									</div>
 								</ContentFiles>
+
 							</ContainerContent>
 						</div>
 					</ContainerManager>

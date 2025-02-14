@@ -146,7 +146,6 @@ export const ContentFiles = styled.div`
 
     .dirname-icon {
         cursor: pointer;
-
         font-size: 1.4rem;
         transition: .2s;
         &:hover {
@@ -188,21 +187,23 @@ export const ContentFiles = styled.div`
         flex-direction: column;
 
         margin-top: 30px;
-        cursor: pointer;
+
+		position: relative;
+        /* cursor: pointer;
 
         &:hover {
             background-color: #f2f2f2;
-        }
+        } */
     }
 
     .add-folder-icon {
         font-size: 5.4rem;
-        color: #555;
+        color:rgb(130, 199, 252);
     }
 
     .add-upload-icon {
         font-size: 1.6rem;
-        color: #fff;
+        color:rgb(130, 199, 252);
     }
 
 `;

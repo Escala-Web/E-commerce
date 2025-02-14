@@ -44,32 +44,24 @@
   ],
   "folder": [
     {
-      "id": "7a4f",
-      "folder": "Trse"
+      "id": "3ba8",
+      "folder": "Page 01",
+      "status": 1
     },
     {
-      "id": "dcc2",
-      "folder": "LG"
+      "id": "3ba10",
+      "folder": "Smartphones",
+      "status": 1
     },
     {
-      "id": "78f1",
-      "folder": "Motorola"
+      "id": "3ba9",
+      "folder": "Eletronicos",
+      "status": 0
     },
     {
-      "id": "f79a",
-      "folder": "Motorola"
-    },
-    {
-      "id": "99bb",
-      "folder": "MotorolaS"
-    },
-    {
-      "id": "85be",
-      "folder": "Escala"
-    },
-    {
-      "id": "dccd",
-      "folder": "Produto"
+      "id": "3ba11",
+      "folder": "Moedas",
+      "status": 1
     }
   ]
 }
