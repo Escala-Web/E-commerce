@@ -11,9 +11,8 @@ export const HomePage02 = () => {
 	return (
 		<>
 			<HeaderPageTemplate02 />
+			<BannerTemplate02 />
 			<Container>
-				<BannerTemplate02 />
-
 				<Category title="Categorias Populares" name="Ver mais" link="/" />
 				<CardCategory />
 				<SellersAll />

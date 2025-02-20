@@ -28,6 +28,7 @@ import { useCategory } from "../hooks/useCategory";
 import { CartPage } from "../pages/Ecommerce/pages/Cart";
 import { RegisterEcommerce } from "../pages/Ecommerce/pages/Register/RegisterEcommerce";
 import { CreatePageProduct } from "../pages/Administrativo/Products/Create/Create";
+import { OrdersTemplates02 } from "../pages/templates/template02/pages/Admin/Orders";
 
 export const RoutesApp = () => {
 	const { login } = useContext(AuthContext);
@@ -37,7 +38,6 @@ export const RoutesApp = () => {
 
 	return (
 		<BrowserRouter>
-			
 			<Seo />
 			<Routes>
 				{login && (
@@ -48,23 +48,38 @@ export const RoutesApp = () => {
 							<Route path="loja" element={<LojaPage />} />
 							<Route path="produtos" element={<Products />} />
 							<Route path="categoria" element={<CategoryPageAdm />} />
-							<Route path="categoria/create" element={<CreateCategoryPageAdm />} />
+							<Route
+								path="categoria/create"
+								element={<CreateCategoryPageAdm />}
+							/>
 							<Route path="produtos/create" element={<CreatePageProduct />} />
 							<Route path="seo" element={<SeoPageAdm />} />
-							<Route path=":theme/editor" element={<ConteudoTemplateAdministrador />}/>
-							<Route path=":theme/editor/create-page" element={<CreatePageAdministrador /> } />
-							<Route path=":theme/editor/personalizar/:page" element={<Pesonalizar /> } />
+							<Route
+								path=":theme/editor"
+								element={<ConteudoTemplateAdministrador />}
+							/>
+							<Route
+								path=":theme/editor/create-page"
+								element={<CreatePageAdministrador />}
+							/>
+							<Route
+								path=":theme/editor/personalizar/:page"
+								element={<Pesonalizar />}
+							/>
 						</Route>
 						<Route path="/admin">
 							<Route index element={<AdminPage />} />
 						</Route>
 					</>
 				)}
-				
+
 				<Route path="/" element={<TemplateLayout />}>
 					<Route index element={<HomeEcommece />} />
-					<Route path="login" element={<LoginEcommece user='user' />} />
-					<Route path="administrativo/login" element={<LoginEcommece user='admin' />} />
+					<Route path="login" element={<LoginEcommece user="user" />} />
+					<Route
+						path="administrativo/login"
+						element={<LoginEcommece user="admin" />}
+					/>
 					<Route path="registrar" element={<RegisterEcommerce />} />
 					<Route path="esqueci-senha" element={<ResetPassword />} />
 					<Route path="carrinho" element={<CartPage />} />
@@ -77,6 +92,13 @@ export const RoutesApp = () => {
 
 					{/* <Route path=":category" element={<CategoriesPage />}/> */}
 				</Route>
+
+				{login && login[0] && login[0].rule === "USER" && (
+					<Route path="/custumer" element={<TemplateLayout />}>
+						<Route index element={<AdminPage />} />
+						<Route path="meus-pedidos" element={<OrdersTemplates02 />}/>
+					</Route>
+				)}
 			</Routes>
 		</BrowserRouter>
 	);

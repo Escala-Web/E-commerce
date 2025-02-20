@@ -6,7 +6,7 @@ export const Container = styled(Link)`
     padding: .6rem 2rem;
     width: ${({w}) => w};
 
-    background-color: ${({theme}) => theme.colors.secondary};
+    background-color: ${({theme, color}) => color || theme.colors.secondary};
 
     border-radius: 6px;
 

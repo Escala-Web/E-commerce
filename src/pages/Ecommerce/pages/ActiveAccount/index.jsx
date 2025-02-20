@@ -16,65 +16,21 @@ import { GiPadlock } from "react-icons/gi";
 import { Input } from "../../../../components/Input";
 import { Button } from "../../../../components/Button";
 import { IoCloseCircleSharp } from "react-icons/io5";
+import { useActiveAccount } from '../../../../hooks/useActiveAccount';
 
 export const ActiveAccountPage = () => {
-	const [param, setParam] = useSearchParams();
-	const [active, setActive] = useState(false);
-	const [isActiveModal, setIsActiveModal] = useState(false);
-	const [email, setEmail] = useState("");
 
-	const navigate = useNavigate();
-
-	const tokenActive = param.get("token");
-	const firstAccess = param.get("first-access");
-
-	console.log(firstAccess)
+	const { active, toggleSubmitActiveAccount, email, setEmail, toggleActiveAccountToken } = useActiveAccount();
+	
+	const [isOpenModal, setIsOpenModal] = useState(false);
 
 	function toggleActiveModal() {
-		setIsActiveModal((prevActive) => !prevActive);
+		setIsOpenModal((prevModal) => !prevModal);
 	}
 
-	async function submitActive(event) {
-		event.preventDefault();
+	console.log(active)
 
-		try {
-			const { data } = await https.post("/admin/send-active-account", {
-				email,
-			});
-
-			toast.success(data.message);
-			toast.success(data.response.message);
-		} catch (error) {
-			toast.error(error.response.data.message);
-		}
-	}
-	
-	if(firstAccess === null) {
-	async function toogleActiveAccount() {
-		try {
-			await https.put("/admin/active-account", {
-				token: tokenActive,
-			});
-
-			setActive(true);
-			toast.success("Conta ativada com sucesso!");
-			setTimeout(() => {
-				navigate("/login");
-			}, 5000);
-		} catch (error) {
-			toast.error(error.response.data.message);
-			setActive(false);
-			console.log(error);
-		}
-	}
-
-	useEffect(() => {
-			toogleActiveAccount();
-			
-			
-		}, [tokenActive]);
-		
-	}
+	const firstAccess = null;
 	return (
 		<>
 			<Container>
@@ -112,13 +68,13 @@ export const ActiveAccountPage = () => {
 					
 				</ContainerModal>
 			</Container>
-			{isActiveModal ? (
+			{isOpenModal ? (
 				<ContainerModalActive>
 					<ContainerModalContent>
 						<ContainerIconClose onClick={toggleActiveModal}>
 							<IoCloseCircleSharp size={32} color="#e74d3c" />
 						</ContainerIconClose>
-						<FormularioContainer onSubmit={submitActive}>
+						<FormularioContainer onSubmit={toggleSubmitActiveAccount}>
 							<h2>Reenviar link</h2>
 							<div>
 								<Input
