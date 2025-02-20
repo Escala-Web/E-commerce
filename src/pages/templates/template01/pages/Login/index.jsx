@@ -19,7 +19,7 @@ export const LoginPageTemplate01 = () => {
 	const [email, setEmail] = useState("");
 	const [password, setPassword] = useState("");
 
-	const { onSubmit } = useLogin(email, password);
+	const { onSubmitAdmin } = useLogin(email, password);
 
 	return (
 		<>
@@ -30,7 +30,7 @@ export const LoginPageTemplate01 = () => {
 					</ContainerInfoRegister>
 				</ContainerInfos>
 				<ContainerLogin>
-					<Formulario submit={onSubmit} w="60%" p="4rem 2rem" title="Login">
+					<Formulario submit={onSubmitAdmin} w="60%" p="4rem 2rem" title="Login">
 						<input
 							placeholder="E-mail"
 							name="email"

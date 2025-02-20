@@ -9,7 +9,7 @@ export const useLogin = (email, password) => {
 	const { setLogin } = useContext(AuthContext);
 	const navigate = useNavigate();
 
-	async function onSubmit(event) {
+	async function onSubmitAdmin(event) {
 		event.preventDefault();
 		try {
 			const { data } = await https.post("/admin/login", {
@@ -40,7 +40,28 @@ export const useLogin = (email, password) => {
 		}
 	}
 
-    return { onSubmit }
+	async function onSubmitUser(event) {
+		event.preventDefault();
+		try {
+			const { data } = await https.post('/user/login', {
+				'login': email,
+				'password': password,
+				'type': "EMAIL"
+			});
+
+			// if(data.firstAccess) {
+			// 	navigate('/active-account?fisrt-access')
+			// }
+			toast.success(data.message)
+
+			console.log(data);
+
+		} catch (error) {
+			toast.error(error.response.data.message);
+		}
+	}
+
+    return { onSubmitAdmin, onSubmitUser }
 
 
 };

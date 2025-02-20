@@ -6,7 +6,7 @@ import { HeaderPageTemplate01 } from "../../../templates/template01/components/H
 import { TemplateContext } from "../../../../context/Template";
 
 
-export const LoginEcommece = () => {
+export const LoginEcommece = ({ user }) => {
     const {template} = useContext(TemplateContext);
 
     switch (template) {
@@ -14,7 +14,7 @@ export const LoginEcommece = () => {
             return (
                 <>
                     {/* <HeaderPageTemplate01 /> */}
-                    <LoginPageTemplate01 />
+                    <LoginPageTemplate01 user={user}/>
                 </>
             )
             break;
@@ -22,7 +22,7 @@ export const LoginEcommece = () => {
             return (
                 <>
                     {/* <HeaderPageTemplate02 />; */}
-                    <LoginTemplete02 />
+                    <LoginTemplete02 user={user}/>
                 </>
             )
             break

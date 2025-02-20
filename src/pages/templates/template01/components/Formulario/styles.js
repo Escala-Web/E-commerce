@@ -56,20 +56,29 @@ export const ContainerFormulario = styled.form`
         }
     }
 
-    h2 {
+    h3 {
         text-align: start;
         /* background-color: aqua; */
         width: 100%;
-        margin-bottom: 2rem;
-        font-size: 2.4rem;
+        margin-bottom: 1rem;
+        font-size: 1.2rem;
         color: ${({theme}) => theme.colors.text_primary};
     }
 
     label {
         text-align: start;
         width: 100%;
-        opacity: .9;
+        opacity: .8;
         margin-bottom: .4rem;
+    }
+
+    .error {
+        border: 1px solid red;
+
+        &:focus {
+            border: 1px solid rgba(237, 27, 20, 0.69);
+            box-shadow: 0 0 6px rgba(237, 27, 20, 0.69);
+        }
     }
 
 `;

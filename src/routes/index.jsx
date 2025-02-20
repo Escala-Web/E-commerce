@@ -63,7 +63,8 @@ export const RoutesApp = () => {
 				
 				<Route path="/" element={<TemplateLayout />}>
 					<Route index element={<HomeEcommece />} />
-					<Route path="login" element={<LoginEcommece />} />
+					<Route path="login" element={<LoginEcommece user='user' />} />
+					<Route path="administrativo/login" element={<LoginEcommece user='admin' />} />
 					<Route path="registrar" element={<RegisterEcommerce />} />
 					<Route path="esqueci-senha" element={<ResetPassword />} />
 					<Route path="carrinho" element={<CartPage />} />
