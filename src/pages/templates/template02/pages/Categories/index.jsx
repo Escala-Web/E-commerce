@@ -1,18 +1,24 @@
 import { useParams, useSearchParams } from "react-router-dom";
 import { HeaderPageTemplate02 } from "../../components/Header";
 import { Container } from "../home/styles";
-import {
-	Aside,
-	AsideFilter,
-	ContainerCardStyle,
-	ContainerContent,
-	ContainerProduct,
-} from "./styles";
+import { Aside, ContainerContent, ContainerProduct } from "./styles";
 import { CardOffDay } from "../../components/CardOffDay";
 import { useFecth } from "../../../../../hooks/useFecth";
 import { https } from "../../../../../config/https";
 import { useEffect, useState } from "react";
 import { Breadcrumb } from "../../components/Breadcrumbs";
+import { CardProduct } from "../../components/CardProduct";
+import {
+	FormControl,
+	FormControlLabel,
+	FormLabel,
+	Pagination,
+	Radio,
+	RadioGroup,
+	Slider,
+} from "@mui/material";
+import { AsideProductsFilter } from "../../components/AsideProductsFilter";
+import { Footer } from "../../components/Footer";
 
 export const CategorieTemplate02 = () => {
 	const { category } = useParams();
@@ -24,8 +30,6 @@ export const CategorieTemplate02 = () => {
 	const [searchParams] = useSearchParams();
 
 	const categorySelect = searchParams.get("category");
-
-
 
 	async function find() {
 		try {
@@ -50,25 +54,20 @@ export const CategorieTemplate02 = () => {
 			<Container>
 				<ContainerProduct>
 					<Aside>
-						<h4>Categoria</h4>
-						<AsideFilter>
-							{(data || []).map((d) => (
-								<>
-									<label>
-										<input type="checkbox" />
-										{d.name}
-									</label>
-								</>
-							))}
-						</AsideFilter>
+						<AsideProductsFilter />
 					</Aside>
 					<ContainerContent>
-						<ContainerCardStyle>
-							<CardOffDay data={products} />
-						</ContainerCardStyle>
+						<CardProduct />
+						
+						<div className="container-pagination">
+							<Pagination className="pagination" count={20} variant="outlined" shape="rounded" />
+						</div>
+
 					</ContainerContent>
 				</ContainerProduct>
+				
 			</Container>
+			<Footer />
 		</>
 	);
 };

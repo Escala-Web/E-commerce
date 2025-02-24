@@ -16,7 +16,7 @@ export const CardCategory =  () => {
                     <>
                         <ContainerCard to={`${cat.name.toLowerCase().replace(/\s+/g, "-")}?category=${cat.id_category}`}>
                             <ContainerImageCategory>
-                                <p style={{zIndex: '9999'}}>Image</p>
+                                <img src="https://files.tecnoblog.net/wp-content/uploads/2021/12/scuf-reflex-pro.jpg" title={cat.category}/>
                             </ContainerImageCategory>
                             <p>{cat.name}</p>
                         </ContainerCard>

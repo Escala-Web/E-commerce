@@ -18,7 +18,7 @@ import { FormatToReal } from "../../../../../helpers/FormatToReal";
 export const CartTemplate02 = () => {
 	const { favorite } = useContext(FavoriteContext);
 
-	console.log(favorite);
+
 
 	return (
 		<>

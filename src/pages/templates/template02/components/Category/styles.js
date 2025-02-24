@@ -8,7 +8,9 @@ export const Container = styled.div`
     justify-content: space-between;
 
     color: ${({theme}) => theme.colors.text_primary};
+    opacity: .9;
     margin-top: 2rem;
+    margin-bottom: 1rem;
     h2 {
         font-size: 1.8rem;
         font-weight: 600;
@@ -24,6 +26,7 @@ export const LinkCategory = styled(Link)`
     font-weight: 500;
 
     &:hover {
+        
         color: ${({theme}) => theme.colors.secondary};
         /* transform: scale(1.04); */
 

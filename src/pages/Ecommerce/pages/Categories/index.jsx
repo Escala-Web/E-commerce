@@ -8,7 +8,7 @@ export const CategoriesPage = () => {
 	switch (template) {
 		case 1:
 
-
+			
 
 			break;
 

@@ -3,6 +3,7 @@ import { useApi } from "../../../hooks/useApi";
 import { ContainerPage } from "../components/Section";
 import { HeaderTemplateEditor } from "../Template/components/Header";
 import {
+	Container,
 	ContainerCard,
 	ContainerCardContent,
 	ContainerPageAdm,
@@ -11,6 +12,8 @@ import { useState } from "react";
 import { Form } from "../components/Form";
 import { SubmitButton } from "../components/Form/styles";
 import { http } from "../../../config/http";
+import { Breadcrumb } from "../components/Breadcrumb";
+import { Box, Button, Tab, Tabs, TextField, Typography } from "@mui/material";
 
 export const SeoPageAdm = () => {
 	const { items } = useApi("/pages");
@@ -19,37 +22,91 @@ export const SeoPageAdm = () => {
 
 	function handleSubmit(event) {
 		try {
-			const {name,value} = event.target;
+			const { name, value } = event.target;
 			setFormSubmit((prevForm) => ({
 				...prevForm,
-				[name]: value
-			}))
+				[name]: value,
+			}));
 		} catch (error) {
-			console.log(error)
+			console.log(error);
 		}
 	}
 
 	async function submitForm(event) {
 		event.preventDefault();
 		try {
-			const {data} = await http.post('/seo', {
+			const { data } = await http.post("/seo", {
 				meta_title: formSubmit.meta_title,
 				meta_description: formSubmit.meta_description,
 				meta_keywords: formSubmit.meta_keywords,
 				google_analytics: formSubmit.google_analytics,
 				google_search_console: formSubmit.google_search_console,
-				pagina_link: pagesSelect
+				pagina_link: pagesSelect,
 			});
 
-			console.log(data)
+			console.log(data);
 		} catch (error) {
-			console.log(error)
+			console.log(error);
 		}
 	}
 
+	const [value, setValue] = useState("1");
+
+	const handleChange = (event, newValue) => {
+		setValue(newValue);
+	};
+
 	return (
 		<>
-			<HeaderTemplateEditor>
+			<Breadcrumb page="Seo do E-commecer" />
+
+			<Container>
+				<div className="container-header">
+					<Box sx={{ borderBottom: 1, borderColor: "divider" }}>
+						<Tabs
+							value={value}
+							onChange={handleChange}
+							aria-label="basic tabs example"
+						>
+							<Tab label="Página inicial" value="1" />
+							<Tab label="Produtos" value="2" />
+							<Tab label="Categorias" value="3" />
+							<Tab label="Contato" value="4" />
+						</Tabs>
+					</Box>
+				</div>
+			</Container>
+
+			<Container>
+				<div className="container-form">
+					<Typography variant="h6" component="div">
+						Página Inicial
+					</Typography>
+					<div className="form-input">
+						<TextField
+							size="small"
+							fullWidth
+							label="Meta title"
+							id="fullWidth"
+						/>
+						<TextField
+							size="small"
+							fullWidth
+							label="Meta Description"
+							id="fullWidth"
+						/>
+						<TextField
+							size="small"
+							fullWidth
+							label="Palavras chaves"
+							id="fullWidth"
+						/>
+					<Button variant="contained">Cadastrar</Button>
+					</div>
+				</div>
+			</Container>
+
+			{/* <HeaderTemplateEditor>
 				<h2>Seo do E-commerce</h2>
 			</HeaderTemplateEditor>
 			<ContainerPage>
@@ -90,7 +147,7 @@ export const SeoPageAdm = () => {
 						</Form>
 					</div>
 				</ContainerPageAdm>
-			</ContainerPage>
+			</ContainerPage> */}
 		</>
 	);
 };

@@ -1,5 +1,6 @@
 import axios from "axios";
 import { useEffect, useState } from "react"
+import { https } from "../config/https";
 
 export const useFecth = (uri) => {
 
@@ -9,10 +10,13 @@ export const useFecth = (uri) => {
 
     async function fecthData() {
         
-        setLoading(true);
+        setLoading(false);
         try {
-            const { data: response } = await axios.get(uri);
+            const { data: response } = await https.get(uri);
             setData(response);
+            setTimeout(() => {
+                setLoading(true);
+            }, 1000)
         } catch (error) {
             setErro(error)
         }

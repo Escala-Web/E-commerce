@@ -29,10 +29,11 @@ import { CartPage } from "../pages/Ecommerce/pages/Cart";
 import { RegisterEcommerce } from "../pages/Ecommerce/pages/Register/RegisterEcommerce";
 import { CreatePageProduct } from "../pages/Administrativo/Products/Create/Create";
 import { OrdersTemplates02 } from "../pages/templates/template02/pages/Admin/Orders";
+import { CategoriesPage } from "../pages/Ecommerce/pages/Categories";
+import { ProductsTemplate } from "../pages/Ecommerce/pages/Products";
 
 export const RoutesApp = () => {
 	const { login } = useContext(AuthContext);
-	const { items } = useApi("/pages");
 
 	const { category } = useCategory();
 
@@ -86,11 +87,10 @@ export const RoutesApp = () => {
 					<Route path="reset-password" element={<ResetPasswordAccess />} />
 					<Route path="active-account" element={<ActiveAccountPage />} />
 					<Route path="/administrativo" element={<Navigate to="/" />} />
-					{items.map((p) => (
-						<Route path={p.link} element={p.page} />
-					))}
+					<Route path="/produtos" element={<ProductsTemplate />} />
+					
 
-					{/* <Route path=":category" element={<CategoriesPage />}/> */}
+					<Route path=":category" element={<CategoriesPage />}/>
 				</Route>
 
 				{login && login[0] && login[0].rule === "USER" && (

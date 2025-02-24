@@ -10,7 +10,7 @@ export const Breadcrumb = ({ page }) => {
         <Container>
           <Title>
             <LinkStyle to="/">Página Inicial</LinkStyle>
-            <MdKeyboardDoubleArrowRight color="#fff" style={{ margin: '0 .4rem' }} />
+            <MdKeyboardDoubleArrowRight className="icon-breadcrumb" />
             {page ? (
               page
             ) : (
@@ -24,4 +24,6 @@ export const Breadcrumb = ({ page }) => {
       </>
     );
   };
+  
+
   

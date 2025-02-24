@@ -8,6 +8,9 @@ import "swiper/css/scrollbar";
 import { useContext } from "react";
 import { TemplateContext } from "../../../../../context/Template";
 import { ContainerImage } from "./styles";
+import banner1 from '../../../../../assets/banner1.jpg';
+import banner2 from '../../../../../assets/banner2.jpg';
+import banner3 from '../../../../../assets/banner3.jpg';
 
 
 export const BannerTemplate02 = () => {
@@ -15,8 +18,13 @@ export const BannerTemplate02 = () => {
 
 	const banner = [
 		{
-			image:
-				"https://mir-s3-cdn-cf.behance.net/project_modules/1400/371cef178509439.64e8f951aab97.jpg",
+			image: banner1,
+		},
+		{
+			image: banner2,
+		},
+		{
+			image: banner3,
 		},
 		
 	];

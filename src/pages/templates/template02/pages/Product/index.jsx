@@ -4,7 +4,7 @@ export const ProductTemplate02 = () => {
 
     return (
         <>
-            <HeaderPageTemplate02 />
+            {/* <HeaderPageTemplate02 /> */}
         </>
     )
 }

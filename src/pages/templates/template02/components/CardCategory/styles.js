@@ -6,7 +6,7 @@ export const Container = styled.div`
     display: flex;
     align-items: center;
     
-    gap: 1.4rem;
+    gap: 1.6rem;
 
     margin-top: 2rem;
 
@@ -33,10 +33,15 @@ export const ContainerCard = styled(Link)`
 
     flex-direction: column;
 
+    text-decoration: none;
+
+    color: ${({ theme }) => theme.colors.text_primary};
+
 
     p {
         margin-top: .6rem;
         font-weight: 400;
+        font-size: 1.1rem;
     }
 
 `;
@@ -67,9 +72,17 @@ export const ContainerImageCategory = styled.div`
         color: ${({ theme }) => theme.colors.text_secondary};
     }
 
+    img {
+        object-fit: cover;
+        width: 100%;
+        height: 120px;
+    }
+
     &::before {
         content: '';
         background-color: ${({ theme }) => theme.colors.secondary};
+
+        opacity: .4;
         
         height: 100%;
         width: 0%;

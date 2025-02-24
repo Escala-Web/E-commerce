@@ -6,6 +6,7 @@ export const ConatinerCard = styled.div`
 	align-items: center;
 	justify-content: space-between;
 	flex-wrap: wrap;
+
 `;
 
 export const Card = styled.div`
@@ -79,10 +80,47 @@ export const CardLink = styled(Link)`
 
 export const ContainerTitle = styled.div`
 	padding-bottom: 1.2rem;
+	/* text-align: center; */
 
 	h2 {
-		color: #ccc;
+		color: #555;
 
 		font-weight: 600;
 	}
+`;
+
+
+export const ContainerTheme = styled.div`
+
+	display: flex;
+	/* align-items: center;
+	justify-content: center; */
+
+	flex-direction: column;
+
+	background-color: #fff;
+
+	width: 100%;
+
+	padding: 1rem;
+	border-radius: 8px;
+
+	.container-card {
+		display: flex;
+		align-items: center;
+
+		gap: 1rem;
+	}
+
+	.card-body {
+		border: 1px solid #ccc;
+	}
+
+	.card-button {
+		display: flex;
+		align-items: center;
+		justify-content: space-between;
+		padding: 1rem;
+	}
+
 `;
