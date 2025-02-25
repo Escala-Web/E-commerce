@@ -28,9 +28,10 @@ import { useCategory } from "../hooks/useCategory";
 import { CartPage } from "../pages/Ecommerce/pages/Cart";
 import { RegisterEcommerce } from "../pages/Ecommerce/pages/Register/RegisterEcommerce";
 import { CreatePageProduct } from "../pages/Administrativo/Products/Create/Create";
-import { OrdersTemplates02 } from "../pages/templates/template02/pages/Admin/Orders";
 import { CategoriesPage } from "../pages/Ecommerce/pages/Categories";
 import { ProductsTemplate } from "../pages/Ecommerce/pages/Products";
+import { OrdersTemplates02 } from "../pages/templates/template02/pages/Admin/Orders";
+import { ProductTemplate02 } from "../pages/templates/template02/pages/Product";
 
 export const RoutesApp = () => {
 	const { login } = useContext(AuthContext);
@@ -88,6 +89,7 @@ export const RoutesApp = () => {
 					<Route path="active-account" element={<ActiveAccountPage />} />
 					<Route path="/administrativo" element={<Navigate to="/" />} />
 					<Route path="/produtos" element={<ProductsTemplate />} />
+					<Route path="/produto/:product" element={<ProductTemplate02 />} />
 					
 
 					<Route path=":category" element={<CategoriesPage />}/>

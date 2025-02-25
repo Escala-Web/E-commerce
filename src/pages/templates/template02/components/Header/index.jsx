@@ -9,7 +9,14 @@ import { HiOutlineShoppingCart, HiSearch } from "react-icons/hi";
 import { FaBars, FaHeart, FaRegHeart } from "react-icons/fa";
 import { IoLocationOutline } from "react-icons/io5";
 import { Link } from "react-router-dom";
-import { Drawer, List, ListItem, ListItemText } from "@mui/material";
+import {
+	Avatar,
+	Drawer,
+	List,
+	ListItem,
+	ListItemText,
+	Typography,
+} from "@mui/material";
 import { FavoriteContext } from "../../../../../context/Favorite";
 import { Favorit } from "../Favorid";
 import { MdShoppingCart } from "react-icons/md";
@@ -66,38 +73,53 @@ export const HeaderPageTemplate02 = () => {
 							<FaRegHeart className="header-icons-options" />
 							<p>Favoritos</p>
 						</div>
-						<div
-							onMouseEnter={() => setIsOpenDrag(true)}
-							className="header-container-options-left"
-						>
-							<FiUsers className="header-icons-options" />
-							<p>Entrar</p>
-							{isOpenDrag ? <IoIosArrowUp /> : <IoIosArrowDown />}
-						</div>
 
-						{isOpenDrag ? (
-							<div id="header-login-active">
-								<ul className="header-submenu">
-									<li>
-										<Link className="link_submenu" to="/login">
-											Login
-										</Link>
-									</li>
-									<li>
-										<Link className="link_submenu" to="/registrar">
-											Registrar
-										</Link>
-									</li>
-									<hr />
-									<li>
-										<Link className="link_submenu" to="/administrativo/login">
-											Login adm
-										</Link>
-									</li>
-								</ul>
-							</div>
+						{login ? (
+							<Link className="link_submenu" to="/custumer/meus-pedidos">
+								<div className="header-container-options-left">
+									<Avatar>{login[0].user[0]}</Avatar>
+									<Typography variant="body1">{login[0].user}</Typography>
+								</div>
+							</Link>
 						) : (
-							""
+							<>
+								<div
+									onMouseEnter={() => setIsOpenDrag(true)}
+									className="header-container-options-left"
+								>
+									<FiUsers className="header-icons-options" />
+									<p>Entrar</p>
+									{isOpenDrag ? <IoIosArrowUp /> : <IoIosArrowDown />}
+								</div>
+
+								{isOpenDrag ? (
+									<div id="header-login-active">
+										<ul className="header-submenu">
+											<li>
+												<Link className="link_submenu" to="/login">
+													Login
+												</Link>
+											</li>
+											<li>
+												<Link className="link_submenu" to="/registrar">
+													Registrar
+												</Link>
+											</li>
+											<hr />
+											<li>
+												<Link
+													className="link_submenu"
+													to="/administrativo/login"
+												>
+													Login adm
+												</Link>
+											</li>
+										</ul>
+									</div>
+								) : (
+									""
+								)}
+							</>
 						)}
 
 						<div className="header-container-options-left header-option-cart">
@@ -114,10 +136,26 @@ export const HeaderPageTemplate02 = () => {
 					</div>
 					<nav className="header-navigation-menu">
 						<ul>
-							<li><Link to='/' className="header-navigation-link">Página Inicial</Link></li>
-							<li><Link to='/produtos' className="header-navigation-link">Produtos</Link></li>
-							<li><Link className="header-navigation-link">Todos as Categorias</Link></li>
-							<li><Link to='/contato' className="header-navigation-link">Contato</Link></li>
+							<li>
+								<Link to="/" className="header-navigation-link">
+									Página Inicial
+								</Link>
+							</li>
+							<li>
+								<Link to="/produtos" className="header-navigation-link">
+									Produtos
+								</Link>
+							</li>
+							<li>
+								<Link className="header-navigation-link">
+									Todos as Categorias
+								</Link>
+							</li>
+							<li>
+								<Link to="/contato" className="header-navigation-link">
+									Contato
+								</Link>
+							</li>
 						</ul>
 					</nav>
 				</div>

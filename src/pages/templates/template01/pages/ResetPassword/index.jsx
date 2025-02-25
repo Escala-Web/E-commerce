@@ -18,8 +18,8 @@ export const ResetPassword = () => {
         event.preventDefault();
 
         try {
-            const {data} = await https.post('/admin/forget-password', {
-                email
+            const {data} = await https.post('/user/forget-password', {
+                login: email
             })
             navigate('/login')
             toast.success(data.message)

@@ -8,12 +8,15 @@ import { Container, ContainerInfos, LinkEsqueciASenha } from "../Login/styles";
 import { Formulario } from "../../components/Formulario";
 import { ContainerForm } from "../ResetPassword/styles";
 import { toast } from "react-toastify";
+import { useResetPassword } from "../../../../../hooks/useResetPassword";
 
 export const ResetPasswordAccess = () => {
 	const [password, setPassword] = useState("");
 	const [confirmPassword, setConfirmPassword] = useState("");
 	const [param, setParams] = useSearchParams();
 	const token = param.get("token");
+
+	const { resetPassword } = useResetPassword(password);
 
 	const navigate = useNavigate();
 
@@ -31,14 +34,9 @@ export const ResetPasswordAccess = () => {
 		}
 
 		try {
-			const { data } = await https.put("/admin/reset-password", {
-				token: token,
-				password,
-			});
-
-			toast.success(data.message);
-			navigate("/login");
+			resetPassword();
 		} catch (error) {
+			// console.log(error)
 			toast.warning(error.response.data.message);
 		}
 	}
@@ -52,14 +50,14 @@ export const ResetPasswordAccess = () => {
 				<ContainerForm>
 					<Formulario submit={submit} w="80%" title="Nova senha">
 						<input
-							placeholder="Digite um E-mail*"
+							placeholder="Digite sua senha*"
 							name="password"
 							type="password"
 							value={password}
 							onChange={(event) => setPassword(event.target.value)}
 						/>
 						<input
-							placeholder="Digite um E-mail*"
+							placeholder="Confirme sua senha*"
 							name="confirm"
 							type="password"
 							value={confirmPassword}

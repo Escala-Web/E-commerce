@@ -52,28 +52,34 @@ export const useLogin = (email, password) => {
 				'type': "EMAIL"
 			});
 
-			if(data.firstAccess) {
-				navigate('/active-account?fisrt-access')
-			}
-
-	
 
 			const userLogin = [
 				{
 					token: data.token,
 					user: data.name,
+					type: data.type,
 					rule: data.rule
 				},
 			];
 			
 			setLogin(userLogin);
 			localStorage.setItem("userLogin", JSON.stringify(userLogin));
+		
+
+			if(data.firstAccess) {
+				toast.success(data.message);
+				navigate('/active-account?fisrt-access')
+				// return
+			}
+
+	
+
 			
 			toast.success(data.message)
 
 			navigate('/custumer/meus-pedidos')
 		} catch (error) {
-			toast.error(error.response.data.message);
+			toast.error(error);
 		}
 	}
 

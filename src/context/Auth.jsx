@@ -11,32 +11,30 @@ export const AuthProvider = ({children}) => {
         const storedLogin = localStorage.getItem("userLogin");
         return storedLogin ? JSON.parse(storedLogin) : null; 
     });
-    const [auth, setAuth] = useState(true);
+
 
     function logout() {
-        setAuth(false);
-        if(login) {
-            localStorage.removeItem('userLogin');
-            window.location.href = '/';
-        }
+        
+
+        
+        setLogin(null); // Clear the login state
+        localStorage.removeItem("userLogin");
+        window.location.href = '/';
+        ;
+        
     }
 
     useEffect(() => {
-        setAuth(true)
         if (login) {
-            console.log(login)
-            localStorage.setItem("userLogin", JSON.stringify(login));
-
+            localStorage.setItem("userLogin", JSON.stringify(login)); // Store login state
         } else {
-
-            localStorage.removeItem("userLogin");
-
+            localStorage.removeItem("userLogin"); // Remove login state if logged out
         }
-    }, [login, auth]); 
+    }, [login]);
 
 
     return (
-        <AuthContext.Provider value={{login, setLogin, logout, auth}}>
+        <AuthContext.Provider value={{login, setLogin, logout}}>
             {children}
         </AuthContext.Provider>
     )

@@ -12,6 +12,7 @@ import { useEffect } from "react";
 import { useState } from "react";
 import { Skeleton } from "@mui/material";
 import { HiShoppingCart } from "react-icons/hi";
+import { Link } from "react-router-dom";
 
 export const CardProduct = () => {
 	const [products, setProducts] = useState([]);
@@ -82,10 +83,12 @@ export const CardProduct = () => {
 							<Skeleton variant="rectangular" width={180} height={40} />
 						: 
 						
+						<Link className="button-comprar" to='/produto/smartphone'>
 						<Button className="button-comprar" variant="contained">
 						<HiShoppingCart className="icon-cart-comprar" />
-						Comprar
+							Comprar
 						</Button>
+						</Link>
 						}
 					</CardActions>
 				</Card>

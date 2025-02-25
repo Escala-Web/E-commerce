@@ -26,7 +26,8 @@ export const useActiveAccount = () => {
             await https.put(`${login[0].type === 'USER' ? 'user' : 'admin'}/active-account`, {
                 token: token
             });
-            navigate('/')
+            toast.success('Conta ativada com sucesso!')
+            navigate('/login')
             setActive(true)
         } catch (error) {
             console.log(error)
@@ -40,11 +41,11 @@ export const useActiveAccount = () => {
         event.preventDefault();
 
         try {
-            const { data } = await https.post(`/${login[0].type === 'USER' ? 'user' : 'admin'}/send-active-account`,{
+            await https.post(`/${login[0].type === 'USER' ? 'user' : 'admin'}/send-active-account`,{
                 login: email
             });
             
-            toast.success(data.message)
+            toast.success("Foi enviado um link para ativação da sua conta")
 
         } catch (error) {
             toast.error('Não foi possivel enviar link para esse email!')

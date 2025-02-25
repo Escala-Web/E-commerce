@@ -28,8 +28,6 @@ export const ActiveAccountPage = () => {
 		setIsOpenModal((prevModal) => !prevModal);
 	}
 
-	console.log(active)
-
 	const firstAccess = null;
 	return (
 		<>
@@ -40,7 +38,7 @@ export const ActiveAccountPage = () => {
 							<h2>Foi enviado um email para ativar sua conta!</h2>
 							<FaCheckCircle size={150} color="#4ab4ff" />
 							<p>Não recebeu email? Clique abaixo para receber o link</p>
-							<button onClick={toggleActiveModal}>Enviar link</button>
+							<LinkStyle onClick={toggleActiveModal}>Receber link</LinkStyle>
 						</>
 
 					) : (

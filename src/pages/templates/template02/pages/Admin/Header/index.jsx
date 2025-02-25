@@ -1,68 +1,89 @@
-import { FaUserCircle } from "react-icons/fa";
-import { FaTruck } from "react-icons/fa6";
-import { MdLocationOn } from "react-icons/md";
-import { TbArrowsExchange } from "react-icons/tb";
+
 import { HeaderPageTemplate02 } from "../../../components/Header";
 import { Container } from "../../home/styles";
-import { ContainerContent } from "../styles";
-import { Link } from "react-router-dom";
-import { useContext } from "react";
+import { useContext, useState } from "react";
 import { AuthContext } from "../../../../../../context/Auth";
 
+import ListSubheader from "@mui/material/ListSubheader";
+import List from "@mui/material/List";
+import ListItemButton from "@mui/material/ListItemButton";
+import ListItemIcon from "@mui/material/ListItemIcon";
+import ListItemText from "@mui/material/ListItemText";
+import Collapse from "@mui/material/Collapse";
+import InboxIcon from "@mui/icons-material/MoveToInbox";
+import DraftsIcon from "@mui/icons-material/Drafts";
+import SendIcon from "@mui/icons-material/Send";
+import ExpandLess from "@mui/icons-material/ExpandLess";
+import ExpandMore from "@mui/icons-material/ExpandMore";
+import StarBorder from "@mui/icons-material/StarBorder";
+import { Avatar, Typography } from "@mui/material";
+import { ContainerContent } from "./styles";
+import { deepOrange } from "@mui/material/colors";
+import ExitToAppIcon from '@mui/icons-material/ExitToApp';
+export const HeaderAdmimTemplate02 = ({ children }) => {
+	const { login, logout } = useContext(AuthContext);
 
-export const HeaderAdmimTemplate02 = ({children}) => {
-	const { login } = useContext(AuthContext);
+	const [open, setOpen] = useState(true);
 
-	const headerUser = [
-		{
-			title: "Meus Pedidos",
-			icon: <FaTruck />,
-			active: true,
-            link: 'meus-pedidos'
-		},
-		{
-			title: "Trocas",
-			icon: <TbArrowsExchange />,
-			active: false,
-            link: 'trocas'
-		},
-		{
-			title: "Meus Dados",
-			icon: <FaUserCircle />,
-			active: false,
-            link: 'meus-dados'
-		},
-		{
-			title: "Endereço",
-			icon: <MdLocationOn />,
-			active: false,
-            link: 'endereco'
-		},
-	];
+	const handleClick = () => {
+		setOpen(!open);
+	};
 
 	return (
 		<>
-			<HeaderPageTemplate02 />
+			
 			<Container>
-				<ContainerContent>
-					<div className="header-sidebar">
-						<div className="avatar">
-							<FaUserCircle className="icon-avatar" />
-							<p>{login[0].user}</p>
-						</div>
-						<nav className="container-header">
-							<ul className="header-list">
-								{headerUser?.map((header) => (
-									<Link to={header.link} className={header.active ? 'link-menu-active' : 'links-menu'}>
-										<div className="icons-header">{header.icon}</div>
-										<p>{header.title}</p>
-									</Link>
-								))}
-							</ul>
-						</nav>
-					</div>
-					{children}
-				</ContainerContent>
+			<ContainerContent>
+
+				<List
+					sx={{ width: "100%", maxWidth: 360, bgcolor: "background.paper", height: '90%'}}
+					component="nav"
+					aria-labelledby="nested-list-subheader"
+					subheader={
+						<ListSubheader component="div" id="nested-list-subheader" className="container-avatar">
+							<Avatar>{login[0].user[0]}</Avatar>
+							<Typography component='span' variant="h6">{login[0].user}</Typography>
+						</ListSubheader>
+					}
+				>
+					<ListItemButton>
+						<ListItemIcon>
+							<SendIcon />
+						</ListItemIcon>
+						<ListItemText primary="Minha Pedidos" />
+					</ListItemButton>
+					<ListItemButton>
+						<ListItemIcon>
+							<DraftsIcon />
+						</ListItemIcon>
+						<ListItemText primary="Favoritos" />
+					</ListItemButton>
+					<ListItemButton onClick={handleClick}>
+						<ListItemIcon>
+							<InboxIcon />
+						</ListItemIcon>
+						<ListItemText primary="Inbox" />
+						{open ? <ExpandLess /> : <ExpandMore />}
+					</ListItemButton>
+					<Collapse in={open} timeout="auto" unmountOnExit>
+						<List component="div" disablePadding>
+							<ListItemButton sx={{ pl: 4 }}>
+								<ListItemIcon>
+									<StarBorder />
+								</ListItemIcon>
+								<ListItemText primary="Starred" />
+							</ListItemButton>
+						</List>
+					</Collapse>
+					<ListItemButton onClick={logout}>
+						<ListItemIcon>
+							<ExitToAppIcon />
+						</ListItemIcon>
+						<ListItemText primary="Sair" />
+					</ListItemButton>
+				</List>
+				{children}
+			</ContainerContent>
 			</Container>
 		</>
 	);
