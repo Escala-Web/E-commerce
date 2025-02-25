@@ -11,7 +11,7 @@ export const ContainerDesktop = styled.header`
 	}
 
 	.header-pd {
-		padding: .6rem 8rem;
+		padding: .6rem 14rem;
 
 		@media (max-width: 1399px) {
 			padding: .6rem 2rem;

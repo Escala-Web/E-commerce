@@ -35,18 +35,18 @@ export const CardProduct = () => {
 	return (
 		<ContainerCard>
 			{products?.map((prod) => (
-				<Card sx={{ maxWidth: 292, height: 460 }}>
+				<Card sx={{ maxWidth: 254, height: 460 }}>
 					<CardActionArea className="card-action">
 						{!loading ? (
 							<Skeleton variant="rectangular" width={345} height={260} />
 						) : (
 							<CardMedia
 								component="img"
-								height="260"
+								height="240"
 								image={prod.image}
 								alt="green iguana"
 								sx={{ objectFit: "cover" }}
-								style={{ width: "350px" }}
+								style={{ width: "260px" }}
 							/>
 						)}
 						{!loading ? (

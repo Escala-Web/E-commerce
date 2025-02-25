@@ -21,12 +21,12 @@ export const ProductRelacionais = () => {
 	return (
 		<>
 			<Swiper
-				spaceBetween={10} // Espaçamento entre os slides
-				slidesPerView={5} // Quantos slides serão visíveis por vez
-				loop={true} // Loop infinito
-				autoplay={{ delay: 3000 }} // Tempo de auto-play (3 segundos)
-				pagination={{ clickable: true }} // Paginação de navegação
-				navigation={true} // Navegação com botões de próxima/anterior
+				spaceBetween={10}
+				slidesPerView={5}
+				loop={true} 
+				autoplay={{ delay: 3000 }}
+				pagination={{ clickable: true }}
+				navigation={true}
 			>
 				{datasImages?.map((data, index) => (
 					<SwiperSlide key={index}>
