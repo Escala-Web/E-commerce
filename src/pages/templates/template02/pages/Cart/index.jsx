@@ -22,7 +22,7 @@ export const CartTemplate02 = () => {
 
 	return (
 		<>
-			<HeaderPageTemplate02 />
+
 			<Breadcrumb page="Carrinho" />
 			<Container>
 				<ContainerSection>

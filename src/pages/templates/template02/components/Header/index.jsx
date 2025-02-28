@@ -1,31 +1,44 @@
 import { useContext, useEffect, useState } from "react";
 import logo from "../../../../../assets/logo_nsa.png";
-import { ContainerDesktop, ContainerMobile } from "./styles";
-import { IoIosArrowDown, IoIosArrowUp } from "react-icons/io";
-
+import { ContainerDesktop, ContainerMobile, DropList } from "./styles";
+import {
+	IoIosArrowDown,
+	IoIosArrowUp,
+	IoIosArrowForward,
+} from "react-icons/io";
+import {
+	List,
+	ListItemButton,
+	ListItemText,
+	ListSubheader,
+	Typography,
+	ListItem,
+	Avatar,
+	Drawer,
+	ListItemIcon,
+} from "@mui/material";
 import { AuthContext } from "../../../../../context/Auth";
 import { FiUsers } from "react-icons/fi";
 import { HiOutlineShoppingCart, HiSearch } from "react-icons/hi";
 import { FaBars, FaHeart, FaRegHeart } from "react-icons/fa";
 import { IoLocationOutline } from "react-icons/io5";
 import { Link } from "react-router-dom";
-import {
-	Avatar,
-	Drawer,
-	List,
-	ListItem,
-	ListItemText,
-	Typography,
-} from "@mui/material";
+
 import { FavoriteContext } from "../../../../../context/Favorite";
 import { Favorit } from "../Favorid";
-import { MdShoppingCart } from "react-icons/md";
+import { MdOutlineArrowForwardIos, MdShoppingCart } from "react-icons/md";
 import { MobileHeader } from "./Mobile";
+
+import { Delete, Folder, Pageview } from "@mui/icons-material";
+import { useCategory } from "../../../../../hooks/useCategory";
+import { useCategoryAll } from "../../../../../hooks/Categories/useCategory";
+import { DropHeader } from "./DropHeader";
 
 export const HeaderPageTemplate02 = () => {
 	const { auth, login } = useContext(AuthContext);
 
 	const [isOpenDrag, setIsOpenDrag] = useState(false);
+	const [isOpenCategory, setIsOpenCategory] = useState(false);
 
 	const [search, setSearch] = useState("");
 
@@ -40,10 +53,12 @@ export const HeaderPageTemplate02 = () => {
 		setOpenHeaderMobile(open);
 	};
 
+
+
 	return (
 		<>
 			{/* Header Desktop */}
-			<ContainerDesktop>
+			<ContainerDesktop onMouseLeave={() => setIsOpenCategory(false)}>
 				<div
 					className="header-top header-pd "
 					onMouseLeave={() => setIsOpenDrag(false)}
@@ -74,14 +89,14 @@ export const HeaderPageTemplate02 = () => {
 							<p>Favoritos</p>
 						</div>
 
-						{login ? (
+						{/* {login ? (
 							<Link className="link_submenu" to="/custumer/meus-pedidos">
 								<div className="header-container-options-left">
 									<Avatar>{login[0].user[0]}</Avatar>
 									<Typography variant="body1">{login[0].user}</Typography>
 								</div>
 							</Link>
-						) : (
+						) : ( */}
 							<>
 								<div
 									onMouseEnter={() => setIsOpenDrag(true)}
@@ -120,7 +135,7 @@ export const HeaderPageTemplate02 = () => {
 									""
 								)}
 							</>
-						)}
+						{/* )} */}
 
 						<div className="header-container-options-left header-option-cart">
 							<HiOutlineShoppingCart className="header-icons-options" />
@@ -136,6 +151,22 @@ export const HeaderPageTemplate02 = () => {
 					</div>
 					<nav className="header-navigation-menu">
 						<ul>
+							<li
+								className="header-drop"
+								onMouseOver={() => setIsOpenCategory(true)}
+							>
+								<Link className="header-navigation-link">
+									Todos as Categorias
+								</Link>
+								<IoIosArrowDown />
+								{isOpenCategory && (
+									<>
+										<DropList>
+											<DropHeader />
+										</DropList>
+									</>
+								)}
+							</li>
 							<li>
 								<Link to="/" className="header-navigation-link">
 									Página Inicial
@@ -147,11 +178,6 @@ export const HeaderPageTemplate02 = () => {
 								</Link>
 							</li>
 							<li>
-								<Link className="header-navigation-link">
-									Todos as Categorias
-								</Link>
-							</li>
-							<li>
 								<Link to="/contato" className="header-navigation-link">
 									Contato
 								</Link>
@@ -160,15 +186,15 @@ export const HeaderPageTemplate02 = () => {
 					</nav>
 				</div>
 
-				<div className="header-content-descont">
+				{/* <div className="header-content-descont">
 					<p>Produtos com 70% de desconto</p>
-				</div>
+				</div> */}
 			</ContainerDesktop>
 			<Drawer
 				style={{ zIndex: "99999" }}
-				anchor="right" // Definindo a gaveta para abrir pela esquerda
-				open={openDrawer} // Usando o estado para controlar a visibilidade
-				onClose={() => toggleDrawer(false)} // Fechar o Drawer ao clicar fora
+				anchor="right" 
+				open={openDrawer} 
+				onClose={() => toggleDrawer(false)} 
 			>
 				<List>
 					<ListItem button>

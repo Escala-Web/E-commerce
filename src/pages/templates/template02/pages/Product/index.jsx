@@ -15,7 +15,7 @@ export const ProductTemplate02 = () => {
 
 	return (
 		<>
-			<HeaderPageTemplate02 />
+	
 			<Container>
 				<ContainerProduct>
 					<div className="container-product">

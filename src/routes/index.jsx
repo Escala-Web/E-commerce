@@ -32,6 +32,7 @@ import { CategoriesPage } from "../pages/Ecommerce/pages/Categories";
 import { ProductsTemplate } from "../pages/Ecommerce/pages/Products";
 import { OrdersTemplates02 } from "../pages/templates/template02/pages/Admin/Orders";
 import { ProductTemplate02 } from "../pages/templates/template02/pages/Product";
+import { NotFount } from "../pages/NotFount";
 
 export const RoutesApp = () => {
 	const { login } = useContext(AuthContext);
@@ -72,6 +73,7 @@ export const RoutesApp = () => {
 						<Route path="/admin">
 							<Route index element={<AdminPage />} />
 						</Route>
+						<Route path="*" element={<NotFount />}/>
 					</>
 				)}
 

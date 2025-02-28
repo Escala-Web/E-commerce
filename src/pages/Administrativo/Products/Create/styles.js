@@ -9,10 +9,9 @@ export const Container = styled.div`
 
     width: 100%;
 
-    margin-top: -26px;
+    margin-top: 1rem;
 
     z-index: 9699999;
-    
 
 `;
 

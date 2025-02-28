@@ -11,7 +11,7 @@ import { Container } from "./styles";
 export const HomePage02 = () => {
 	return (
 		<>
-			<HeaderPageTemplate02 />
+		
 			<BannerTemplate02 />
 			<Container>
 				<Category title="Categorias Populares" name="Ver mais" link="/" />

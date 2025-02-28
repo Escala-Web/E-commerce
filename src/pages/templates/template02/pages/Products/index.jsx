@@ -15,7 +15,6 @@ import { CardProduct } from "../../components/CardProduct";
 export const ProdutosTemplate02 = () => {
 	return (
 		<>
-			<HeaderPageTemplate02 />
 			{/* <Breadcrumb /> */}
 			<Container>
 			<br />

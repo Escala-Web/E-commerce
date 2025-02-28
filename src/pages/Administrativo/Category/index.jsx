@@ -20,6 +20,7 @@ import { FaTrashAlt } from "react-icons/fa";
 import { UpdateCategory } from "./Modals/Update";
 import { AuthContext } from "../../../context/Auth";
 import { SubCategory } from "./Modals/SubCategory";
+import { Breadcrumb } from "../components/Breadcrumb";
 
 export const CategoryPageAdm = () => {
 	const navigate = useNavigate();
@@ -81,12 +82,7 @@ export const CategoryPageAdm = () => {
 
 	return (
 		<>
-			<HeaderTemplateEditor page="Categorias">
-				<ButtonTemplate click={goAllProduct}>Minhas Categorias</ButtonTemplate>
-				<ButtonTemplate click={goCreateProduct}>Cadastrar</ButtonTemplate>
-			</HeaderTemplateEditor>
-			<br />
-			<br />
+			<Breadcrumb page='Categorias'/>
 			<ContainerPageSectionBody>
 				<StyledTable>
 					<thead>

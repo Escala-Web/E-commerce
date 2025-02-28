@@ -49,7 +49,6 @@ export const CategorieTemplate02 = () => {
 
 	return (
 		<>
-			<HeaderPageTemplate02 />
 			<Breadcrumb />
 			<Container>
 				<ContainerProduct>

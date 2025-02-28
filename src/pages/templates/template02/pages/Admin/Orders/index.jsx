@@ -5,7 +5,7 @@ export const OrdersTemplates02 = () => {
     return (
         <>
 
-            <HeaderPageTemplate02 />
+            
 
             <HeaderAdmimTemplate02 >
                 <div>

@@ -17,6 +17,8 @@ import "./styles.css";
 import { Link } from "react-router-dom";
 import { CreateCategoryPageAdm } from "../../Category/CreateCategory";
 import { FileManager } from "../../components/FileManager";
+import { HeaderBar } from "../../components/HeaderBar";
+import { menu } from "..";
 
 export const CreatePageProduct = () => {
 	const imagem =
@@ -44,7 +46,6 @@ export const CreatePageProduct = () => {
 	function Submit(event) {
 		event.preventDefault();
 
-		console.log(formProduct);
 	}
 
 	const valueTotalDiscont = formProduct.price - formProduct.discount;
@@ -52,6 +53,7 @@ export const CreatePageProduct = () => {
 	return (
 		<>
 			<Breadcrumb image={imagem} page="Registrar Produto" />
+			<HeaderBar menu={menu}/>
 			<Container>
 				<MainContent onSubmit={Submit}>
 					<Content title="Imagens e vídeos">
@@ -148,7 +150,14 @@ export const CreatePageProduct = () => {
 					<Content title="Categorias">
 						<CreateCategoryPageAdm />
 					</Content>
-					<Content title="Seo da página">Seos</Content>
+					<Content title="Seo da página">
+						<Form>
+							<input placeholder="Meta title"/>
+							<input placeholder="Meta Descrição"/>
+							<input placeholder="Palavras chaves"/>
+							<button>Criar</button>
+						</Form>
+					</Content>
 				</Aside>
 			</Container>
 		</>

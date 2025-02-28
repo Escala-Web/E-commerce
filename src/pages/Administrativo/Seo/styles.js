@@ -76,4 +76,12 @@ export const Container = styled.div`
 
         gap: 1rem;
     }
+
+	.container {
+		background-color: #fff;
+		width: 92%;
+		margin-top: 1rem;
+		/* padding: 1rem; */
+		border-radius: 6px;
+	}
 `;

@@ -1,7 +1,9 @@
+import { Breadcrumb } from "../components/Breadcrumb"
+
 export const Pedidos = () => {
     return (
         <>
-            Pedidos
+            <Breadcrumb page='Pedidos'/>
         </>
     )
 }

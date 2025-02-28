@@ -1,5 +1,6 @@
-import { Button, Card, CardActionArea, CardMedia, Typography } from "@mui/material";
+import { CardContent, Card, CardActionArea, CardMedia, Typography } from "@mui/material";
 import { Container } from "./styles";
+import { Link } from 'react-router-dom';
 
 export const CardProductHome = () => {
 
@@ -37,7 +38,10 @@ export const CardProductHome = () => {
 
 				{data?.map((c) => (
                     <Card className="container-card">
-					<CardActionArea>
+					<CardActionArea 
+                        component={Link}
+                        to={`/produto/teste`}
+                        >
 						<CardMedia
 							component="img"
 							height="240"
@@ -45,7 +49,7 @@ export const CardProductHome = () => {
 							alt="Imagem homae"
 							sx={{ objectFit: "cover" }}
 						/>
-						<div className="card-content">
+						<CardContent>
 							<Typography component="div" variant="h5">
 								Titulo
 							</Typography>
@@ -57,7 +61,7 @@ export const CardProductHome = () => {
                             <Typography component="div" variant="h6">
 								R$ 45,25 no pix
 							</Typography>
-						</div>
+						</CardContent>
 					</CardActionArea>
 				</Card>    
                 ))}

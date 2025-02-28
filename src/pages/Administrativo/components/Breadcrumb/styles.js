@@ -3,9 +3,8 @@ import styled from "styled-components";
 
 export const Container = styled.div`
 
-    background-image: url(${({image}) => image || 'https://static.vecteezy.com/ti/fotos-gratis/t2/6671698-fundo-azul-escuro-abstrato-com-bokeh-colorido-brilhante-luzes-bokeh-fundo-claro-foto.jpg'});
-
-    /* height: 140px; */
+    /* background-image: url(${({image}) => image || 'https://static.vecteezy.com/ti/fotos-gratis/t2/6671698-fundo-azul-escuro-abstrato-com-bokeh-colorido-brilhante-luzes-bokeh-fundo-claro-foto.jpg'}); */
+    background-color: #2fa3e7;
 
     background-repeat: no-repeat;
     background-size: cover;

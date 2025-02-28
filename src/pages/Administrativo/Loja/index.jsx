@@ -9,6 +9,7 @@ import theme02 from "../assets/thema02.jpg";
 import { Breadcrumb } from "../components/Breadcrumb/index.jsx";
 import { Box, Tab, Tabs } from "@mui/material";
 import { ContainerTheme } from "../../../components/CardThemes/styles.js";
+import { Banner } from "../components/Banner/index.jsx";
 
 export const LojaPage = () => {
 	const [value, setValue] = useState(0);
@@ -69,7 +70,7 @@ export const LojaPage = () => {
 						<CardThemes data={themes} title="Templates Disponiveis" />
 					</CustomTabPanel>
 					<CustomTabPanel value={value} index={1}>
-						Item Two
+						<Banner />
 					</CustomTabPanel>
 					<CustomTabPanel value={value} index={2}>
 						Item Three

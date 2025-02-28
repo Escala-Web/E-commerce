@@ -66,7 +66,7 @@ export const MobileHeader = () => {
 												to={`${cat.name
 													.toLowerCase()
 													.replace(/\s+/g, "-")}?category=${cat.id_category}`}
-												className="header-mobile-link"
+													className="header-mobile-link"
 											>
 												{cat.name}
 											</Link>
