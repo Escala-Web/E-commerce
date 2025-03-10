@@ -4,8 +4,10 @@ import { ThemeColorContext, ThemeColorProvider } from "./context/ThemeContext";
 import { useContext } from "react";
 import { AppInit } from "./core";
 import { FavoriteProvider } from "./context/Favorite";
-import {  HelmetProvider } from "react-helmet-async";
+import { HelmetProvider } from "react-helmet-async";
 import { RegisterProvider } from "./context/RegisterUser";
+import { ProductProvider } from "./context/Product";
+import { FileManagerProvider } from "./context/FileManager";
 
 function App() {
 	return (
@@ -15,7 +17,11 @@ function App() {
 					<FavoriteProvider>
 						<RegisterProvider>
 							<AuthProvider>
-								<AppInit />
+								<ProductProvider>
+									<FileManagerProvider>
+										<AppInit />
+									</FileManagerProvider>
+								</ProductProvider>
 							</AuthProvider>
 						</RegisterProvider>
 					</FavoriteProvider>

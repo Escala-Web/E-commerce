@@ -25,18 +25,6 @@ const rows = [
 	createDataTable(4, 'Monitor', 653.99, 'ativo'),
 ]
 
-export const menu = [
-	{
-		id: 1,
-		title: 'Meus Produtos',
-		link: '/administrativo/produtos'
-	},
-	{
-		id: 2,
-		title: 'Cadastrar Produto',
-		link: '/administrativo/produtos/create'
-	}
-]
 export const Products = () => {
 
 	
@@ -46,7 +34,7 @@ export const Products = () => {
 			<Breadcrumb page='Meus Produtos'/>
 			<Container style={{flexDirection: 'column'}}>
 
-				<HeaderBar menu={menu}/>
+		
 
 				<TableContainer className="container" component={Paper}>
 					<Table>

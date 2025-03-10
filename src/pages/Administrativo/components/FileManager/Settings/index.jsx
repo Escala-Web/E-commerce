@@ -24,8 +24,12 @@ import { useRenameFolder } from "../../../../../hooks/FileManager/Folder/useRena
 import { useMoveTrashFolder } from "../../../../../hooks/FileManager/Folder/useTrashFolder";
 import { useRestoreTrashFolder } from "../../../../../hooks/FileManager/Folder/useRestoreTrashFolder";
 import { useDeleteFolder } from "../../../../../hooks/FileManager/Folder/useDeleteFolder";
+import { useMoveTrashFile } from "../../../../../hooks/FileManager/Files/useTrashFile";
+import { useRestoreTrashFile } from "../../../../../hooks/FileManager/Files/useRestoreTrashFile";
+import { useRenameFiles } from "../../../../../hooks/FileManager/Files/useRenameFile";
+import { useDeleteFile } from "../../../../../hooks/FileManager/Files/useDeleteFile";
 
-export const Settings = ({ folder, setClick, isPage }) => {
+export const Settings = ({ folder, setOpenSettingsIndex, isPage }) => {
 	const [isOpenModalRename, setIsOpenModalRename] = useState(false);
 	const [rename, setRename] = useState("");
 
@@ -34,25 +38,50 @@ export const Settings = ({ folder, setClick, isPage }) => {
 	const { mutate: restoreTrash } = useRestoreTrashFolder();
 	const { mutate: deleteFolder } = useDeleteFolder();
 
+	const { mutate: deleteFile } = useMoveTrashFile();
+	const { mutate: moveTrashFile } = useRestoreTrashFile();
+	const { mutate: renameFile } = useRenameFiles();
+	const { mutate: deleteFileP } = useDeleteFile();
+
 	function toggleMoveTrash() {
-		moveTrash({
-			id: folder.id,
-		});
-		setClick()
+		if (folder.type == "file") {
+			deleteFile({
+				id: folder.id,
+			});
+		} else {
+			moveTrash({
+				id: folder.id,
+			});
+		}
+		setOpenSettingsIndex(null);
 	}
 
 	function toggleRestore() {
-		restoreTrash({
-			id: folder.id
-		})
-		setClick()
+		if (folder.type == "file") {
+			moveTrashFile({
+				id: folder.id,
+			});
+		} else {
+			restoreTrash({
+				id: folder.id,
+			});
+		}
+		setOpenSettingsIndex(null);
+
 	}
 
 	function toggleDelete() {
-		deleteFolder({
-			id: folder.id
-		})
-		setClick();
+		if (folder.type == "file") {
+			deleteFileP({
+				id: folder.id,
+			});
+		} else {
+			deleteFolder({
+				id: folder.id,
+			});
+		}
+		setOpenSettingsIndex(null);
+
 	}
 
 	return (
@@ -79,7 +108,7 @@ export const Settings = ({ folder, setClick, isPage }) => {
 								⌘
 							</Typography>
 						</MenuItem>
-						{isPage === "arquivo" ? (
+						{isPage !== "lixeira" ? (
 							<MenuItem onClick={toggleMoveTrash}>
 								<ListItemIcon>
 									<Delete fontSize="small" />
@@ -124,17 +153,25 @@ export const Settings = ({ folder, setClick, isPage }) => {
 						component: "form",
 						onSubmit: (event) => {
 							event.preventDefault();
-							// const form = new FormData(event.currentTarget)
-							newFolder({
-								id: folder.id,
-								name: rename,
-							});
-							setClick();
+
+							if (folder.type === "folder") {
+								newFolder({
+									id: folder.id,
+									name: rename,
+								});
+							}else {
+								renameFile({
+									id: folder.id,
+									name: rename,
+								});
+							};
+
+							setOpenSettingsIndex();
 						},
 					},
 				}}
 			>
-				<DialogTitle>Renomear Pasta</DialogTitle>
+				<DialogTitle>Renomear {folder.type == 'file' ? 'Arquivo' : 'Pasta'}</DialogTitle>
 				<DialogContent>
 					<DialogContentText sx={{ textAlign: "center" }}>
 						<FaFolderOpen size={100} />
@@ -154,7 +191,7 @@ export const Settings = ({ folder, setClick, isPage }) => {
 					/>
 				</DialogContent>
 				<DialogActions>
-					<Button type="submit" onKeyDown={setClick}>
+					<Button type="submit" onKeyDown={setOpenSettingsIndex}>
 						Renomear
 					</Button>
 				</DialogActions>

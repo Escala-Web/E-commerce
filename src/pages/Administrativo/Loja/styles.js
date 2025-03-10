@@ -9,6 +9,8 @@ export const ContainerBody = styled.div`
 
     flex-direction: column;
 
+    width: 100%;
+
     .container-menu-loja {
         /* background-color: aqua; */
         width: 100%;

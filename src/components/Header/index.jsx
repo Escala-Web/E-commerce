@@ -1,179 +1,171 @@
-import { useNavigate, useSearchParams } from "react-router-dom";
-import {
-	HeaderContainer,
-	ContainerLogo,
-	ContainerNavegacao,
-	ContainerLinksUl,
-	LinkStyle,
-	LILInk,
-	LogoutAdm,
-} from "./styles";
-import { FaHome, FaStore, FaUser } from "react-icons/fa";
-import { RiShoppingCart2Fill } from "react-icons/ri";
-import { LuMousePointerClick } from "react-icons/lu";
-import { BiSolidLabel } from "react-icons/bi";
-import { useContext, useState } from "react";
-import { FaMoneyBillTransfer } from "react-icons/fa6";
-import { toast } from "react-toastify";
-import { AuthContext } from "../../context/Auth";
-import { TbCategoryFilled } from "react-icons/tb";
-import { IoSettings } from "react-icons/io5";
+import * as React from "react";
+import { extendTheme, styled } from "@mui/material/styles";
+import DashboardIcon from "@mui/icons-material/Dashboard";
+import ShoppingCartIcon from "@mui/icons-material/ShoppingCart";
+import BarChartIcon from "@mui/icons-material/BarChart";
+import DescriptionIcon from "@mui/icons-material/Description";
+import LayersIcon from "@mui/icons-material/Layers";
+import { AppProvider } from "@toolpad/core/AppProvider";
+import { DashboardLayout } from "@toolpad/core/DashboardLayout";
+import { PageContainer } from "@toolpad/core/PageContainer";
+import Grid from "@mui/material/Grid2";
+import { Dashboard } from "../../pages/Administrativo/Dashboard";
+import { Pedidos } from "../../pages/Administrativo/Pedidos";
+import { LojaPage } from "../../pages/Administrativo/Loja";
+import StoreIcon from "@mui/icons-material/Store";
+import { Products } from "../../pages/Administrativo/Products";
+import LabelImportantIcon from "@mui/icons-material/LabelImportant";
+import SellIcon from "@mui/icons-material/Sell";
+import AddBoxIcon from "@mui/icons-material/AddBox";
+import { CreatePageProduct } from "../../pages/Administrativo/Products/Create/Create";
+import PersonIcon from "@mui/icons-material/Person";
+import ViewQuiltIcon from "@mui/icons-material/ViewQuilt";
+import SettingsIcon from "@mui/icons-material/Settings";
+import { Box, Button } from "@mui/material";
+import zIndex from "@mui/material/styles/zIndex";
+import { ContainerHeader } from "./styles";
+import { HomeEcommece } from "../../pages/Ecommerce/pages/Home";
 
-export const Header = () => {
-	const [activeLink, setActiveLink] = useState("painel");
+const NAVIGATION = [
+	{
+		kind: "header",
+		title: "Dashboard",
+	},
+	{
+		segment: "administrativo",
+		title: "Dashboard",
+		icon: <DashboardIcon />,
+	},
+	{
+		segment: "administrativo",
+		title: "Produtos",
+		icon: <SellIcon />,
+		children: [
+			{
+				segment: "produtos",
+				title: "Meus Produtos",
+				icon: <LabelImportantIcon />,
+			},
+			{
+				segment: "produtos/create",
+				title: "Registrar Produtos",
+				icon: <AddBoxIcon />,
+			},
+		],
+	},
+	{
+		segment: "administrativo/pedidos",
+		title: "Pedidos",
+		icon: <ShoppingCartIcon />,
+	},
+	{
+		segment: "administrativo/pedidos",
+		title: "Clientes",
+		icon: <PersonIcon />,
+	},
+	{
+		kind: "divider",
+	},
+  {
+		kind: "header",
+		title: "Minha Loja",
+	},
+	{
+		segment: "administrativo",
+		title: "Loja Virtual",
+		icon: <StoreIcon />,
+		children: [
+			{
+				segment: "loja",
+				title: "Templates",
+				icon: <ViewQuiltIcon />,
+			},
+			{
+				segment: "produtos/create",
+				title: "Configurações",
+				icon: <SettingsIcon />,
+			},
+		],
+	},
+	
+];
 
-	const navigate = useNavigate()
+const demoTheme = extendTheme({
+	colorSchemes: { light: true, dark: true },
+	colorSchemeSelector: "class",
 
-	const { setLogin } = useContext(AuthContext);
+	breakpoints: {
+		values: {
+			xs: 0,
+			sm: 600,
+			md: 600,
+			lg: 1480,
+			xl: 1636,
+		},
+	},
+});
 
-	function onClickActiveLink(e) {
-		const active = e.target.title;
-		setActiveLink(active);
-	}
+function useDemoRouter(initialPath) {
+	const [pathname, setPathname] = React.useState(initialPath);
 
-	function toggleLogout() {
-		localStorage.removeItem("userLogin");
-        toast.success('Até a próxima');
-		setLogin(null)
-		navigate('/');
-	}
+	// O router agora também manipula a URL do navegador.
+	const router = React.useMemo(() => {
+		return {
+			pathname,
+			searchParams: new URLSearchParams(),
+			navigate: (path) => {
+				setPathname(path); // Atualiza o estado do pathname
+
+				// Atualiza a URL do navegador
+				window.history.pushState({}, "", path);
+			},
+		};
+	}, [pathname]);
+
+	return router;
+}
+
+export const Header = (props, { children }) => {
+	const { window } = props;
+
+	const router = useDemoRouter("/administrativo");
+
+	const pages = {
+		"/administrativo": <Dashboard />,
+		"/administrativo/pedidos": <Pedidos />,
+		"/administrativo/loja": <LojaPage />,
+		"/administrativo/produtos": <Products />,
+		"/administrativo/produtos/create": <CreatePageProduct />,
+	};
+
+	// Remove este const quando copiar para o seu projeto.
+	const demoWindow = window ? window() : undefined;
+
+	// Função para gerenciar a navegação
+	const handleNavigation = (segment) => {
+		// Verifica se o segmento é o "logout" e chama a função onClick
+		const navItem = NAVIGATION.find(item => item.segment === segment);
+
+		if (navItem && navItem.onClick) {
+			navItem.onClick(); 
+		} else {
+			router.navigate(`/${segment}`); // Navega normalmente para os outros segmentos
+		}
+	};
 
 	return (
-		<>
-			<HeaderContainer>
-				<ContainerLogo>
-					<img  src="https://escalaweb.com.br/images/logo-nova.png" />
-				</ContainerLogo>
-				<ContainerNavegacao>
-					<ContainerLinksUl onClick={onClickActiveLink}>
-						
-								<LILInk
-									to="/administrativo"
-									className={activeLink == "painel" ? "active" : ""}
-									title="painel"
-								>
-									<FaHome  />
-									<LinkStyle to="/administrativo" title="painel">
-										Painel
-									</LinkStyle>
-								</LILInk>
-
-								<LILInk
-									to="/administrativo/pedidos"
-									className={activeLink == "pedidos" ? "active" : ""}
-									title="pedidos"
-								>
-									<RiShoppingCart2Fill  />
-
-									<LinkStyle to="/administrativo/pedidos" title="pedidos">
-										Pedidos
-									</LinkStyle>
-								</LILInk>
-
-								<LILInk
-									to="/administrativo/produtos"
-									className={activeLink == "produtos" ? "active" : ""}
-									title="produtos"
-								>
-									<BiSolidLabel  />
-
-									<LinkStyle to="/administrativo/produtos" title="produtos">
-										Produtos
-									</LinkStyle>
-								</LILInk>
-								<LILInk
-									to="/administrativo/categoria"
-									className={activeLink == "categoria" ? "active" : ""}
-									title="categoria"
-								>
-									<TbCategoryFilled  />
-
-									<LinkStyle to="/administrativo/categoria" title="categoria">
-										Categorias
-									</LinkStyle>
-								</LILInk>
-
-								<LILInk
-									to="/administrativo/clientes"
-									className={activeLink == "clientes" ? "active" : ""}
-									title="clientes"
-								>
-									<FaUser  />
-
-									<LinkStyle to="/administrativo/clientes" title="clientes">
-										Clientes
-									</LinkStyle>
-								</LILInk>
-
-								<LILInk
-									to="/administrativo/loja"
-									className={activeLink == "loja" ? "active" : ""}
-									title="loja"
-								>
-									<FaStore  />
-
-									<LinkStyle to="/administrativo/loja" title="loja">
-										Loja
-									</LinkStyle>
-								</LILInk>
-
-								<LILInk
-									to="/administrativo/pagamentos"
-									className={activeLink == "pagamentos" ? "active" : ""}
-									title="pagamentos"
-								>
-									<FaMoneyBillTransfer  />
-
-									<LinkStyle to="/administrativo/pagamentos" title="pagamentos">
-										Pagamentos
-									</LinkStyle>
-								</LILInk>
-
-								<LILInk
-									to="/administrativo/seo"
-									className={activeLink == "seo" ? "active" : ""}
-									title="seo"
-								>
-									<LuMousePointerClick  />
-
-									<LinkStyle to="/administrativo/seo" title="seo">
-										Seo
-									</LinkStyle>
-								</LILInk>
-
-								<LILInk
-									to="/administrativo/configuracoes"
-									className={activeLink == "configuracoes" ? "active" : ""}
-									title="configuracoes"
-								>
-									<IoSettings  />
-
-									<LinkStyle to="/administrativo/configuracoes" title="configuracoes">
-										Configurações
-									</LinkStyle>
-								</LILInk>
-						
-
-						<LogoutAdm onClick={toggleLogout}>
-						
-							<LILInk
-								to="/"
-								title="Sair"
-								style={{
-									display: "flex",
-									alignItems: "center",
-									justifyContent: "center",
-									background: "rgb(237 50 55)",
-								}}
-							>
-								<LinkStyle to="/" style={{ color: "#fff" }} title="Sair">
-									Sair
-								</LinkStyle>
-							</LILInk>
-						</LogoutAdm>
-					</ContainerLinksUl>
-				</ContainerNavegacao>
-			</HeaderContainer>
-		</>
+		<AppProvider
+			navigation={NAVIGATION}
+			router={router}
+			theme={demoTheme}
+			window={demoWindow}
+			onNavigate={handleNavigation}
+		>
+			<DashboardLayout sx={{ position: "relative", zIndex: "99" }}>
+				<PageContainer>
+					{pages[router.pathname] || <div>Page not found</div>}
+				</PageContainer>
+			</DashboardLayout>
+		</AppProvider>
 	);
 };

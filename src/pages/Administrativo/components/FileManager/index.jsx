@@ -10,7 +10,6 @@ import { Typography } from "@mui/material";
 export const FileManager = ({ name }) => {
 	
 	const [isOpenMenagerModal, setIsOpenManagerModal] = useState(false);
-
 	const [isPageActive, setIsPageActive] = useState('arquivo')
 	
 
@@ -42,7 +41,7 @@ export const FileManager = ({ name }) => {
 							<div className="container-modal">
 								<div className="header">
 									<div className="header-gerenciador">
-										<SideBar set={setIsPageActive}/>
+										<SideBar set={setIsPageActive} />
 									</div>
 								</div>
 								<div className="body">

@@ -7,6 +7,8 @@ export const ContainerRouter = styled.div`
 
     background-color: ${({theme}) => theme.colors.background};
 
+    /* opacity: .7; */
+
 `;
 
 export const ContainerContent = styled.div`

@@ -18,6 +18,7 @@ async function findAll(folder) {
         },
       }
     );
+
     return data;
   } catch (error) {
     return error;
@@ -25,8 +26,10 @@ async function findAll(folder) {
 }
 
 export const useFindAllFolder = (folder) => {
+
   return useQuery(["findAllFolder", folder], () => findAll(folder), {
-    enabled: !!folder.id, // Habilita a consulta apenas quando `folder.id` estiver disponível
-    refetchOnWindowFocus: false, // Evitar refetch desnecessário ao focar a janela
+    enabled: !!folder.id,
+    refetchOnWindowFocus: false,
+    keepPreviousData: true
   });
 };

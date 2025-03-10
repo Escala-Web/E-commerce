@@ -51,7 +51,7 @@ export const LojaPage = () => {
 
 	return (
 		<>
-			<Breadcrumb page="Loja Virtual" />
+			{/* <Breadcrumb page="Loja Virtual" /> */}
 			<ContainerBody>
 				<div className="container-menu-loja">
 					<Box sx={{ width: "100%", marginTop: "-30px" }}>
@@ -63,7 +63,7 @@ export const LojaPage = () => {
 					</Box>
 				</div>
 
-				<div style={{ width: "92%" }}>
+				<div style={{ width: "100%" }}>
                 <ContainerTheme>
 
 					<CustomTabPanel value={value} index={0}>
@@ -77,11 +77,6 @@ export const LojaPage = () => {
 					</CustomTabPanel>
                 </ContainerTheme>
 				</div>
-				{/* <CardSection w='90%'>
-
-                    <CardThemes data={themes} title='Themas Disponiveis'/>
-
-                </CardSection> */}
 			</ContainerBody>
 		</>
 	);

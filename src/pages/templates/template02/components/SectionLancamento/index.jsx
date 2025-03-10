@@ -30,25 +30,15 @@ export const SectionLancamento = () => {
           {/* Imagem do grid secundário */}
           <Grid item xs={12} sm={6}>
             <Grid container spacing={2}>
-              {/* Primeira imagem do grid secundário */}
-              <Grid item xs={6} sm={6}>
+
+            <Grid item xs={12}>
                 <img 
-                  src="https://static.netshoes.com.br/bnn/l_netshoes/2025-02-20/6183_nike_free_run.png" 
+                  src="https://static.netshoes.com.br/bnn/l_netshoes/2025-02-20/5236_palmeiras.png" 
                   style={{ width: "100%", height: "auto" }} 
-                  alt="Nike Free Run"
+                  alt="Palmeiras"
                 />
               </Grid>
-              
-              {/* Segunda imagem do grid secundário */}
-              <Grid item xs={6} sm={6}>
-                <img 
-                  src="https://static.netshoes.com.br/bnn/l_netshoes/2025-02-20/6183_nike_free_run.png" 
-                  style={{ width: "100%", height: "auto" }} 
-                  alt="Nike Free Run"
-                />
-              </Grid>
-  
-              {/* Imagem maior na parte inferior do grid secundário */}
+          
               <Grid item xs={12}>
                 <img 
                   src="https://static.netshoes.com.br/bnn/l_netshoes/2025-02-20/5236_palmeiras.png" 

@@ -3,15 +3,17 @@ import { useCreateFolder } from "../../../../../hooks/FileManager/Folder/useCrea
 import { FaFolder } from "react-icons/fa";
 import { Container } from "./styles";
 
-export const CreateFolder = ({setIsAddFolder}) => {
+export const CreateFolder = ({setIsAddFolder, folder}) => {
 	const [folderName, setFolderName] = useState("");
 	const [folderId, seiFolderId] = useState(1);
 	const { mutate: createFolder, data } = useCreateFolder();
 
 	function handleSubmit() {
 
+		console.log(folder.id)
+
 		createFolder({
-			parent_id: folderId,
+			parent_id: folder.id ? folder.id : 1,
 			name_folder: folderName,
 		});
 

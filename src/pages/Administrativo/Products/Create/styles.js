@@ -5,7 +5,7 @@ export const Container = styled.div`
     display: flex;
     align-items: start;
     gap: 2rem;
-    padding: 0 4rem;
+    padding: 0 0rem;
 
     width: 100%;
 
@@ -23,6 +23,41 @@ export const MainContent = styled.form`
     flex-direction: column;
     gap: 1rem;
 
+    .container {
+        display: flex;
+        align-items: center;
+
+        flex-wrap: wrap;
+        gap: 1rem;
+    }
+
+    .container_card_image {
+        width: 100px;
+        height: 100px;
+
+        border-radius: 6px;
+        border: 1px solid #ccc;
+        overflow: hidden;
+        padding: .3rem;
+
+        position: relative;
+
+        img {
+            width: 100%;
+        }
+
+        svg {
+
+            cursor: pointer;
+
+            position: absolute;
+            top: 0;
+            right: 0;
+            font-size: 22px;
+
+            color: red;
+        }
+    }
 
     .container-registrar {
         display: flex;
@@ -37,7 +72,7 @@ export const MainContent = styled.form`
         border-radius: 8px;
 
         button {
-            background-color:rgb(15, 143, 241);
+            /* background-color:rgb(15, 143, 241); */
             padding: .6rem;
             width: 30%;
 
@@ -62,6 +97,25 @@ export const MainContent = styled.form`
             text-align: center;
             text-decoration: none;
         }
+    }
+
+    .container_variants_values {
+        width: 100%;
+        display: flex;
+        flex-direction: column;
+        gap: .4rem;
+
+        margin: .8rem 0 .6rem;
+    }
+
+    .container_variant {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        background-color: #f4f4f4;
+
+        padding: .6rem 1rem;
+        border-radius: 8px;
     }
 
 `;
