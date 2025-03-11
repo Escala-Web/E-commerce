@@ -1,79 +1,108 @@
-import * as React from 'react';
-import Box from '@mui/material/Box';
-import Modal from '@mui/material/Modal';
-import Button from '@mui/material/Button';
-import Typography from '@mui/material/Typography';
-import { useFindAllVariations } from '../../../../../hooks/Variants/useFindAllVariant';
-import { FormControl, TextField, RadioGroup, FormControlLabel, Radio, Table, TableBody, TableCell, TableContainer, TableHead, TableRow } from '@mui/material';
-import { useFindVariatValue } from '../../../../../hooks/Variants/useFindVarientValue';
+import * as React from "react";
+import Box from "@mui/material/Box";
+import Modal from "@mui/material/Modal";
+import Button from "@mui/material/Button";
+import Typography from "@mui/material/Typography";
+import { useFindAllVariations } from "../../../../../hooks/Variants/useFindAllVariant";
+import {
+  FormControl,
+  TextField,
+  RadioGroup,
+  FormControlLabel,
+  Radio,
+  Table,
+  TableBody,
+  TableCell,
+  TableContainer,
+  TableHead,
+  TableRow,
+} from "@mui/material";
+import { useFindVariatValue } from "../../../../../hooks/Variants/useFindVarientValue";
+import { FileManager } from "../../../components/FileManager";
+import { ProductContext } from "../../../../../context/Product";
+import { toast } from "react-toastify";
+
+import { ImagesSelects } from "../../../components/FileManager/ImagesSelect";
 
 const style = {
-  position: 'absolute',
-  top: '50%',
-  left: '50%',
-  transform: 'translate(-50%, -50%)',
+  position: "absolute",
+  top: "50%",
+  left: "50%",
+  transform: "translate(-50%, -50%)",
   width: 1200,
-  bgcolor: 'background.paper',
-  border: '1px solid #ccc',
+  bgcolor: "background.paper",
+  border: "1px solid #ccc",
   boxShadow: 24,
   p: 4,
 };
 
 export const EditValue = () => {
   const [open, setOpen] = React.useState(false);
-  const [variantValuesData, setVariantValuesData] = React.useState({
-    id: '',
-    name: '',
-    price: '',
-    stock: '',
-    sku: '',
-  });
-  const [selectedVariant, setSelectedVariant] = React.useState(null); // To store selected variant
+  const [variantValuesData, setVariantValuesData] = React.useState({ id: "" });
+  const [selectedVariant, setSelectedVariant] = React.useState(null);
+  const [price, setPrice] = React.useState("");
+  const [stock, setStock] = React.useState("");
+  const [sku, setSku] = React.useState("");
+  const [discount, setDiscount] = React.useState("");
 
   const { data: variantValue } = useFindVariatValue(variantValuesData.id);
-
-  console.log(variantValue)
-
-  function handleOpen(variant) {
-
-    setVariantValuesData({
-      id: variant.id_variant_attribute,
-      name: variant.name,
-      price: variant.price || '', // Assuming price is part of the variant data
-      stock: variant.stock || '', // Assuming stock is part of the variant data
-      sku: variant.sku || '', // Assuming SKU is part of the variant data
-    });
-    setSelectedVariant(variant.id_variant_attribute); // Set initial selected variant
-    setOpen(true);
-  }
-
-  const handleClose = () => setOpen(false);
+  const { addVariation } = React.useContext(ProductContext);
 
   const { data: variants } = useFindAllVariations();
 
+  // Ao abrir o modal, seta o id e seleciona a variação inicial
+  const handleOpen = (variant) => {
+    setVariantValuesData({ id: variant.id_variant_attribute });
+    setSelectedVariant(String(variant.id_variant_attribute)); // Set initial selected variant
+    setOpen(true);
+  };
+
+  const handleClose = () => setOpen(false);
+
+  // Ao selecionar uma nova variação, preenche os campos de preço, estoque e SKU
   const handleRadioChange = (event) => {
     const variantId = event.target.value;
-    const selected = variants.content.find((variant) => variant.id_variant_attribute === variantId);
+    const selected = variantValue.content.find(
+      (variant) => variant.id_variant_attribute_value === variantId
+    );
+
     setSelectedVariant(variantId);
-    setVariantValuesData({
-      ...variantValuesData,
-      price: selected?.price || '',
-      stock: selected?.stock || '',
-      sku: selected?.sku || '',
-    });
+    setPrice(selected?.price || "");
+    setStock(selected?.stock || "");
+    setSku(selected?.sku || "");
+    setDiscount(selected?.discount || "");
   };
 
+  // Atualiza os valores de preço, estoque e SKU com base na mudança do usuário
   const handleInputChange = (event) => {
     const { name, value } = event.target;
-    setVariantValuesData({
-      ...variantValuesData,
-      [name]: value,
-    });
+    if (name === "price") setPrice(value);
+    if (name === "stock") setStock(value);
+    if (name === "sku") setSku(value);
+    if (name === "discount") setDiscount(value);
   };
 
+  // Submissão dos dados
   const handleSubmit = () => {
-    console.log('Updated variant data: ', variantValuesData);
-    // Here, send the updated data to your API to save the changes
+    // Verifica se há um variant selecionado e se os campos têm valores
+    if (!selectedVariant || !price || !stock || !sku || !discount) {
+      toast.warning("Todos os campos devem ser preenchidos!");
+      return; // Impede o envio se algum campo estiver vazio
+    }
+
+    // Cria um objeto de variação atualizado
+    const updatedVariant = {
+      value_variant: selectedVariant,
+      price,
+      stock,
+      sku,
+      discount,
+      is_default: true,
+    };
+
+    // Adiciona a variação ao formData
+    addVariation(updatedVariant);
+    setOpen(false);
   };
 
   return (
@@ -81,7 +110,8 @@ export const EditValue = () => {
       <div className="container_variants_values">
         {variants?.content?.map((vari) => (
           <div
-            style={{ cursor: 'pointer' }}
+            key={vari.id_variant_attribute_value}
+            style={{ cursor: "pointer" }}
             className="container_variant"
             onClick={() => handleOpen(vari)}
           >
@@ -109,10 +139,10 @@ export const EditValue = () => {
             id="keep-mounted-modal-description"
             sx={{ mt: 6 }}
           >
-            Com base nas suas opções de produto, estas são as diferentes versões do seu produto que os clientes podem comprar.
+            Com base nas suas opções de produto, estas são as diferentes versões
+            do seu produto que os clientes podem comprar.
           </Typography>
-          <FormControl sx={{ marginTop: '1rem' }}>
-            {/* Table for selecting variants and editing their values */}
+          <FormControl sx={{ marginTop: "1rem" }}>
             <TableContainer>
               <Table>
                 <TableHead>
@@ -122,31 +152,33 @@ export const EditValue = () => {
                     <TableCell>Preço</TableCell>
                     <TableCell>Estoque</TableCell>
                     <TableCell>SKU</TableCell>
+                    <TableCell>Desconto</TableCell>
+                    <TableCell>Imagem</TableCell>
                   </TableRow>
                 </TableHead>
                 <TableBody>
-                  {variants?.content?.map((variant) => (
-                    <TableRow key={variant.id_variant_attribute}>
+                  {variantValue?.content?.map((variant) => (
+                    <TableRow key={variant.id_variant_attribute_value}>
                       <TableCell>
-                        <RadioGroup
-                          row
-                          value={selectedVariant}
-                          onChange={handleRadioChange}
-                        >
+                        <RadioGroup value={selectedVariant} onChange={handleRadioChange}>
                           <FormControlLabel
-                            value={variant.id_variant_attribute}
+                            value={variant.id_variant_attribute_value}
                             control={<Radio />}
-                            label="Select"
+                            label="Selecionar"
                           />
                         </RadioGroup>
                       </TableCell>
-                      <TableCell>{variant.name}</TableCell>
+                      <TableCell>{variant.value}</TableCell>
                       <TableCell>
                         <TextField
                           fullWidth
                           variant="standard"
                           name="price"
-                          value={variant.id_variant_attribute === selectedVariant ? variantValuesData.price : ''}
+                          value={
+                            String(variant.id_variant_attribute_value) === String(selectedVariant)
+                              ? price
+                              : ""
+                          }
                           onChange={handleInputChange}
                         />
                       </TableCell>
@@ -155,7 +187,25 @@ export const EditValue = () => {
                           fullWidth
                           variant="standard"
                           name="stock"
-                          value={variant.id_variant_attribute === selectedVariant ? variantValuesData.stock : ''}
+                          value={
+                            String(variant.id_variant_attribute_value) === String(selectedVariant)
+                              ? stock
+                              : ""
+                          }
+                          onChange={handleInputChange}
+                        />
+                      </TableCell>
+
+                      <TableCell>
+                        <TextField
+                          fullWidth
+                          variant="standard"
+                          name="sku"
+                          value={
+                            String(variant.id_variant_attribute_value) === String(selectedVariant)
+                              ? sku
+                              : ""
+                          }
                           onChange={handleInputChange}
                         />
                       </TableCell>
@@ -163,10 +213,17 @@ export const EditValue = () => {
                         <TextField
                           fullWidth
                           variant="standard"
-                          name="sku"
-                          value={variant.id_variant_attribute === selectedVariant ? variantValuesData.sku : ''}
+                          name="discount"
+                          value={
+                            String(variant.id_variant_attribute_value) === String(selectedVariant)
+                              ? discount
+                              : ""
+                          }
                           onChange={handleInputChange}
                         />
+                      </TableCell>
+                      <TableCell>
+                        <FileManager name="Gerenciador de" />
                       </TableCell>
                     </TableRow>
                   ))}
@@ -174,8 +231,16 @@ export const EditValue = () => {
               </Table>
             </TableContainer>
 
+            {/* Renderiza o componente ImagesSelects fora do Table */}
+            {selectedVariant && (
+              <Box sx={{ mt: 2 }}>
+                <ImagesSelects data={variantValue?.content} />
+              </Box>
+            )}
+
             <Button
               onClick={handleSubmit}
+              type="button"
               sx={{ mt: 2 }}
               variant="contained"
               color="primary"

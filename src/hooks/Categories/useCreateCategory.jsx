@@ -32,10 +32,10 @@ export const useCreateCategory = () => {
         mutationFn: createCategory,
         onSuccess: (data) => {
             queryClient.invalidateQueries('categoryAll')
-            console.log(data)
+            
         },
         onError: (error) => {
-            console.log(error)
+        
         }
     })
 }

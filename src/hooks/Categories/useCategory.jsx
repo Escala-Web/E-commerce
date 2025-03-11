@@ -2,8 +2,8 @@ import { useQuery } from "@tanstack/react-query";
 import { https } from "../../config/https";
 
 async function fetchCategories() {
-  const parentPromise = https.get('/categories/get-parents');
-  const childrenPromise = https.get('/categories/get-categories');
+  const parentPromise =  https.get('/categories/get-parents');
+  const childrenPromise =  https.get('/categories/get-categories');
 
   const [parentResponse, childrenResponse] = await Promise.all([parentPromise, childrenPromise]);
 

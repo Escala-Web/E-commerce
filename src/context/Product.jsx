@@ -1,46 +1,83 @@
 import { createContext, useState } from "react";
+import { useCreateProduct } from "../hooks/Products/useCreateProduct";
 
 export const ProductContext = createContext();
 
 export const ProductProvider = ({ children }) => {
+  const [formData, setFormData] = useState({
+    id_category: "",
+    name: "",
+    description: "",
+    id_branch: "",
+    variations: [],
+  });
 
-	const [formData, setFormData] = useState({
-		id_category: "",
-		name: "",
-		description: "",
-		id_branch: "",
-		sku: "",
-		price: "",
-		stock: "",
-		is_default: "",
-		discont: "",
-		value_variant: "",
-	});
+  const { mutate: createProduct } = useCreateProduct();
 
-	function handleChange(event) {
-		const { name, value } = event.target;
+  const [images, setImages] = useState([])
 
-		setFormData((prev) => ({
-			...prev,
-			[name]: value,
-		}));
-	}
+  function handleChange(event) {
+    const { name, value } = event.target;
 
-    function Submit(event) {
-		event.preventDefault();
-		console.log(formData);
-	}
+    setFormData((prev) => ({
+      ...prev,
+      [name]: value,
+    }));
+  }
 
-	return (
-		<ProductContext.Provider
-			value={{
-				formData,
-				setFormData,
-                handleChange,
-                Submit
-			}}
-		>
-			{children}
-		</ProductContext.Provider>
-	);
+  const addVariation = (variation) => {
+    setFormData((prevState) => ({
+      ...prevState,
+      variations: [
+        ...prevState.variations,
+        {
+          ...variation,
+          pictures: images.pictures
+        },
+      ],
+    }));
+  };
+
+  const updateVariation = (index, field, value) => {
+    const updatedVariations = [...formData.variations];
+    updatedVariations[index] = {
+      ...updatedVariations[index],
+      [field]: value,
+    };
+
+    setFormData({
+      ...formData,
+      variations: updatedVariations,
+    });
+  };
+
+
+  function Submit(event) {
+    event.preventDefault();
+    createProduct({
+      id_category: Number(formData.id_category),
+      products: {
+        name: formData.name,
+        description: 'Descricao Teste',
+        id_branch: Number(formData.id_branch),
+        variations: formData.variations
+      }
+    })
+  }
+
+  return (
+    <ProductContext.Provider
+      value={{
+        formData,
+        setFormData,
+        handleChange,
+        Submit,
+        addVariation,
+        updateVariation,
+        setImages
+      }}
+    >
+      {children}
+    </ProductContext.Provider>
+  );
 };

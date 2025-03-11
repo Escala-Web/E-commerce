@@ -1,23 +1,16 @@
 import { useContext, useState } from "react";
-import { Breadcrumb } from "../../components/Breadcrumb";
 import { Content } from "../../components/Content";
 import { Form } from "../../components/Form";
 import { Aside, Container, MainContent } from "./styles";
 import "react-quill/dist/quill.snow.css";
 import "./styles.css";
 import { FileManager } from "../../components/FileManager";
-import { HeaderBar } from "../../components/HeaderBar";
-
 import {
-	Badge,
 	Box,
 	Button,
 	Dialog,
 	DialogActions,
-	DialogContent,
-	DialogContentText,
 	DialogTitle,
-	Fab,
 	IconButton,
 	Stack,
 	Switch,
@@ -39,11 +32,8 @@ import { useDeleteVariant } from "../../../../hooks/Variants/useDeleteVariant";
 import { EditValue } from "../Variants/EditValue";
 
 export const CreatePageProduct = () => {
-	const imagem =
-		"https://static.vecteezy.com/ti/fotos-gratis/t2/6671698-fundo-azul-escuro-abstrato-com-bokeh-colorido-brilhante-luzes-bokeh-fundo-claro-foto.jpg";
-
-	const { formData, setFormData, handleChange, Submit } =
-		useContext(ProductContext);
+	
+	const { formData, setFormData, handleChange, Submit } = useContext(ProductContext);
 
 	const { data: variants } = useFindAllVariations();
 	const { mutate: deleteVariant } = useDeleteVariant();
@@ -51,24 +41,21 @@ export const CreatePageProduct = () => {
 	const [isOpenVariationValue, setIsOpenVariationValue] = useState(false);
 
 	const [isOpenDeleteVariant, setIsOpenDeleteVariant] = useState(false);
-	const [isOpenUpdateVariant, setIsOpenUpdateVariant] = useState(false);
 	const [idVariant, setIdVariant] = useState([]);
 
 	function handleDelete() {
 		deleteVariant({
-			id: idVariant.id 
-		})
+			id: idVariant.id,
+		});
 		setIsOpenDeleteVariant(false);
 	}
 
 	function handleOpenDelete({ name, id_variant_attribute }) {
-
-	
 		setIdVariant({
 			id: id_variant_attribute,
-			name: name
-		})
-		setIsOpenDeleteVariant(true)
+			name: name,
+		});
+		setIsOpenDeleteVariant(true);
 	}
 
 	const { pictures, handleRemovePicture } = useContext(FileManagerContext);
@@ -76,7 +63,6 @@ export const CreatePageProduct = () => {
 
 	return (
 		<>
-			{/* <Breadcrumb image={imagem} page="Registrar Produto" />/ */}
 			<form onSubmit={Submit}>
 				<Container>
 					<MainContent>
@@ -84,6 +70,7 @@ export const CreatePageProduct = () => {
 							<Form>
 								<FileManager name="Adicionar imagem" />
 							</Form>
+							{formData.variations.length == 0 && (
 
 							<div className="container">
 								{pictures.map((img) => {
@@ -100,6 +87,7 @@ export const CreatePageProduct = () => {
 									);
 								})}
 							</div>
+							)}
 						</Content>
 
 						<Content title="Informação do Produto">
@@ -116,18 +104,22 @@ export const CreatePageProduct = () => {
 										value={formData.name}
 										onChange={handleChange}
 									/>
-
-									<TextField
-										id="standard-multiline-flexible"
-										label="SKU"
-										multiline
-										maxRows={4}
-										sx={{ width: "35%" }}
-										variant="standard"
-										name="sku"
-										value={formData.sku}
-										onChange={handleChange}
-									/>
+									{formData.variations.length == 0 && (
+										<>
+											<TextField
+											id="standard-multiline-flexible"
+											label="SKU"
+											multiline
+											maxRows={4}
+											sx={{ width: "35%" }}
+											variant="standard"
+											name="sku"
+											value={formData.sku}
+											onChange={handleChange}
+										/>
+										</>
+									)}
+							
 								</Stack>
 								<Stack sx={{ marginTop: 4 }}>
 									<Editor
@@ -139,7 +131,8 @@ export const CreatePageProduct = () => {
 								</Stack>
 							</Stack>
 						</Content>
-
+						
+						{formData.variations.length == 0 && (
 						<Content title="Preços">
 							<Stack>
 								<TextField
@@ -155,6 +148,7 @@ export const CreatePageProduct = () => {
 								/>
 							</Stack>
 						</Content>
+						)}
 
 						<Content title="Opções do Produto">
 							<Stack
@@ -193,7 +187,11 @@ export const CreatePageProduct = () => {
 												<IconButton color="primary" variant="dot">
 													<EditIcon />
 												</IconButton>
-												<IconButton color="red" variant="dot" onClick={() => handleOpenDelete(vari)}>
+												<IconButton
+													color="red"
+													variant="dot"
+													onClick={() => handleOpenDelete(vari)}
+												>
 													<DeleteIcon />
 												</IconButton>
 											</div>
@@ -222,14 +220,12 @@ export const CreatePageProduct = () => {
 								</Typography>
 							</Box>
 						</Content>
-						
+
 						{isOpenVariationValue && (
-
-						<Content title='Gerenciar variantes'>
-							<EditValue />
-						</Content>
+							<Content title="Gerenciar variantes">
+								<EditValue />
+							</Content>
 						)}
-
 					</MainContent>
 					<Aside>
 						<Content title="Categorias">
@@ -245,6 +241,7 @@ export const CreatePageProduct = () => {
 					</Aside>
 				</Container>
 				<Button
+					type="submit"
 					sx={{
 						marginTop: 3,
 					}}
@@ -254,31 +251,32 @@ export const CreatePageProduct = () => {
 				</Button>
 			</form>
 
-			
-				<Dialog
-					open={isOpenDeleteVariant}
-					onClose={() => setIsOpenDeleteVariant(false)}
-					aria-labelledby="alert-dialog-title"
-					aria-describedby="alert-dialog-description"
+			<Dialog
+				open={isOpenDeleteVariant}
+				onClose={() => setIsOpenDeleteVariant(false)}
+				aria-labelledby="alert-dialog-title"
+				aria-describedby="alert-dialog-description"
+			>
+				<DialogTitle id="alert-dialog-title">
+					{"Você deseja deletar a variação?"}
+				</DialogTitle>
+
+				<DialogActions
+					sx={{
+						display: "flex",
+						justifyContent: "start",
+						alignContent: "center",
+						padding: ".6rem 1rem",
+					}}
 				>
-					<DialogTitle 
-					id="alert-dialog-title">
-						{"Você deseja deletar a variação?"}
-					</DialogTitle>
-				
-					<DialogActions sx={{
-						display: 'flex',
-						justifyContent: 'start',
-						alignContent: 'center',
-						padding: '.6rem 1rem'
-					}}>
-						<Button onClick={() => setIsOpenDeleteVariant(false)}>Cancelar</Button>
-						<Button onClick={handleDelete} autoFocus>
-							Confirmar
-						</Button>
-					</DialogActions>
-				</Dialog>
-			
+					<Button onClick={() => setIsOpenDeleteVariant(false)}>
+						Cancelar
+					</Button>
+					<Button onClick={handleDelete} autoFocus>
+						Confirmar
+					</Button>
+				</DialogActions>
+			</Dialog>
 		</>
 	);
 };

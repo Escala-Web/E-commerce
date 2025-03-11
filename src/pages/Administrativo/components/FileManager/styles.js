@@ -19,8 +19,7 @@ export const Container = styled.div`
 
 export const ContainerModal = styled.div`
 
-	width: 100%;
-	height: 100vh;
+	/* width: 100%;
 
 	background-color: #55555594;
 
@@ -32,22 +31,16 @@ export const ContainerModal = styled.div`
 
 	display: flex;
 	align-items: center;
-	justify-content: center;
-
+	justify-content: center; */
+	overflow: hidden;
 	
 	.content {
 		overflow: hidden;
-
-		width: 80%;
-		height: 86vh;
-
-		background-color: #fff;
-		border-radius: 6px;
-
-		border: 1px solid #ccc;
-		/* padding: 1rem 0; */
+		height: 70vh; 
 		padding: 0;
 		display: block;
+	overflow: hidden;
+
 
 	}
 
