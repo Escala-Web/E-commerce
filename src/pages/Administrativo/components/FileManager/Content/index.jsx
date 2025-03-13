@@ -1,63 +1,102 @@
 import { FaFolderPlus } from "react-icons/fa";
 import { Container, SideBar } from "./styles";
-import { useState } from "react";
-
-import { Box, Typography } from "@mui/material";
+import { useEffect, useState } from "react";
+import { Box, Divider, TextField, Typography } from "@mui/material";
 import { useFindAllFolder } from "../../../../../hooks/FileManager/Folder/useFindAllFolder";
 import { CreateFolder } from "../CreateFolder";
 import { ListFilders } from "../Folders";
 import { UploadsOfFiles } from "../CreateFile";
-import { AiFillFileAdd } from "react-icons/ai";
+import { useSearchParams } from "react-router-dom";
 
 export const Content = ({ isPage }) => {
-	
 	const [isAddFolder, setIsAddFolder] = useState(false);
-	const [isUploadsFiles, setIsUploadsFiles] = useState(false);
+	const [isUploadsFiles, setIsUploadsFiles] = useState(true);
+
+	const [search] = useSearchParams();
+	const page = search.get("arquivo");
 
 	const [idFoldersAndFiles, setIdFoldersAndFiles] = useState([]);
 
-	const { data: folders, isLoading } = useFindAllFolder({
+	const { data: folders } = useFindAllFolder({
 		id: idFoldersAndFiles.id ? idFoldersAndFiles.id : 1,
-		is_trash: isPage == "arquivo" ? false : true,
-	  });
+		is_trash: page === "0" ? false : true,
+	});
 
+	const [foldersAndFiles, setFoldersAndFiles] = useState([]);
+
+	useEffect(() => {
+		setFoldersAndFiles([]);
+
+		if (folders?.content) {
+			const updatedFolders = folders.content.map((fol) => ({
+				...fol,
+				is_trash: page === "1" ? 1 : 0,
+			}));
+
+			setFoldersAndFiles(updatedFolders);
+		}
+	}, [folders, page]);
 
 	return (
 		<>
 			<SideBar>
-				<Typography component="span" variant="h6" fontWeight="400">
-					{idFoldersAndFiles.name ? idFoldersAndFiles.name : 'Home'}
-				</Typography>
-				<div>
-					<input style={{ width: "24rem" }} type="text" />
-				</div>
+			
+				<TextField
+					id="outlined-search"
+					label="O que você procura?"
+					type="search"
+					size="small"
+					sx={{ width: "50%" }}
+				/>
 
-				<Box sx={{
-					display: 'flex',
-					alignItems: 'center',
-					gap: '1rem',
-					cursor: 'pointer'
-				}}>
-					<AiFillFileAdd
-						size={32}
-						color="rgb(80, 175, 245)"
-						onClick={() => setIsUploadsFiles((prev) => !prev)}
-					/>
-					<FaFolderPlus
-						size={32}
-						color="rgb(80, 175, 245)"
-						onClick={() => setIsAddFolder((prev) => !prev)}
-					/>
+				<Box
+					sx={{
+						display: "flex",
+						alignItems: "center",
+						gap: "1rem",
+						cursor: "pointer",
+					}}
+				>
+					{page === "0" && (
+						<FaFolderPlus
+							size={32}
+							color="#000000DE"
+							onClick={() => setIsAddFolder((prev) => !prev)}
+							style={{ opacity: ".8" }}
+						/>
+					)}
 				</Box>
 			</SideBar>
 
 			<Container>
-			{isAddFolder && <CreateFolder setIsAddFolder={setIsAddFolder} folder={idFoldersAndFiles}/>}
-			{isUploadsFiles && <UploadsOfFiles setIsUploadsFiles={setIsUploadsFiles} folder={idFoldersAndFiles}/> }
-			<ListFilders data={folders} setData={setIdFoldersAndFiles} isPage={isPage}/>
+				<div className="container_add_folders">
+					{isAddFolder && (
+						<CreateFolder
+							setIsAddFolder={setIsAddFolder}
+							folder={idFoldersAndFiles}
+						/>
+					)}
+					<ListFilders
+						data={foldersAndFiles}
+						setData={setIdFoldersAndFiles}
+						isPage={isPage}
+					/>
+				</div>
+				<div className="container_add_file">
+					{page === "0" && (
+						<>
+							<>
+								{isUploadsFiles && (
+									<UploadsOfFiles
+										setIsUploadsFiles={setIsUploadsFiles}
+										folder={idFoldersAndFiles}
+									/>
+								)}
+							</>
+						</>
+					)}
+				</div>
 			</Container>
 		</>
 	);
-
 };
-

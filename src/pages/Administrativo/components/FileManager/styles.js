@@ -105,6 +105,7 @@ export const ContainerModal = styled.div`
 
 	.body {
 		width: 100%;
+		overflow-y: scroll;
 	}
 
 `;

@@ -9,6 +9,8 @@ export const FileManagerProvider = ({ children }) => {
 
 
   function nextFolder(folder) {
+
+    console.log(folder)
     setFolderHistory((history) => [...history, folder]);
   }
 
@@ -32,8 +34,6 @@ export const FileManagerProvider = ({ children }) => {
   function handleRemovePicture(image) {
     setPictures((prevImages) => prevImages.filter((img) => img.id !== image.id));
   }
-  
-
   
 
   return (

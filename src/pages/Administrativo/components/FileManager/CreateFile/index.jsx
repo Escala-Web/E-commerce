@@ -2,6 +2,7 @@ import React, { useState } from 'react';
 import { Button, TextField, Box, Typography, Dialog, DialogActions, DialogContent, DialogTitle } from '@mui/material';
 import { AiTwotoneFileAdd } from "react-icons/ai";
 import { useUploadFiles } from '../../../../../hooks/FileManager/Files/useCreateFile';
+import { FaSquarePlus } from "react-icons/fa6";
 
 export const UploadsOfFiles = ({setIsUploadsFiles, folder}) => {
   const [images, setImages] = useState([]);
@@ -36,7 +37,7 @@ export const UploadsOfFiles = ({setIsUploadsFiles, folder}) => {
     })
 
     setOpen(false);
-    setIsUploadsFiles(false);
+    // setIsUploadsFiles(false);
   };
 
 
@@ -44,8 +45,8 @@ export const UploadsOfFiles = ({setIsUploadsFiles, folder}) => {
   return (
     <div>
 
-      <Button onClick={handleClickOpen}>
-        <AiTwotoneFileAdd size={120}/>
+      <Button onClick={handleClickOpen} >
+        <FaSquarePlus color='#50aff5' size={40}/>
       </Button>
 
       <Dialog open={open} onClose={handleClose} maxWidth="sm" fullWidth>

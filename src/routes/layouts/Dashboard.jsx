@@ -1,6 +1,6 @@
 import { Outlet } from "react-router-dom";
 import { Header } from "../../components/Header";
-import { ContainerContent, ContainerRouter } from "../style";
+import { ContainerRouter } from "../style";
 import { Helmet } from "react-helmet-async";
 
 export const DashboardLayout = () => {
@@ -13,7 +13,6 @@ export const DashboardLayout = () => {
       </Helmet>
 
       <Header>
-        {/* Renderiza o Outlet, que é onde as rotas dinâmicas do React Router serão injetadas */}
         <Outlet />
       </Header>
     </ContainerRouter>

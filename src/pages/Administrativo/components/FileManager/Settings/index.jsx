@@ -28,6 +28,7 @@ import { useMoveTrashFile } from "../../../../../hooks/FileManager/Files/useTras
 import { useRestoreTrashFile } from "../../../../../hooks/FileManager/Files/useRestoreTrashFile";
 import { useRenameFiles } from "../../../../../hooks/FileManager/Files/useRenameFile";
 import { useDeleteFile } from "../../../../../hooks/FileManager/Files/useDeleteFile";
+import zIndex from "@mui/material/styles/zIndex";
 
 export const Settings = ({ folder, setOpenSettingsIndex, isPage }) => {
 	const [isOpenModalRename, setIsOpenModalRename] = useState(false);
@@ -42,6 +43,8 @@ export const Settings = ({ folder, setOpenSettingsIndex, isPage }) => {
 	const { mutate: moveTrashFile } = useRestoreTrashFile();
 	const { mutate: renameFile } = useRenameFiles();
 	const { mutate: deleteFileP } = useDeleteFile();
+
+	console.log(folder)
 
 	function toggleMoveTrash() {
 		if (folder.type == "file") {
@@ -87,7 +90,7 @@ export const Settings = ({ folder, setOpenSettingsIndex, isPage }) => {
 	return (
 		<>
 			<Container>
-				<Paper sx={{ width: 320, maxWidth: "100%" }}>
+				<Paper sx={{ width: 320, maxWidth: "100%", zIndex: '999999999999999' }}>
 					<MenuList>
 						<MenuItem>
 							<ListItemIcon>

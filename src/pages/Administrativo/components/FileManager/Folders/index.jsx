@@ -1,31 +1,34 @@
-import { FaFolder } from "react-icons/fa";
-import { Container } from "./styles";
+import { Container, ContainerCard } from "./styles";
 import { useContext, useState, useEffect } from "react";
-import { Button, Divider, Typography } from "@mui/material";
-import { CgMoreAlt } from "react-icons/cg";
-import { Settings } from "../Settings";
+import { Button, Typography } from "@mui/material";
 import { producion } from "../../../../../utils/producion";
 import { https } from "../../../../../config/https";
 import { FileManagerContext } from "../../../../../context/FileManager";
 import { RiCloseCircleFill } from "react-icons/ri";
+import { CardFilesAndFolders } from "../CardImages";
+import { useSearchParams } from "react-router-dom";
+import { MdKeyboardDoubleArrowLeft } from "react-icons/md";
+
 
 export const ListFilders = ({ data, isPage, setData }) => {
 	const [openSettingsIndex, setOpenSettingsIndex] = useState(null);
 	const [selectedFolder, setSelectedFolder] = useState(null);
+	const [isFirstLoad, setIsFirstLoad] = useState(true); // Estado para evitar duplicação
 	const url = producion(false);
 
-	// Acessando o contexto para gerenciar o histórico de navegação
-	const { folderHistory, nextFolder, prevFolder } =
-		useContext(FileManagerContext);
-	const { handlePicture, pictures, handleRemovePicture } =
-		useContext(FileManagerContext);
+	// console.log(data)
 
-	const toggleFilter = (folder) => {
-		// Adiciona a pasta ao histórico antes de carregar o conteúdo
-		nextFolder(folder);
-		setSelectedFolder(folder);
-		listFolders(folder.id, folder.name);
-	};
+	const {
+		folderHistory,
+		prevFolder,
+		pictures,
+		handleRemovePicture,
+	} = useContext(FileManagerContext);
+
+
+
+	const [search] = useSearchParams();
+	const page = search.get("arquivo");
 
 	// Função para carregar o conteúdo da pasta
 	const listFolders = async (parentId, name) => {
@@ -36,7 +39,7 @@ export const ListFilders = ({ data, isPage, setData }) => {
 				"/media/get-content-folder",
 				{
 					parent_id: parentId,
-					is_trash: isPage,
+					is_trash: page === "0" ? true : false,
 				},
 				{
 					headers: {
@@ -65,105 +68,66 @@ export const ListFilders = ({ data, isPage, setData }) => {
 	};
 
 	useEffect(() => {
-		if (!selectedFolder) {
+		if (isFirstLoad && data) {
 			setData({
-				data: data?.content,
+				data: data,
 				name: data?.name,
 				id: data?.id,
 			});
+			setIsFirstLoad(false); // Evita novas chamadas no futuro
 		}
-	}, [data, selectedFolder, setData]);
+	}, [data, selectedFolder, setData, isFirstLoad]);
 
-	// Função para alternar a visibilidade do painel de configurações
-	const handleSettingsClick = (index) => {
-		setOpenSettingsIndex(openSettingsIndex === index ? null : index);
-	};
+	
 
 	return (
-		<Container>
+		<Container >
+
 			{folderHistory.length > 1 && (
-				<div className="container_button" onClick={handleBack}>
-					Voltar
+				<div className="container_button">
+					<div className="back" onClick={handleBack}>
+					<Typography variant='body1'><MdKeyboardDoubleArrowLeft size={20}/></Typography>
+						
+					</div>
+					{pictures.length > 0 && (
+						<div className="images">
+						<Typography variant='body1'>Imagens Selecionadas</Typography>
+					</div>
+					)}
+
 				</div>
 			)}
+			<ContainerCard display={pictures.length > 0 ? 'flex' : 'block'}>
+				<div className="container cardsss">
+					<CardFilesAndFolders data={data} setData={setData} />
+				</div>
 
-			<div className="container">
-				{data?.content?.map((folder, index) => (
-					<div className="card" key={folder.id || index}>
-						<div className="container_card">
-							<Button
-								sx={{
-									zIndex: "999",
-									backgroundColor: "transparent",
-									border: "1px solid #ccc",
-								}}
-								className="container_card_icon"
-								id={folder.id}
-								onClick={() =>
-									folder.type === "folder"
-										? toggleFilter(folder)
-										: handlePicture(folder)
-								}
-							>
-								{folder.file_type === "image/png" ||
-								folder.file_type === "image/jpeg" ? (
-									<img
-										src={`${url}${folder.file_path}`}
-										alt="Imagem"
-										id={folder.id}
-									/>
-								) : (
-									<FaFolder size={90} color="#50aff5" id={folder.id} />
-								)}
-							</Button>
+				<div className="container_add_files">
+					{pictures.length > 0 && (
+						<>
+							<div className="card_files">
+								{pictures.map((img) => {
+									const image = img.file_path.split(".")[0];
+									const extention = img.name.split(".")[1];
 
-							<Typography variant="body1" component="div">
-								{folder.name}
-							</Typography>
-						</div>
+									return (
+										<div key={img.id} className="container_card_image">
+											<img src={`${url}${image}.${extention}`} alt={img.name} />
+											<RiCloseCircleFill
+												onClick={() => handleRemovePicture(img)}
+											/>
+										</div>
+									);
+								})}
+							</div>
 
-						<Typography
-							className="settings"
-							variant="body2"
-							sx={{ color: "text.secondary" }}
-							onClick={() => handleSettingsClick(index)}
-						>
-							<CgMoreAlt size={26} />
-						</Typography>
-
-						{openSettingsIndex === index && (
-							<Settings
-								isPage={isPage === "arquivo" ? "arquivo" : "lixeira"}
-								folder={folder}
-								setOpenSettingsIndex={setOpenSettingsIndex}
-							/>
-						)}
-					</div>
-				))}
-			</div>
-
-			{pictures.length > 0 && (
-				<>
-					<Divider />
-
-					<p variant="h5">Imagens selacionadas</p>
-					<div className="container">
-						{pictures.map((img) => {
-							const image = img.file_path.split(".")[0];
-							const extention = img.name.split(".")[1];
-
-							return (
-								<div key={img.id} className="container_card_image">
-									<img src={`${url}${image}.${extention}`} alt={img.name} />
-									<RiCloseCircleFill onClick={() => handleRemovePicture(img)} />
-								</div>
-							);
-						})}
-					</div>
-
-					<button type="button">Adicionar</button>
-				</>
-			)}
+							<div className="container_b">
+								<Button variant='contained' type="button">Adicionar</Button>
+							</div>
+						</>
+					)}
+				</div>
+			</ContainerCard>
 		</Container>
 	);
 };

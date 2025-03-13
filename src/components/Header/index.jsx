@@ -25,6 +25,10 @@ import { Box, Button } from "@mui/material";
 import zIndex from "@mui/material/styles/zIndex";
 import { ContainerHeader } from "./styles";
 import { HomeEcommece } from "../../pages/Ecommerce/pages/Home";
+import PriceChangeIcon from '@mui/icons-material/PriceChange';
+import AccountCircleIcon from '@mui/icons-material/AccountCircle';
+import CopyrightIcon from '@mui/icons-material/Copyright';
+import CategoryIcon from '@mui/icons-material/Category';
 
 const NAVIGATION = [
 	{
@@ -37,6 +41,24 @@ const NAVIGATION = [
 		icon: <DashboardIcon />,
 	},
 	{
+		segment: "administrativ",
+		title: "Pagamentos",
+		icon: <PriceChangeIcon />,
+		children: [
+			{
+				segment: "",
+				title: "Painel",
+				icon: <DashboardIcon />,
+			},
+			{
+				segment: "",
+				title: "Configurações",
+				icon: <SettingsIcon />,
+			},
+		],
+	},
+
+	{
 		segment: "administrativo",
 		title: "Produtos",
 		icon: <SellIcon />,
@@ -48,10 +70,45 @@ const NAVIGATION = [
 			},
 			{
 				segment: "produtos/create",
-				title: "Registrar Produtos",
-				icon: <AddBoxIcon />,
+				title: "Registrar Produto",
+				icon: <LabelImportantIcon />,
+			},
+			{
+				segment: "brands",
+				title: "Marcas",
+				icon: <CopyrightIcon />,
+				children: [
+					{
+						segment: "produtos",
+						title: "Minhas Marcas",
+						icon: <CopyrightIcon />,
+					},
+					{
+						segment: "produtos",
+						title: "Registrar Marca",
+						icon: <CopyrightIcon />,
+					},
+				]
+			},
+			{
+				segment: "category",
+				title: "Categorias",
+				icon: <CategoryIcon />,
+				children: [
+					{
+						segment: "produtos",
+						title: "Minhas Categorias",
+						icon: <CategoryIcon />,
+					},
+					{
+						segment: "produtos",
+						title: "Registrar Categoria",
+						icon: <CategoryIcon />,
+					},
+				]
 			},
 		],
+		
 	},
 	{
 		segment: "administrativo/pedidos",

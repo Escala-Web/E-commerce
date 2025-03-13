@@ -5,8 +5,9 @@ import { FaFolderPlus, FaTrashRestore } from "react-icons/fa";
 import { List, ListItemButton, ListItemIcon, ListItemText, ListSubheader, Typography } from "@mui/material";
 import { Delete, Folder, Pageview } from "@mui/icons-material";
 import { useFileManager } from "../../../../../hooks/useFileManager";
+import { Link } from "react-router-dom";
 
-export const SideBar = ({set}) => {
+export const SideBar = () => {
 
 	return (
 		<>
@@ -32,14 +33,14 @@ export const SideBar = ({set}) => {
 						</ListSubheader>
 					}
 				>
-					<ListItemButton onClick={() => set('arquivo')}>
+					<ListItemButton component={Link} to='/administrativo/produtos/create?arquivo=0'>
 						<ListItemIcon>
 							<Pageview />
 						</ListItemIcon>
 						<ListItemText primary="Arquivos" />
 					</ListItemButton>
 
-					<ListItemButton onClick={() => set('lixeira')}>
+					<ListItemButton component={Link} to='/administrativo/produtos/create?arquivo=1'>
 						<ListItemIcon>
 							<Delete />
 						</ListItemIcon>

@@ -13,14 +13,33 @@ export const Container = styled.div`
 
     margin-top: 2rem;
 
-    gap: 1rem;
+    gap: 2rem;
+
+    align-items: start;
+
+    .container_cards {
+        width: 100%;
+
+        display: block;
+
+
+        gap: .8rem;
+        
+    }
+
+    .activeCard {
+        display: flex;
+        /* width: 100%; */
+
+    
+        gap: .8rem;
+    }
 
     .container {
-        display: flex;
+        /* display: flex; */
         align-items: center;
+        
 
-        gap: 4rem;
-        flex-wrap: wrap;
     }
 
     .card {
@@ -35,8 +54,10 @@ export const Container = styled.div`
 
     .settings {
         position: absolute;
-        top: 0;
-        right: 0;
+        top: 10px;
+        right: 10px;
+
+        z-index: 9999999;
 
         cursor: pointer;
     }
@@ -71,19 +92,30 @@ export const Container = styled.div`
     }
 
     .container_button {
-        border: 1px solid #333;
+        border-radius: 6px;
 
-        /* width: 60%; */
-        padding: .4rem;
+        width: 100%;
 
-        top: -2.4rem;
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
 
-        text-align: center;
+        padding: .4rem 0;
+
+    }
+    
+    .back {
+        display: flex;
+        align-items: center;
 
         cursor: pointer;
-
-        position: absolute;
+    
     }
+
+    .images {
+        width: 40%;
+    }
+
 
     .container_card_image {
         width: 100px;
@@ -112,5 +144,43 @@ export const Container = styled.div`
             color: red;
         }
     }
+
+    .name_text_folder_and_file {
+        text-overflow: ellipsis;
+        -webkit-line-clamp: 1;
+        white-space: nowrap;
+        max-width: 100%;
+        overflow: hidden;
+    }
+
+    .container_add_files {
+        /* background-color: aqua; */
+        /* width: 100%; */
+
+        padding: 1rem;
+
+        border-left: 1px solid #ccc;
+        
+    }
+
+    .card_files {
+        display: flex;
+        flex-wrap: wrap;
+        gap: .6rem;
+    }
+
+`;
+
+export const ContainerCard = styled.div`
+
+    display: ${({ display }) => display || 'block'};
+    /* width: 100%; */
+
+    /* overflow-y: scroll; */
+    .container_b {
+        margin-top: 1rem;
+    }
+
+    .cardsss {}
 
 `;

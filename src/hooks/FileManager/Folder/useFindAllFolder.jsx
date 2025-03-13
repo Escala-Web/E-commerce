@@ -4,6 +4,8 @@ import { https } from "../../../config/https";
 async function findAll(folder) {
   const token = JSON.parse(localStorage.getItem('userLogin'));
 
+  // console.log(folder)
+
   try {
     // Fazendo a requisição POST com o corpo
     const { data } = await https.post(
@@ -30,6 +32,7 @@ export const useFindAllFolder = (folder) => {
   return useQuery(["findAllFolder", folder], () => findAll(folder), {
     enabled: !!folder.id,
     refetchOnWindowFocus: false,
-    keepPreviousData: true
+    keepPreviousData: true,
+    
   });
 };

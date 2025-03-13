@@ -105,6 +105,8 @@ export const EditValue = () => {
     setOpen(false);
   };
 
+  console.log(variants)
+
   return (
     <div>
       <div className="container_variants_values">
