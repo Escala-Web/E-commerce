@@ -33,49 +33,16 @@ export const LojaPage = () => {
 		},
 	];
 
-	function CustomTabPanel(props) {
-		const { children, value, index, ...other } = props;
-
-		return (
-			<div
-				role="tabpanel"
-				hidden={value !== index}
-				id={`simple-tabpanel-${index}`}
-				aria-labelledby={`simple-tab-${index}`}
-				{...other}
-			>
-				{value === index && <Box sx={{ p: 3 }}>{children}</Box>}
-			</div>
-		);
-	}
+	
 
 	return (
 		<>
 			{/* <Breadcrumb page="Loja Virtual" /> */}
 			<ContainerBody>
-				<div className="container-menu-loja">
-					<Box sx={{ width: "100%", marginTop: "-30px" }}>
-						<Tabs value={value} onChange={handleChange} centered>
-							<Tab label="Escolher template" />
-							<Tab label="Banners" />
-							<Tab label="Promoções" />
-						</Tabs>
-					</Box>
-				</div>
-
 				<div style={{ width: "100%" }}>
-                <ContainerTheme>
-
-					<CustomTabPanel value={value} index={0}>
+					<ContainerTheme>
 						<CardThemes data={themes} title="Templates Disponiveis" />
-					</CustomTabPanel>
-					<CustomTabPanel value={value} index={1}>
-						<Banner />
-					</CustomTabPanel>
-					<CustomTabPanel value={value} index={2}>
-						Item Three
-					</CustomTabPanel>
-                </ContainerTheme>
+					</ContainerTheme>
 				</div>
 			</ContainerBody>
 		</>

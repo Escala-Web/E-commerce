@@ -7,6 +7,9 @@ export const TemplateProvider = ({children}) => {
         const storedTemplate = localStorage.getItem("_template");
         return storedTemplate ? JSON.parse(storedTemplate) : 2;
     });
+
+    
+
     const [headerLinks, setHeaderLinks] = useState([]);
     const [banner, setBanner] = useState([]);
 

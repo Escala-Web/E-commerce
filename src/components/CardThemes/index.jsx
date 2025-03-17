@@ -18,7 +18,7 @@ export const CardThemes = ({ data, title }) => {
 		setTemplate(thema.id);
 		localStorage.setItem("_template", JSON.stringify(thema.id));
 		console.log(thema)
-		navigate(`/administrativo/${thema.id}/editor`);
+		navigate(`/administrativo/template`);
 	}
 
 	return (

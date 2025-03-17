@@ -1,65 +1,61 @@
-import { Link, useNavigate } from "react-router-dom";
-import { Formulario } from "../components/Formulario";
-import { ContainerPage, ContainerPageSectionBody } from "../components/Section";
-import { ButtonTemplate } from "../Template/components/Button";
-import { HeaderTemplateEditor } from "../Template/components/Header";
-import { Helmet, HelmetProvider } from "react-helmet-async";
-import { ContainerAction, ContainerActionDelete, ContainerActionEdit, StyledTable, StyledTd, StyledTh, StyledTr } from "../Category/styles";
-import { MdEditSquare } from "react-icons/md";
-import { FaTrashAlt } from "react-icons/fa";
-import { Breadcrumb } from "../components/Breadcrumb";
-import { Button, Paper, Table, TableBody, TableCell, TableContainer, TableHead, TableRow } from "@mui/material";
-import { Container } from "../Seo/styles";
-import { HeaderBar } from "../components/HeaderBar";
-
-function createDataTable(id, name, price, status) {
-
-	return { id, name, price, status }
-
-}
-
-const rows = [
-	createDataTable(1, 'Smartphone', 869.99, 'ativo'),
-	createDataTable(2, 'Televisores', 1.52900, 'ativo'),
-	createDataTable(3, 'Garrafas', 8.99, 'desativado'),
-	createDataTable(4, 'Monitor', 653.99, 'ativo'),
-]
+import { Aside, Container, ContainerTable } from "./styles";
+import { Button } from "@mui/material";
+import { FaPlus } from "react-icons/fa";
+import { PiExportBold } from "react-icons/pi";
+import SearchIcon from "@mui/icons-material/Search";
+import { DataGrid } from "@mui/x-data-grid";
+import Paper from "@mui/material/Paper";
+import { useNavigate } from "react-router-dom";
+import { TableProductsData } from "../../../data/Admin/TableProducts";
+import { exportToExcel } from "../../../functions/Admin/exportToExcel";
+import { useProducts } from "../../../hooks/Products/useProducts";
+import { ButtonExport } from "../components/ButtonExport";
+import { ProductPDF } from "../components/PDF/products";
 
 export const Products = () => {
+    const navigate = useNavigate();
 
-	
-	return (
+	const { columns, rows } = TableProductsData();
 
-		<>
-			<Breadcrumb page='Meus Produtos'/>
-			<Container style={{flexDirection: 'column'}}>
+	const { data } = useProducts()
 
-		
+	// return <ProductPDF/>
 
-				<TableContainer className="container" component={Paper}>
-					<Table>
-						<TableHead>
-							<TableRow>
-								<TableCell>#ID</TableCell>
-								<TableCell>Nome</TableCell>
-								<TableCell>Preço</TableCell>
-								<TableCell>Status</TableCell>
-							</TableRow>
-						</TableHead>
-						<TableBody>
-							{rows?.map((row) => (
-								<TableRow key={row.id}>
-									<TableCell>{row.id}</TableCell>
-									<TableCell>{row.name}</TableCell>
-									<TableCell>{row.price}</TableCell>
-									<TableCell>{row.status}</TableCell>
-								</TableRow>
-							))}
-						</TableBody>
-					</Table>
-				</TableContainer>
-			</Container>
-		</>
-	);		
+    return (
+        <Container>
+            <Aside>
+                <div className="container">
+                    <input className="input" placeholder="Qual produto você procura?" />
+                    <Button sx={{ backgroundColor: "#ccc" }}>
+                        <SearchIcon color="primary" />
+                    </Button>
+                </div>
 
+                <div className="container">
+                    <Button 
+                        variant="contained" 
+                        sx={{ gap: "6px", width: "100%" }} 
+                        onClick={() => navigate("/administrativo/produtos/create")}
+                    >
+                        <FaPlus color="#fff" />
+                        Adicionar Produto
+                    </Button>
+				
+                    
+					<ButtonExport data={data?.content}/>
+                </div>
+            </Aside>
+            <ContainerTable>
+                <Paper sx={{ height: 400, width: "100%" }}>
+                    <DataGrid
+                        rows={rows}
+                        columns={columns}
+                        pbreandSizeOptions={[5, 20]}
+                        checkboxSelection
+                        sx={{ border: 0 }}
+                    />
+                </Paper>
+            </ContainerTable>
+        </Container>
+    );
 };

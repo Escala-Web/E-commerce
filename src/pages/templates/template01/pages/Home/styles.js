@@ -6,7 +6,11 @@ export const Container = styled.div`
 
     min-height: 100vh;
 
-    padding: 1rem 10rem;
+    padding: 1rem 8rem;
+
+    @media (max-width: 1489px) {
+        padding: 1rem 1rem;
+    }
 
     @media (max-width: 768px) {
 

@@ -1,30 +1,30 @@
 import { createContext, useEffect, useState } from "react";
-import { Navigate, useNavigate, useNavigation } from "react-router-dom";
-import { toast } from "react-toastify";
+
 
 
 export const AuthContext = createContext();
 
 export const AuthProvider = ({children}) => {
 
+    const [role, setRole] = useState('');
+
     const [login, setLogin] = useState(() => {
         const storedLogin = localStorage.getItem("userLogin");
         return storedLogin ? JSON.parse(storedLogin) : null; 
     });
 
+    // console.log(role)
 
-    function logout() {
-        
-
-        
+    function logout() {    
         setLogin(null); // Clear the login state
         localStorage.removeItem("userLogin");
         window.location.href = '/';
-        ;
-        
     }
 
     useEffect(() => {
+
+        
+
         if (login) {
             localStorage.setItem("userLogin", JSON.stringify(login)); // Store login state
         } else {
@@ -34,7 +34,7 @@ export const AuthProvider = ({children}) => {
 
 
     return (
-        <AuthContext.Provider value={{login, setLogin, logout}}>
+        <AuthContext.Provider value={{login, setLogin, logout, setRole, role}}>
             {children}
         </AuthContext.Provider>
     )

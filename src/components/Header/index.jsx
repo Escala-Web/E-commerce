@@ -25,127 +25,19 @@ import { Box, Button } from "@mui/material";
 import zIndex from "@mui/material/styles/zIndex";
 import { ContainerHeader } from "./styles";
 import { HomeEcommece } from "../../pages/Ecommerce/pages/Home";
-import PriceChangeIcon from '@mui/icons-material/PriceChange';
-import AccountCircleIcon from '@mui/icons-material/AccountCircle';
-import CopyrightIcon from '@mui/icons-material/Copyright';
-import CategoryIcon from '@mui/icons-material/Category';
+import PriceChangeIcon from "@mui/icons-material/PriceChange";
+import AccountCircleIcon from "@mui/icons-material/AccountCircle";
+import CopyrightIcon from "@mui/icons-material/Copyright";
+import CategoryIcon from "@mui/icons-material/Category";
+import EmailIcon from "@mui/icons-material/Email";
+import AccountBalanceIcon from "@mui/icons-material/AccountBalance";
+import { LogoTipo } from "../Logo";
+import { headerNavigationAdm } from "../../utils/Navigation/HeaderNavigationAdm";
+import { headerNavigationTemplate } from '../../utils/Navigation/HeaderNavigationTemplate'
+import { AdministrativoThemes } from "../../pages/Administrativo/Template/pages/Themes";
+import { LayoutsAdm } from "../../pages/Administrativo/Template/pages/Layouts";
+import { useLocation, useNavigate } from "react-router-dom";
 
-const NAVIGATION = [
-	{
-		kind: "header",
-		title: "Dashboard",
-	},
-	{
-		segment: "administrativo",
-		title: "Dashboard",
-		icon: <DashboardIcon />,
-	},
-	{
-		segment: "administrativ",
-		title: "Pagamentos",
-		icon: <PriceChangeIcon />,
-		children: [
-			{
-				segment: "",
-				title: "Painel",
-				icon: <DashboardIcon />,
-			},
-			{
-				segment: "",
-				title: "Configurações",
-				icon: <SettingsIcon />,
-			},
-		],
-	},
-
-	{
-		segment: "administrativo",
-		title: "Produtos",
-		icon: <SellIcon />,
-		children: [
-			{
-				segment: "produtos",
-				title: "Meus Produtos",
-				icon: <LabelImportantIcon />,
-			},
-			{
-				segment: "produtos/create",
-				title: "Registrar Produto",
-				icon: <LabelImportantIcon />,
-			},
-			{
-				segment: "brands",
-				title: "Marcas",
-				icon: <CopyrightIcon />,
-				children: [
-					{
-						segment: "produtos",
-						title: "Minhas Marcas",
-						icon: <CopyrightIcon />,
-					},
-					{
-						segment: "produtos",
-						title: "Registrar Marca",
-						icon: <CopyrightIcon />,
-					},
-				]
-			},
-			{
-				segment: "category",
-				title: "Categorias",
-				icon: <CategoryIcon />,
-				children: [
-					{
-						segment: "produtos",
-						title: "Minhas Categorias",
-						icon: <CategoryIcon />,
-					},
-					{
-						segment: "produtos",
-						title: "Registrar Categoria",
-						icon: <CategoryIcon />,
-					},
-				]
-			},
-		],
-		
-	},
-	{
-		segment: "administrativo/pedidos",
-		title: "Pedidos",
-		icon: <ShoppingCartIcon />,
-	},
-	{
-		segment: "administrativo/pedidos",
-		title: "Clientes",
-		icon: <PersonIcon />,
-	},
-	{
-		kind: "divider",
-	},
-  {
-		kind: "header",
-		title: "Minha Loja",
-	},
-	{
-		segment: "administrativo",
-		title: "Loja Virtual",
-		icon: <StoreIcon />,
-		children: [
-			{
-				segment: "loja",
-				title: "Templates",
-				icon: <ViewQuiltIcon />,
-			},
-			{
-				segment: "produtos/create",
-				title: "Configurações",
-				icon: <SettingsIcon />,
-			},
-		],
-	},
-	
-];
 
 const demoTheme = extendTheme({
 	colorSchemes: { light: true, dark: true },
@@ -181,11 +73,10 @@ function useDemoRouter(initialPath) {
 
 	return router;
 }
-
-export const Header = (props, { children }) => {
+export const Header = (props) => {
 	const { window } = props;
-
-	const router = useDemoRouter("/administrativo");
+	const navigate = useNavigate();
+	const location = useLocation();
 
 	const pages = {
 		"/administrativo": <Dashboard />,
@@ -193,6 +84,7 @@ export const Header = (props, { children }) => {
 		"/administrativo/loja": <LojaPage />,
 		"/administrativo/produtos": <Products />,
 		"/administrativo/produtos/create": <CreatePageProduct />,
+		"/administrativo/templates": <LayoutsAdm />,
 	};
 
 	// Remove este const quando copiar para o seu projeto.
@@ -200,27 +92,46 @@ export const Header = (props, { children }) => {
 
 	// Função para gerenciar a navegação
 	const handleNavigation = (segment) => {
-		// Verifica se o segmento é o "logout" e chama a função onClick
-		const navItem = NAVIGATION.find(item => item.segment === segment);
+		const navItem = NAVIGATION.find((item) => item.segment === segment);
 
 		if (navItem && navItem.onClick) {
-			navItem.onClick(); 
+			navItem.onClick();
 		} else {
-			router.navigate(`/${segment}`); // Navega normalmente para os outros segmentos
+			navigate(`/${segment}`);
 		}
 	};
+
+	const NAVIGATION = location.pathname.includes('template')
+		? headerNavigationTemplate
+		: headerNavigationAdm;
 
 	return (
 		<AppProvider
 			navigation={NAVIGATION}
-			router={router}
+			router={{ pathname: location.pathname, navigate }}
 			theme={demoTheme}
 			window={demoWindow}
 			onNavigate={handleNavigation}
+			branding={{
+				logo: "",
+				title: <LogoTipo />,
+				homeUrl: "/administrativo",
+			}}
 		>
-			<DashboardLayout sx={{ position: "relative", zIndex: "99" }}>
-				<PageContainer>
-					{pages[router.pathname] || <div>Page not found</div>}
+			<DashboardLayout
+				sx={{
+					position: "relative",
+					zIndex: "99",
+					"& .MuiDrawer-paper": {
+						mt: 4,
+						width: 280,
+						padding: "10px",
+					},
+				}}
+				disableCollapsibleSidebar={true}
+			>
+				<PageContainer sx={{ mt: 4 }}>
+					{pages[location.pathname] || <div>Page not found</div>}
 				</PageContainer>
 			</DashboardLayout>
 		</AppProvider>

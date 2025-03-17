@@ -1,10 +1,10 @@
 
 import { useMutation } from "@tanstack/react-query";
 import { https } from "../../config/https";
+import { toast } from "react-toastify";
 
 async function createProduct(data) {
-
-
+    
     const token = JSON.parse(localStorage.getItem('userLogin'));
 
     try {
@@ -28,7 +28,7 @@ export const useCreateProduct = () => {
     return useMutation({
         mutationFn: (data) => createProduct(data),
         onSuccess: (data) => {
-            console.log(data)
+            toast.success(data.message)
         },
         onError: (error) => {
             console.log(error)

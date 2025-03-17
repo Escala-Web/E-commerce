@@ -5,7 +5,6 @@ import { AuthContext } from "../context/Auth";
 // Importação dos componentes das páginas
 import { Dashboard } from "../pages/Administrativo/Dashboard";
 import { Pedidos } from "../pages/Administrativo/Pedidos";
-import { LojaPage } from "../pages/Administrativo/Loja";
 import { DashboardLayout } from "./layouts/Dashboard";
 import { TemplateLayout } from "./layouts/TemplateLayout";
 import { ConteudoTemplateAdministrador } from "../pages/Administrativo/Template/pages/Conteudo";
@@ -33,9 +32,13 @@ import { ProductsTemplate } from "../pages/Ecommerce/pages/Products";
 import { OrdersTemplates02 } from "../pages/templates/template02/pages/Admin/Orders";
 import { ProductTemplate02 } from "../pages/templates/template02/pages/Product";
 import { NotFount } from "../pages/NotFount";
+import { TemplateHeaderLayout } from "./layouts/Template";
+import { AdministrativoThemes } from "../pages/Administrativo/Template/pages/Themes";
+import { LayoutsAdm } from "../pages/Administrativo/Template/pages/Layouts";
 
 export const RoutesApp = () => {
 	const { login } = useContext(AuthContext);
+
 
 	const { category } = useCategory();
 
@@ -48,7 +51,6 @@ export const RoutesApp = () => {
 						<Route path="/administrativo" element={<DashboardLayout />}>
 							<Route index element={<Dashboard />} />
 							<Route path="pedidos" element={<Pedidos />} />
-							<Route path="loja" element={<LojaPage />} />
 							<Route path="produtos" element={<Products />} />
 							<Route path="categoria" element={<CategoryPageAdm />} />
 							<Route
@@ -69,7 +71,15 @@ export const RoutesApp = () => {
 								path=":theme/editor/personalizar/:page"
 								element={<Pesonalizar />}
 							/>
+							<Route path="/administrativo/templates" 
+								element={<LayoutsAdm/>}
+							/>
 						</Route>
+
+						{/* <Route path="/administrativo/template" element={<TemplateHeaderLayout/> }>
+							<Route index element={<AdministrativoThemes />}/>
+						</Route> */}
+
 						<Route path="/admin">
 							<Route index element={<AdminPage />} />
 						</Route>

@@ -8,6 +8,7 @@ export const HomeEcommece = () => {
 
 	const {template} = useContext(TemplateContext);
 
+
 	switch (template) {
 		case 1:
 			return <HomePage01 />;

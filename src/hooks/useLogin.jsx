@@ -6,7 +6,7 @@ import { toast } from "react-toastify";
 
 export const useLogin = (email, password) => {
 
-	const { setLogin } = useContext(AuthContext);
+	const { setLogin, setRole } = useContext(AuthContext);
 	const navigate = useNavigate();
 
 	const { logout } = useContext(AuthContext);
@@ -28,11 +28,13 @@ export const useLogin = (email, password) => {
 				{
 					token: data.token,
 					user: data.user,
-					type: data.type
+					type: data.type,
+					rule: data.rule
 				},
 			];
 
 			setLogin(userLogin);
+			setRole(data.rule)
 			localStorage.setItem("userLogin", JSON.stringify(userLogin));
 
 			navigate("/administrativo");

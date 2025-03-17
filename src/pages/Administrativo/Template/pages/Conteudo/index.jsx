@@ -8,6 +8,7 @@ import { Link, useParams } from "react-router-dom";
 import { Breadcrumb } from "../../../components/Breadcrumb";
 import { Box, Button, Tab, Tabs, Typography } from "@mui/material";
 import { FaArrowLeft } from "react-icons/fa";
+import { Helmet } from "react-helmet-async";
 
 export const ConteudoTemplateAdministrador = () => {
 	const { setTheme, theme: tema } = useContext(ThemeColorContext);
@@ -15,10 +16,10 @@ export const ConteudoTemplateAdministrador = () => {
 
 	return (
 		<>
-			<Breadcrumb page="Editor de Tema" />
+			{/* <Breadcrumb page="Editor de Tema" /> */}
 			<Container>
 				<div className="container-menu">
-					<div className="container-sidebar">
+					{/* <div className="container-sidebar">
 						<Button variant="contained">
 							<Link to='/administrativo/loja' className="link-voltar">
 							<FaArrowLeft />
@@ -70,7 +71,7 @@ export const ConteudoTemplateAdministrador = () => {
 
 							
 						</Box>
-					</div>
+					</div> */}
 
 					{/* <HeaderTemplateEditor>
 					<ButtonTemplate click={() => setTheme("black")}>
@@ -96,9 +97,14 @@ export const ConteudoTemplateAdministrador = () => {
 					</ContainerLink>
 				</HeaderTemplateEditor> */}
 				</div>
-			<div className="content-template">
+			{/* <div className="content-template"> */}
+
+			<Helmet>
+				<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1" />
+			</Helmet>
+
 			<Content />
-			</div>
+			{/* </div> */}
 			</Container>
 		</>
 	);

@@ -1,5 +1,6 @@
 import { createContext, useState } from "react";
 import { useCreateProduct } from "../hooks/Products/useCreateProduct";
+import { toast } from "react-toastify";
 
 export const ProductContext = createContext();
 
@@ -63,6 +64,8 @@ export const ProductProvider = ({ children }) => {
         variations: formData.variations
       }
     })
+
+    
   }
 
   return (

@@ -1,3 +1,5 @@
+
+import { useContext } from "react";
 import { BannerPageOne } from "../../components/Banner";
 import { CardCategory } from "../../components/CardCategory";
 import { CardProduct } from "../../components/CardProduct";
@@ -8,6 +10,7 @@ import { SectionOfTheDay } from "../../components/SectionOfTheDay";
 import { Container } from "./styles";
 
 export const HomePage01 = () => {
+
 	return (
 		<>
 			<HeaderPageTemplate01 />
