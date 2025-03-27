@@ -2,6 +2,8 @@
 import { useContext } from "react";
 import { TemplateContext } from "../../../../context/Template";
 import { ProdutosTemplate02 } from "../../../templates/template02/pages/Products";
+import { HomePage01 } from "../../../templates/template01/pages/Home";
+import { ProductsTemplate01 } from "../../../templates/template01/pages/Products";
 
 export const ProductsTemplate = () => {
 
@@ -9,7 +11,7 @@ export const ProductsTemplate = () => {
 
     switch (template) {
         case 1:
-            return <HomePage01 />;
+            return <ProductsTemplate01 />;
             break;
         case 2:
             return <ProdutosTemplate02 />

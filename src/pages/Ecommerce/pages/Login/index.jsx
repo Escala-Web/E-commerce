@@ -13,7 +13,6 @@ export const LoginEcommece = ({ user }) => {
         case 1:
             return (
                 <>
-                    {/* <HeaderPageTemplate01 /> */}
                     <LoginPageTemplate01 user={user}/>
                 </>
             )
@@ -21,7 +20,7 @@ export const LoginEcommece = ({ user }) => {
         case 2:
             return (
                 <>
-                    {/* <HeaderPageTemplate02 />; */}
+
                     <LoginTemplete02 user={user}/>
                 </>
             )

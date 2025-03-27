@@ -9,7 +9,6 @@ import { CardFilesAndFolders } from "../CardImages";
 import { useSearchParams } from "react-router-dom";
 import { MdKeyboardDoubleArrowLeft } from "react-icons/md";
 
-
 export const ListFilders = ({ data, isPage, setData }) => {
 	const [openSettingsIndex, setOpenSettingsIndex] = useState(null);
 	const [selectedFolder, setSelectedFolder] = useState(null);
@@ -18,14 +17,8 @@ export const ListFilders = ({ data, isPage, setData }) => {
 
 	// console.log(data)
 
-	const {
-		folderHistory,
-		prevFolder,
-		pictures,
-		handleRemovePicture,
-	} = useContext(FileManagerContext);
-
-
+	const { folderHistory, prevFolder, pictures, handleRemovePicture } =
+		useContext(FileManagerContext);
 
 	const [search] = useSearchParams();
 	const page = search.get("arquivo");
@@ -78,26 +71,18 @@ export const ListFilders = ({ data, isPage, setData }) => {
 		}
 	}, [data, selectedFolder, setData, isFirstLoad]);
 
-	
-
 	return (
-		<Container >
-
+		<Container>
 			{folderHistory.length > 1 && (
 				<div className="container_button">
 					<div className="back" onClick={handleBack}>
-					<Typography variant='body1'><MdKeyboardDoubleArrowLeft size={20}/></Typography>
-						
+						<Typography variant="body1">
+							<MdKeyboardDoubleArrowLeft size={20} />
+						</Typography>
 					</div>
-					{pictures.length > 0 && (
-						<div className="images">
-						<Typography variant='body1'>Imagens Selecionadas</Typography>
-					</div>
-					)}
-
 				</div>
 			)}
-			<ContainerCard display={pictures.length > 0 ? 'flex' : 'block'}>
+			<ContainerCard display={pictures.length > 0 ? "flex" : "block"}>
 				<div className="container cardsss">
 					<CardFilesAndFolders data={data} setData={setData} />
 				</div>
@@ -108,7 +93,11 @@ export const ListFilders = ({ data, isPage, setData }) => {
 							<div className="card_files">
 								{pictures.map((img) => {
 									const image = img.file_path.split(".")[0];
-									const extention = img.name.split(".")[1];
+									const extention = img.name.split(".").pop(); // Pega a última parte como extensão
+
+									
+
+								
 
 									return (
 										<div key={img.id} className="container_card_image">
@@ -120,9 +109,11 @@ export const ListFilders = ({ data, isPage, setData }) => {
 									);
 								})}
 							</div>
-
+							;
 							<div className="container_b">
-								<Button variant='contained' type="button">Adicionar</Button>
+								<Button variant="contained" type="button">
+									Adicionar
+								</Button>
 							</div>
 						</>
 					)}

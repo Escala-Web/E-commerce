@@ -1,186 +1,177 @@
 import styled from "styled-components";
 
 export const Container = styled.div`
+	display: flex;
+	width: 100%;
+	/* align-items: center; */
+	flex-direction: column;
 
-    display: flex;
-    width: 100%;
-    /* align-items: center; */
-    flex-direction: column;
+	position: relative;
 
-    position: relative;
+	flex-wrap: wrap;
 
-    flex-wrap: wrap;
+	margin-top: 2rem;
 
-    margin-top: 2rem;
+	gap: 2rem;
 
-    gap: 2rem;
+	align-items: start;
 
-    align-items: start;
+	.container_cards {
+		width: 100%;
 
-    .container_cards {
-        width: 100%;
+		display: block;
 
-        display: block;
+		gap: 0.8rem;
+	}
 
+	.activeCard {
+		display: flex;
+		/* width: 100%; */
 
-        gap: .8rem;
-        
-    }
+		gap: 0.8rem;
+	}
 
-    .activeCard {
-        display: flex;
-        /* width: 100%; */
+	.container {
+		/* display: flex; */
+		align-items: center;
+	}
 
-    
-        gap: .8rem;
-    }
+	.card {
+		position: relative;
+		/* height: 200px; */
 
-    .container {
-        /* display: flex; */
-        align-items: center;
-        
+		p {
+			font-size: 14px;
+		}
+	}
 
-    }
+	.settings {
+		position: absolute;
+		top: 10px;
+		right: 10px;
 
-    .card {
-        position: relative;
-        /* height: 200px; */
-        
-        p {
-            font-size: 14px;
-        }
+		z-index: 9999999;
 
-    }
+		cursor: pointer;
+	}
 
-    .settings {
-        position: absolute;
-        top: 10px;
-        right: 10px;
+	.card_imagem {
+		width: 140px;
+	}
 
-        z-index: 9999999;
+	.container_card {
+		/* background-color: aqua; */
+		height: 140px;
+		width: 140px;
 
-        cursor: pointer;
-    }
+		display: flex;
+		align-items: center;
+		justify-content: center;
+		flex-direction: column;
 
-    .card_imagem {
-        width: 140px;
-    }
+		text-align: center;
+	}
 
-    .container_card {
-        /* background-color: aqua; */
-        height: 140px;
-        width: 140px;
+	.container_card_icon {
+		height: 100px;
 
-        display: flex;
-        align-items: center;
-        justify-content: center;
-        flex-direction: column;
+		display: flex;
+		align-items: center;
+		justify-content: center;
 
-        text-align: center;
-    }
+		img {
+			width: 100%;
+		}
+	}
 
-    .container_card_icon {
-        height: 100px;
+	.container_button {
+		border-radius: 6px;
 
-        display: flex;
-        align-items: center;
-        justify-content: center;
+		width: 100%;
 
-        img {
-            width: 100%;
-        }
-    }
+		display: flex;
+		align-items: center;
+		justify-content: space-between;
 
-    .container_button {
-        border-radius: 6px;
+		padding: 0.4rem 0;
+	}
 
-        width: 100%;
+	.back {
+		display: flex;
+		align-items: center;
 
-        display: flex;
-        align-items: center;
-        justify-content: space-between;
+		cursor: pointer;
+	}
 
-        padding: .4rem 0;
+	.images {
+		width: 40%;
+	}
 
-    }
-    
-    .back {
-        display: flex;
-        align-items: center;
+	.container_card_image {
+		width: 100px;
+		height: 100px;
 
-        cursor: pointer;
-    
-    }
+		border-radius: 6px;
+		border: 1px solid #ccc;
+		overflow: hidden;
+		padding: 0.3rem;
 
-    .images {
-        width: 40%;
-    }
+		position: relative;
 
+		img {
+			width: 100%;
+		}
 
-    .container_card_image {
-        width: 100px;
-        height: 100px;
+		svg {
+			cursor: pointer;
 
-        border-radius: 6px;
-        border: 1px solid #ccc;
-        overflow: hidden;
-        padding: .3rem;
+			position: absolute;
+			top: 0;
+			right: 0;
+			font-size: 22px;
 
-        position: relative;
+			color: red;
+		}
+	}
 
-        img {
-            width: 100%;
-        }
+	.name_text_folder_and_file {
+		text-overflow: ellipsis;
+		-webkit-line-clamp: 1;
+		white-space: nowrap;
+		max-width: 100%;
+		overflow: hidden;
+	}
 
-        svg {
+	.container_add_files {
+		/* background-color: aqua; */
+		/* width: 100%; */
 
-            cursor: pointer;
+		padding: 1rem;
 
-            position: absolute;
-            top: 0;
-            right: 0;
-            font-size: 22px;
+		border-left: 1px solid #ccc;
+	}
 
-            color: red;
-        }
-    }
-
-    .name_text_folder_and_file {
-        text-overflow: ellipsis;
-        -webkit-line-clamp: 1;
-        white-space: nowrap;
-        max-width: 100%;
-        overflow: hidden;
-    }
-
-    .container_add_files {
-        /* background-color: aqua; */
-        /* width: 100%; */
-
-        padding: 1rem;
-
-        border-left: 1px solid #ccc;
-        
-    }
-
-    .card_files {
-        display: flex;
-        flex-wrap: wrap;
-        gap: .6rem;
-    }
-
+	.card_files {
+		display: flex;
+		flex-wrap: wrap;
+		gap: 0.6rem;
+	}
 `;
 
 export const ContainerCard = styled.div`
+	display: ${({ display }) => display || "block"};
+	/* width: 100%; */
 
-    display: ${({ display }) => display || 'block'};
-    /* width: 100%; */
+	width: 100%;
 
-    /* overflow-y: scroll; */
-    .container_b {
-        margin-top: 1rem;
-    }
+	.container_b {
+		margin-top: 1rem;
+	}
 
-    .cardsss {}
-
+	.cardsss {
+		width: 75%;
+	}
+	.container_add_files {
+		width: 25%;
+	}
 `;

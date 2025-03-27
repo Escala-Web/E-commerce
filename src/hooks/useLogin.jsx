@@ -55,6 +55,8 @@ export const useLogin = (email, password) => {
 			});
 
 
+			console.log(data)
+
 			const userLogin = [
 				{
 					token: data.token,
@@ -81,6 +83,7 @@ export const useLogin = (email, password) => {
 
 			navigate('/custumer/meus-pedidos')
 		} catch (error) {
+			console.log(error)
 			toast.error(error);
 		}
 	}

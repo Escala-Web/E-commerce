@@ -14,7 +14,7 @@ export const CardContainer = styled.div`
     width: 100%;
     display: flex;
     gap: 1rem;
-    flex-wrap: wrap; 
+    flex-wrap: ${({ flex }) => flex === false ? 'nowrap' : 'wrap'}; 
     justify-content: space-between; 
     overflow: hidden;
 
@@ -22,12 +22,12 @@ export const CardContainer = styled.div`
 `;
 
 export const ContainerCard = styled.div`
-    width: 100%; 
-    max-width: 300px; 
-    /* background-color: aqua; */
+    /* width: 100%;  */
+    ${({ flex, w }) => flex === false ? `min-width: ${w || '268px'};` : `max-width: ${w || '268px'};`}
+
     padding: 1rem;
     border-radius: 8px; 
-    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); 
+    border: 1px solid #ccc;
     
 `;
 
@@ -46,7 +46,7 @@ export const ContainerImage = styled.div`
 
 export const CardContent = styled.div`
 
-    height: 200px;
+    height: 190px;
 
     display: flex;
     align-items: start;
@@ -59,7 +59,7 @@ export const CardContent = styled.div`
 export const CardContentTitle = styled.div`
 
     p {
-        font-size: 1.2rem;
+        font-size: 14px;
         font-weight: 500;
         color: ${({theme}) => theme.colors.text_primary};
     }
@@ -70,7 +70,7 @@ export const CardContentTitle = styled.div`
 export const CardContentPrice = styled.div`
 
     p {
-        font-size: 1.4rem;
+        font-size: 1.5rem;
         font-weight: 600;
         color: ${({theme}) => theme.colors.secondary};
     }

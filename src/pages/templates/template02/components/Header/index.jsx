@@ -8,14 +8,9 @@ import {
 } from "react-icons/io";
 import {
 	List,
-	ListItemButton,
 	ListItemText,
-	ListSubheader,
-	Typography,
 	ListItem,
-	Avatar,
-	Drawer,
-	ListItemIcon,
+	Drawer
 } from "@mui/material";
 import { AuthContext } from "../../../../../context/Auth";
 import { FiUsers } from "react-icons/fi";
@@ -24,14 +19,10 @@ import { FaBars, FaHeart, FaRegHeart } from "react-icons/fa";
 import { IoLocationOutline } from "react-icons/io5";
 import { Link } from "react-router-dom";
 
-import { FavoriteContext } from "../../../../../context/Favorite";
 import { Favorit } from "../Favorid";
-import { MdOutlineArrowForwardIos, MdShoppingCart } from "react-icons/md";
+import { MdShoppingCart } from "react-icons/md";
 import { MobileHeader } from "./Mobile";
 
-import { Delete, Folder, Pageview } from "@mui/icons-material";
-import { useCategory } from "../../../../../hooks/useCategory";
-import { useCategoryAll } from "../../../../../hooks/Categories/useCategory";
 import { DropHeader } from "./DropHeader";
 
 export const HeaderPageTemplate02 = () => {

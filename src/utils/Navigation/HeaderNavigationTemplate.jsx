@@ -1,6 +1,7 @@
 import DashboardIcon from "@mui/icons-material/Dashboard";
 import ArrowCircleLeftIcon from '@mui/icons-material/ArrowCircleLeft';
 import ColorLensIcon from '@mui/icons-material/ColorLens';
+import ViewCarouselIcon from '@mui/icons-material/ViewCarousel';
 
 export const headerNavigationTemplate = [
 	{
@@ -17,13 +18,13 @@ export const headerNavigationTemplate = [
     },
 	{
 		segment: "administrativo/templates",
-		title: "Temas Disponives",
+		title: "Layouts Disponives",
 		icon: <DashboardIcon />,
 	},
     {
-		segment: "administrativo/templat",
-		title: "Paletas de Cores",
-		icon: <ColorLensIcon />,
+		segment: "administrativo/templates/banner",
+		title: "Banners",
+		icon: <ViewCarouselIcon />,
 	},
 	
 ];

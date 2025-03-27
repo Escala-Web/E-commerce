@@ -10,16 +10,16 @@ import { TableProductsData } from "../../../data/Admin/TableProducts";
 import { exportToExcel } from "../../../functions/Admin/exportToExcel";
 import { useProducts } from "../../../hooks/Products/useProducts";
 import { ButtonExport } from "../components/ButtonExport";
-import { ProductPDF } from "../components/PDF/products";
+
 
 export const Products = () => {
     const navigate = useNavigate();
 
 	const { columns, rows } = TableProductsData();
 
-	const { data } = useProducts()
+	const { findAll } = useProducts()
+    const { data } = findAll;
 
-	// return <ProductPDF/>
 
     return (
         <Container>
@@ -34,11 +34,11 @@ export const Products = () => {
                 <div className="container">
                     <Button 
                         variant="contained" 
-                        sx={{ gap: "6px", width: "100%" }} 
+                        sx={{ gap: "6px", width: "250px" }} 
                         onClick={() => navigate("/administrativo/produtos/create")}
                     >
                         <FaPlus color="#fff" />
-                        Adicionar Produto
+                         Produto
                     </Button>
 				
                     

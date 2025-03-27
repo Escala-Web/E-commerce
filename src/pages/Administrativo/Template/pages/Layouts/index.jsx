@@ -7,12 +7,10 @@ import {
 	Typography,
 } from "@mui/material";
 import { Container, ContainerLayouts } from "./styles";
-import { useNavigate } from "react-router-dom";
 import { useContext, useState } from "react";
 import { TemplateContext } from "../../../../../context/Template";
 import { toast } from "react-toastify";
 import { Opacity } from "@mui/icons-material";
-import { ConteudoTemplateAdministrador } from "../Conteudo";
 import { ThemeColorContext } from "../../../../../context/ThemeContext";
 
 export const LayoutsAdm = () => {
@@ -29,7 +27,7 @@ export const LayoutsAdm = () => {
 
 	const { setTemplate, template } = useContext(TemplateContext);
 
-	console.log(template)
+
 
 	
 		const { setTheme } = useContext(ThemeColorContext);
@@ -46,8 +44,9 @@ export const LayoutsAdm = () => {
 	return (
 		<>
 			<Container>
-				{navigationPage !== template ? (
-				<>
+				<Typography className="title" component='div' variant="h5">Layouts disponiveis</Typography>
+	
+				<div className="container">
 				{dataLayouts?.map((data) => (
 					<Card 
 						key={data.id}
@@ -76,50 +75,19 @@ export const LayoutsAdm = () => {
 							sx={{ borderRadius: "16px" }}
 							onClick={() => templateSelectd(data)}
 						>
-							Saiba mais
+							Selecionar
 						</Button>
 					</CardContent>
 				</Card>
 				))}
-				</>
+				</div>
+			
 
-				) : (
-					<>
-					<Button 
-							variant="contained" 
-							component='div' 
-							sx={{ borderRadius: "16px" }}
-							onClick={() => setTemplate(0)}
-						>
-							Voltar
-						</Button>
-						<Button onClick={() => setTheme("black")}>
-						Tema Preto
-					</Button>
-					<Button onClick={() => setTheme("green")}>
-						Tema Verde
-					</Button>
-					<Button onClick={() => setTheme("purple")}>
-						Teme Roxo
-					</Button>
-					<Button onClick={() => setTheme("blue")}>
-						Tema Azul
-					</Button>
-					<Button onClick={() => setTheme("orange")}>
-						Tema Laranja
-					</Button>
-					<Button onClick={() => setTheme("red")}>
-						Tema Vermelho
-					</Button>
-					</>
-				)}
+				
+	
 			</Container>
 
-			{template > 0 && (
-				<ContainerLayouts>
-					<ConteudoTemplateAdministrador />
-				</ContainerLayouts>
-			)}
+			
 
 		</>
 	);

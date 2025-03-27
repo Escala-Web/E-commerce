@@ -1,113 +1,175 @@
-import {
-	ContainerHeader,
-	ContainerHeaderLogo,
-	ContainerHeaderMenu,
-	ContainerHeaderNavegacao,
-	ContainerHeaderSearch,
-	HeaderContainerLinkLogin,
-	HeaderContainerLoginIcon,
-	HeaderIconLogin,
-	HeaderIconSearch,
-	HeaderLink,
-	HeaderLinkLogin,
-	HeaderLogin,
-	HeaderResultsSearch,
-} from "./styles";
 import logo from "../../../../../assets/logo_nsa.png";
-import { Link } from "react-router-dom";
-import { FaCartShopping } from "react-icons/fa6";
-import { FaUserAlt } from "react-icons/fa";
-import { Formulario } from "../Formulario";
-import { IoSearch } from "react-icons/io5";
-import { useFecth } from "../../../../../hooks/useFecth";
 import { useContext, useState } from "react";
-import { useApi } from "../../../../../hooks/useApi";
 import { AuthContext } from "../../../../../context/Auth";
+import { ContainerHeader, ContainerNavibar } from "./styles";
+import { Search } from "../Search";
+import { FaUserAlt } from "react-icons/fa";
+import { Link, useNavigate } from "react-router-dom";
+import { FiHeart } from "react-icons/fi";
+import { MdOutlineShoppingCart } from "react-icons/md";
+import { Logo } from "../Logo";
+import { FaBarsStaggered } from "react-icons/fa6";
+import Box from "@mui/material/Box";
+import Drawer from "@mui/material/Drawer";
+import Button from "@mui/material/Button";
+import List from "@mui/material/List";
+import Divider from "@mui/material/Divider";
+import ListItem from "@mui/material/ListItem";
+import ListItemButton from "@mui/material/ListItemButton";
+import ListItemIcon from "@mui/material/ListItemIcon";
+import ListItemText from "@mui/material/ListItemText";
+import InboxIcon from "@mui/icons-material/MoveToInbox";
+import MailIcon from "@mui/icons-material/Mail";
+import { Avatar } from "@mui/material";
+import {
+	navigationSite,
+	navigationSiteAdm,
+} from "../../../../../utils/Navigation/HeaderNavigation";
+
 export const HeaderPageTemplate01 = () => {
-	const uri = "https://fakestoreapi.com/products";
-
-	// const { headerLinks } = useContext(TemplateContext);
-
-	const { data, erro, loading } = useFecth(uri);
-
-	const { items, error } = useApi("/pages");
-
-	const [openHeader, setOpenHeader] = useState(false);
-
-	const [search, setSearch] = useState("");
-
 	const { login } = useContext(AuthContext);
+	const navigate = useNavigate();
 
-	const filter = data.filter((f) =>
-		f.title.toLowerCase().includes(search.toLowerCase())
-	);
+	const [open, setOpen] = useState(false);
 
-	function clickOpenHeader() {
-		setOpenHeader((prevOpen) => !prevOpen);
-	}
+	const toggleDrawer = (newOpen) => () => {
+		setOpen(newOpen);
+	};
 
 	return (
 		<>
 			<ContainerHeader>
-				<ContainerHeaderMenu>
-					<ContainerHeaderLogo>
-						<img src={logo} />
-					</ContainerHeaderLogo>
-					<ContainerHeaderNavegacao>
-						<ul>
-							<li><HeaderLink to='/'>Página Inicial</HeaderLink></li>
-							{items.map((link) => (
-								<li key={link.id}>
-								<HeaderLink to={link.link}>{link.page}</HeaderLink>
-							</li>
-							))}
-						</ul>
-					</ContainerHeaderNavegacao>
-					<div>
-						<HeaderLogin>
-							<HeaderContainerLoginIcon>
-								<HeaderIconLogin>
-									<FaUserAlt color="#323232" />
-								</HeaderIconLogin>
-								{login ? (
-								<HeaderContainerLinkLogin>
-									<HeaderLinkLogin to='/administrativo'>Administrador</HeaderLinkLogin>
-								</HeaderContainerLinkLogin>
-								) : (
-								<HeaderContainerLinkLogin>
-									<HeaderLinkLogin to='/login'>Login/</HeaderLinkLogin>
-									<HeaderLinkLogin to='/login'>Registra</HeaderLinkLogin>
-								</HeaderContainerLinkLogin>
-								)}
-							</HeaderContainerLoginIcon>
-							<HeaderIconLogin>
-								<FaCartShopping color="#323232" />
-								<p>2</p>
-							</HeaderIconLogin>
-						</HeaderLogin>
+				<div className="container_header_main">
+					<Logo image={logo} />
+					<Search />
+					<div className="container_header_actions">
+						<div className="container_header_login">
+							<div className="header_login_icon">
+								<FaUserAlt />
+							</div>
+							{login.length == 0 ? (
+								<p>
+									<Link to="/login">Entre</Link> ou <br />
+									<Link to="/">Cadastra-se</Link>
+								</p>
+							) : (
+								<p onClick={() => navigate("/custumer")}>
+									Olá, {login[0].user.split(" ")[0]}
+								</p>
+							)}
+						</div>
+						<div className="container_favorid_and_cart">
+							<div className="favorit">
+								<FiHeart className="icons" />
+							</div>
+							<div className="cart">
+								<MdOutlineShoppingCart className="icons" />
+							</div>
+						</div>
 					</div>
-				</ContainerHeaderMenu>
-				<ContainerHeaderSearch>
-					<Formulario>
-						<input 
-							placeholder="Pesquisar"
-							value={search}
-							onChange={(event) => setSearch(event.target.value)}
-							 />
-						<HeaderIconSearch>
-							<IoSearch color="#323232" />
-						</HeaderIconSearch>
+				</div>
 
-						{search !== '' && (
-							<HeaderResultsSearch>
-						{filter.map((f) => (
-									<p>{f.title}</p>
-								))}
-						</HeaderResultsSearch>
-						)}
-					</Formulario>
-				</ContainerHeaderSearch>
+				<div className="container_header_main_mobile">
+					<div className="header_mobile_top">
+						<FaBarsStaggered onClick={toggleDrawer(true)} />
+						<Logo image={logo} />
+						<div className="container_favorid_and_cart">
+							<div className="favorit">
+								<FiHeart className="icons" />
+							</div>
+							<div className="cart">
+								<MdOutlineShoppingCart className="icons" />
+							</div>
+						</div>
+					</div>
+					<div className="search_mobile">
+						<Search />
+					</div>
+				</div>
+
+				<div className="container_header_navigation">
+					<nav className="container_navigation">
+						<ul>
+							<li>
+								<Link to="/">Página Inicial</Link>
+							</li>
+							<li>
+								<Link>Categorias</Link>
+							</li>
+							<li>
+								<Link>Marcas</Link>
+							</li>
+
+							<li>
+								<Link to="/produtos">Lançamentos</Link>
+							</li>
+							<li>
+								<Link>Suporte</Link>
+							</li>
+						</ul>
+					</nav>
+				</div>
 			</ContainerHeader>
+
+			<Drawer open={open} onClose={toggleDrawer(false)}>
+				<Box
+					sx={{ width: 350 }}
+					role="presentation"
+					onClick={toggleDrawer(false)}
+				>
+					<ContainerNavibar>
+						<div>
+							<div className="container_nav">
+								{login.length > 0 ? (
+									<>
+										<Avatar>{login[0].user.split("")[0]}</Avatar>
+										<p>Olá, {login[0].user.split(" ")[0]}</p>
+									</>
+								) : (
+									<>
+										<Avatar>E</Avatar>
+										<p>Olá, Entrar na conta</p>
+									</>
+								)}
+							</div>
+							<Divider />
+							<List>
+								{navigationSite.map((text, index) => (
+									<ListItem key={index} disablePadding>
+										<ListItemButton component={Link} to={text.link}>
+											<ListItemIcon>{text.icon}</ListItemIcon>
+											<ListItemText primary={text.name} />
+										</ListItemButton>
+									</ListItem>
+								))}
+							</List>
+							{login.length > 0 && (
+								<>
+									<Divider />
+									<List>
+										{navigationSiteAdm.map((text, index) => (
+											<ListItem key={index} disablePadding>
+												<ListItemButton>
+													<ListItemIcon>{text.icon}</ListItemIcon>
+													<ListItemText primary={text.name} />
+												</ListItemButton>
+											</ListItem>
+										))}
+									</List>
+								</>
+							)}
+						</div>
+						<div className="container_enter">
+							<Link to="/login" className="link enter">
+								Entrar
+							</Link>
+							<Link to="/register" className="link register">
+								Cadastre-se
+							</Link>
+						</div>
+					</ContainerNavibar>
+				</Box>
+			</Drawer>
 		</>
 	);
 };

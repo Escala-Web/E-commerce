@@ -7,37 +7,42 @@ export const Container = styled.div`
 
     display: flex;
     align-items: center;
-    justify-content: center;
+    justify-content: space-between;
 
     background-color: ${({ theme }) => theme.colors.background};
 
-    /* margin-bottom: 2rem; */
 
-`;
+    .container_title {
+        
+        display: flex;
+        align-items: center;
+        gap: .4rem;
 
-export const Title = styled.h4`
+        a {
+            color: ${({ theme }) => theme.colors.text_primary};
+            font-size: 14px;
 
-    /* color: ${({ theme }) => theme.colors.text_secondary}; */
-    color: ${({ theme }) => theme.colors.text_primary} ;
+            font-weight: 400;
+            text-decoration: none;
+        }
 
-    font-size: 1rem;
+        p {
+            font-size: 14px;
+            font-weight: 500;
+            color: ${({ theme }) => theme.colors.text_primary};
+        }
 
-    display: flex;
-    align-items: center;
-
-    opacity: .8;
-
-    .icon-breadcrumb {
-        margin: 0 4px;
+        svg {
+            color: ${({ theme }) => theme.colors.text_primary};
+            font-size: 12px;
+            font-weight: 400;
+        }
     }
 
-`;
-
-export const LinkStyle = styled(Link)`
-
-    /* color: ${({ theme }) => theme.colors.text_secondary}; */
-    color: ${({ theme }) => theme.colors.text_primary} ;
-
-    text-decoration: none;
+    .container_total {
+            color: ${({ theme }) => theme.colors.text_primary};
+            font-size: 14px;
+            font-weight: 400;
+    }
 
 `;

@@ -3,14 +3,13 @@ import { MdArrowDropDown } from "react-icons/md";
 import { HiMiniUsers } from "react-icons/hi2";
 import { Container } from "./styles";
 import { Link } from "react-router-dom";
-import { useCategory } from "../../../../../../hooks/useCategory";
 
 export const MobileHeader = () => {
 	const [openLogin, setOpenLogin] = useState(false);
 	const [isAccordionOpen, setIsAccordionOpen] = useState(false);
 	const [isOpenLogar, setIsOpenLogar] = useState(false);
 
-	const { category } = useCategory();
+
 
 	return (
 		<>
@@ -57,7 +56,7 @@ export const MobileHeader = () => {
 							</spam>
 						</div>
 
-						{isAccordionOpen && (
+						{/* {isAccordionOpen && (
 							<div className="accordion-content">
 								<ul>
 									{category.content?.map((cat) => (
@@ -74,7 +73,7 @@ export const MobileHeader = () => {
 									))}
 								</ul>
 							</div>
-						)}
+						)} */}
 					</li>
 					<li className="header-mobile-list-li">
 						<Link className="header-mobile-link">Contato</Link>

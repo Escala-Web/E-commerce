@@ -8,7 +8,7 @@ import { ListFilders } from "../Folders";
 import { UploadsOfFiles } from "../CreateFile";
 import { useSearchParams } from "react-router-dom";
 
-export const Content = ({ isPage }) => {
+export const Content = ({ isPage, id }) => {
 	const [isAddFolder, setIsAddFolder] = useState(false);
 	const [isUploadsFiles, setIsUploadsFiles] = useState(true);
 

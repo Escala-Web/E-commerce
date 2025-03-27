@@ -9,7 +9,7 @@ api.interceptors.request.use(
     (config) => {
     
         if (config.requiresAuth) {
-            const token = JSON.parse(localStorage.getItem('userLogin'));// Ou outro método de armazenamento do token
+            const token = JSON.parse(localStorage.getItem('userLogin'));
             if (token) {
                 config.headers.Authorization = `Bearer ${token[0].token}`;
             }

@@ -44,6 +44,7 @@ export const EditValue = () => {
   const [stock, setStock] = React.useState("");
   const [sku, setSku] = React.useState("");
   const [discount, setDiscount] = React.useState("");
+  const [is_default, setIs_default] = React.useState(false);
 
   const { data: variantValue } = useFindVariatValue(variantValuesData.id);
   const { addVariation } = React.useContext(ProductContext);
@@ -71,6 +72,7 @@ export const EditValue = () => {
     setStock(selected?.stock || "");
     setSku(selected?.sku || "");
     setDiscount(selected?.discount || "");
+    setIs_default(selected?.is_default || "");
   };
 
   // Atualiza os valores de preço, estoque e SKU com base na mudança do usuário
@@ -80,6 +82,7 @@ export const EditValue = () => {
     if (name === "stock") setStock(value);
     if (name === "sku") setSku(value);
     if (name === "discount") setDiscount(value);
+    if (name === "is_default") setIs_default(value);
   };
 
   // Submissão dos dados
@@ -97,7 +100,7 @@ export const EditValue = () => {
       stock,
       sku,
       discount,
-      is_default: true,
+      is_default,
     };
 
     // Adiciona a variação ao formData
@@ -155,6 +158,7 @@ export const EditValue = () => {
                     <TableCell>Estoque</TableCell>
                     <TableCell>SKU</TableCell>
                     <TableCell>Desconto</TableCell>
+                    <TableCell>Principal?</TableCell>
                     <TableCell>Imagem</TableCell>
                   </TableRow>
                 </TableHead>
@@ -224,6 +228,20 @@ export const EditValue = () => {
                           onChange={handleInputChange}
                         />
                       </TableCell>
+
+                      <TableCell>
+                          <input 
+                            name='is_default'
+                            type="checkbox"
+                            onChange={handleInputChange}
+                            value={
+                            String(variant.id_variant_attribute_value) === String(selectedVariant)
+                              ? discount
+                              : ""
+                          }
+                          />
+                      </TableCell>
+
                       <TableCell>
                         <FileManager name="Gerenciador de" />
                       </TableCell>

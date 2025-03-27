@@ -1,43 +1,44 @@
-import { Pagination } from "@mui/material";
-import { AsideProductsFilter } from "../../components/AsideProductsFilter";
+import { useBreads } from "../../../../../hooks/Breads/useBreads";
+import { useCategories } from "../../../../../hooks/Category/useCategories";
+import { useProducts } from "../../../../../hooks/Products/useProducts";
 import { Breadcrumb } from "../../components/Breadcrumbs";
-import { HeaderPageTemplate02 } from "../../components/Header";
-
-import {
-	Aside,
-	ContainerContent,
-	ContainerProduct,
-} from "../Categories/styles";
-import { Container } from "../home/styles";
-import { Footer } from "../../components/Footer";
-import { CardProduct } from "../../components/CardProduct";
+import { CardProduct } from "../../components/Cards/CardProduct";
+import { Filters } from "../../components/Filters";
+import { Container } from "./styles";
 
 export const ProdutosTemplate02 = () => {
+
+	const { findAll: categories } = useCategories();
+	const { findAll } = useBreads();
+	const { data: brands } = findAll;
+
+	const { findAll: fidAllProducts, getAllByProducts } = useProducts('brand', '8','1');
+	const { data: products } = fidAllProducts;
+
+	const { data: category } = categories
+
+	const { data: getAllBy} = getAllByProducts
+
+
 	return (
 		<>
-			{/* <Breadcrumb /> */}
-			<Container>
-			<br />
-			<br />
-				<ContainerProduct>
-					<Aside>
-						<AsideProductsFilter />
-					</Aside>
-					<ContainerContent>
-						<CardProduct />
 
-						<div className="container-pagination">
-							<Pagination
-								className="pagination"
-								count={20}
-								variant="outlined"
-								shape="rounded"
-							/>
-						</div>
-					</ContainerContent>
-				</ContainerProduct>
+			<Container>
+				<div className="container_product">
+					<aside className="product_aside">
+						<Filters 
+							category={category}
+							brands={brands?.content}
+							price={''}
+						/>
+					</aside>
+					<main>
+						<Breadcrumb page='Produtos' productQTD={products?.page}/>
+						<CardProduct data={products?.content}/>
+					</main>
+				</div>
 			</Container>
-			<Footer />
+
 		</>
 	);
 };

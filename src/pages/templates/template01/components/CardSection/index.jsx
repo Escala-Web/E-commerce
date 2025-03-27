@@ -1,4 +1,4 @@
-import { Container, ContainerHeaderTitle } from "./styles";
+import { Container } from "./styles";
 
 export const CardSection = ({title, children, m}) => {
 
@@ -7,12 +7,12 @@ export const CardSection = ({title, children, m}) => {
 
         <>
             <Container m={m}>
-                <ContainerHeaderTitle>
+                <div className="container_title">
                     <h3>{title}</h3>
-                </ContainerHeaderTitle>
-                <div>
-                    {children}
                 </div>
+                
+                    {children}
+                
             </Container>
         </>
 

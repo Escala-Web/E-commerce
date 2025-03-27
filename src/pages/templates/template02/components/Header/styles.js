@@ -5,6 +5,8 @@ export const ContainerDesktop = styled.header`
 	/* padding: 0 2rem; */
 	background-color: ${({ theme }) => theme.colors.secondary};
 
+	border-bottom: 1px solid #ccc;
+
 	@media (max-width: 900px) {
 		display: none;
 	}

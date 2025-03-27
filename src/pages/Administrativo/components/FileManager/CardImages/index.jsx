@@ -71,12 +71,21 @@ export const CardFilesAndFolders = ({ data, setData }) => {
 					const extention = f?.name?.split(".")[1];
 					const image = f?.file_path?.split(".")[0];
 
+					const imageId = search.get("image") || ""; // Evita null
+					const variation = search.get("variation") === "1"; // Converte diretamente para booleano
+
+					const imageA = {
+						...f,
+						variation,
+						id_image_product: imageId ? Number(imageId) : "", // Evita NaN
+					};
+
 					return (
 						<CardActionArea
 							key={index}
 							className="container"
 							onClick={() =>
-								f.type === "folder" ? toggleFilter(f) : handlePicture(f)
+								f.type === "folder" ? toggleFilter(f) : handlePicture(imageA)
 							}
 						>
 							<div className="container_image">

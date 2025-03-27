@@ -1,282 +1,530 @@
-import { useContext, useState } from "react";
 import { Content } from "../../components/Content";
-import { Form } from "../../components/Form";
-import { Aside, Container, MainContent } from "./styles";
-import "react-quill/dist/quill.snow.css";
-import "./styles.css";
-import { FileManager } from "../../components/FileManager";
 import {
-	Box,
-	Button,
-	Dialog,
-	DialogActions,
-	DialogTitle,
-	IconButton,
-	Stack,
-	Switch,
-	TextField,
-	Typography,
-} from "@mui/material";
+	Aside,
+	Container,
+	ContainerModal,
+	ContainerVariations,
+	Formulario,
+	FormularioRadio,
+	MainContent,
+} from "./styles";
+import { FileManager } from "../../components/FileManager";
+import { useContext, useEffect, useState } from "react";
 import { Editor } from "primereact/editor";
+import { FaPlusCircle } from "react-icons/fa";
+import { ModalVariant } from "../Modal";
+import { LuClipboardList } from "react-icons/lu";
+import { MdOutlineColorLens } from "react-icons/md";
+import { AutocompleteVarient } from "../AutocompleteVariant";
+import {
+	Badge,
+	Button,
+	Divider,
+	IconButton,
+	Switch,
+	Table,
+	TableBody,
+	TableCell,
+	TableHead,
+	TableRow,
+} from "@mui/material";
 import { Categorie } from "../Categorie";
 import { Breads } from "../Breads";
+import { CardImage } from "../CardImage";
 import { ProductContext } from "../../../../context/Product";
-import { FileManagerContext } from "../../../../context/FileManager";
-import { producion } from "../../../../utils/producion";
-import { RiCloseCircleFill } from "react-icons/ri";
-import { Varients } from "../Variants/List";
-import { useFindAllVariations } from "../../../../hooks/Variants/useFindAllVariant";
+import { useVariation } from "../../../../hooks/Variants/useVariation";
 import DeleteIcon from "@mui/icons-material/Delete";
-import EditIcon from "@mui/icons-material/Edit";
-import { useDeleteVariant } from "../../../../hooks/Variants/useDeleteVariant";
-import { EditValue } from "../Variants/EditValue";
+import BorderColorIcon from "@mui/icons-material/BorderColor";
+import { FileManagerContext } from "../../../../context/FileManager";
+import { Link } from "react-router-dom";
+import { producion } from "../../../../utils/producion";
 
 export const CreatePageProduct = () => {
-	
-	const { formData, setFormData, handleChange, Submit } = useContext(ProductContext);
+	const [formProduct, setFormProduct] = useState([]);
+	const [variatExibir, setVarientExibir] = useState("");
+	const [nameVariation, setNameVariation] = useState("");
+	const [variationOption, setVarietionOption] = useState("");
+	const [variationData, setVariationData] = useState([]);
+	const [dataImagesSelect, setDataImagesSelect] = useState([]);
+	const [indexImage, setIndexImage] = useState(true);
 
-	const { data: variants } = useFindAllVariations();
-	const { mutate: deleteVariant } = useDeleteVariant();
+	const [dataVariationsValue, setDataVariatiosValue] = useState([]);
 
-	const [isOpenVariationValue, setIsOpenVariationValue] = useState(false);
+	const [open, setOpen] = useState(false);
+	const [openVariation, setOpenVariation] = useState(false);
 
-	const [isOpenDeleteVariant, setIsOpenDeleteVariant] = useState(false);
-	const [idVariant, setIdVariant] = useState([]);
+	const [isDiscount, setIsDiscount] = useState(false);
 
-	function handleDelete() {
-		deleteVariant({
-			id: idVariant.id,
-		});
-		setIsOpenDeleteVariant(false);
+	function handleChange(event) {
+		const { name, value } = event.target;
+		setFormProduct((prevForm) => ({
+			...prevForm,
+			[name]: value,
+			description: event.htmlValue,
+		}));
 	}
 
-	function handleOpenDelete({ name, id_variant_attribute }) {
-		setIdVariant({
-			id: id_variant_attribute,
-			name: name,
-		});
-		setIsOpenDeleteVariant(true);
+	function handleDescriptionChange(e) {
+		setFormProduct((prevForm) => ({
+			...prevForm,
+			description: e.htmlValue,
+		}));
 	}
 
-	const { pictures, handleRemovePicture } = useContext(FileManagerContext);
-	const url = producion(false);
+	const {
+		findAllVariation,
+		createVariations,
+		findValueVariant,
+		deleteVariant,
+	} = useVariation();
 
+	const { data: variation } = findAllVariation;
+
+	function handleSubmitVariations(event) {
+		event.preventDefault();
+
+		createVariations.mutate({
+			name: nameVariation,
+		});
+	}
+
+	function handleDeleteVariation(id) {
+		deleteVariant.mutate(id);
+	}
+	const { data: valueVariation } = findValueVariant(variatExibir);
+
+	console.log(valueVariation)
+
+	function handleOpen(item) {
+
+		console.log(item)
+		// Atualiza o id selecionado
+		setVarientExibir(item.id_variant_attribute);
+		setOpenVariation(true); // Abre o modal
+	}
+
+	const { pictures } = useContext(FileManagerContext);
+
+	const { setFormData, Submit } = useContext(ProductContext);
+
+	function handleSubmit(event) {
+		event.preventDefault();
+
+		setFormData((prevData) => ({
+			...prevData,
+			product: formProduct,
+			variant: dataVariationsValue,
+			images: dataImagesSelect,
+			
+		}));
+
+		Submit();
+	}
+
+
+
+	useEffect(() => {
+		
+		if (pictures) {
+
+
+		  const imagesSelected = pictures
+			.filter((i) => i.id_image_product === variatExibir)
+			.map((image) => ({
+			  ...image,
+			  url: producion(false) + image.file_path.split(".")[0] + "." + image.name.split(".")[1],
+			  is_image: indexImage
+			}));
+	  
+		  setDataImagesSelect(imagesSelected);
+		}
+	  }, [pictures, variatExibir, indexImage]); 
+
+	  useEffect(() => {
+        if (variation && variation.content && variation.content.length > 0) {
+            setVarietionOption(variation.content[0].id_variant_attribute); // Definir o primeiro item como padrão
+        }
+    }, [variation]);
+	  
 	return (
 		<>
-			<form onSubmit={Submit}>
+			<form onSubmit={handleSubmit}>
 				<Container>
 					<MainContent>
-						<Content title="Imagens e Vídeos">
-							<Form>
-								<FileManager name="Adicionar imagem" />
-							</Form>
-							{formData.variations.length == 0 && (
-
-							<div className="container">
-								{pictures.map((img) => {
-									const image = img.file_path.split(".")[0];
-									const extention = img.name.split(".")[1];
-
-									return (
-										<div key={img.id} className="container_card_image">
-											<img src={`${url}${image}.${extention}`} alt={img.name} />
-											<RiCloseCircleFill
-												onClick={() => handleRemovePicture(img)}
-											/>
-										</div>
-									);
-								})}
-							</div>
-							)}
+						<Content title="Registrar imagens">
+							<FileManager name="Gerenciador de media" />
+							<CardImage />
 						</Content>
-
-						<Content title="Informação do Produto">
-							<Stack direction="column">
-								<Stack direction="row" spacing={6}>
-									<TextField
-										id="standard-multiline-flexible"
-										label="Nome do Produto"
-										multiline
-										maxRows={4}
-										fullWidth
-										variant="standard"
-										name="name"
-										value={formData.name}
-										onChange={handleChange}
-									/>
-									{formData.variations.length == 0 && (
-										<>
-											<TextField
-											id="standard-multiline-flexible"
-											label="SKU"
-											multiline
-											maxRows={4}
-											sx={{ width: "35%" }}
-											variant="standard"
-											name="sku"
-											value={formData.sku}
+						<Content title="Informações do produto">
+							<Formulario>
+								<div className="form_flex">
+									<div className="form_group">
+										<label>Nome do produto</label>
+										<input
+											name="name"
+											placeholder="Nome do produto"
+											type="text"
 											onChange={handleChange}
+											value={formProduct.name}
 										/>
-										</>
-									)}
-							
-								</Stack>
-								<Stack sx={{ marginTop: 4 }}>
-									<Editor
-										name="description"
-										value={formData.description} // Liga o valor ao estado
-										onChange={handleChange} // Atualiza o estado ao alterar o texto
-										style={{ height: "320px", color: "#333", border: "none" }}
-									/>
-								</Stack>
-							</Stack>
-						</Content>
-						
-						{formData.variations.length == 0 && (
-						<Content title="Preços">
-							<Stack>
-								<TextField
-									id="standard-multiline-flexible"
-									label="Valor do Produto"
-									multiline
-									maxRows={4}
-									fullWidth
-									variant="standard"
-									name="price"
-									value={formData.price}
-									onChange={handleChange}
-								/>
-							</Stack>
-						</Content>
-						)}
-
-						<Content title="Opções do Produto">
-							<Stack
-								direction="row"
-								display="flex"
-								justifyContent="space-between"
-								alignItems="center"
-							>
-								<Typography variant="body1" component="span">
-									Seu produto tem diferentes opções como tamanho, cor ou
-									material?
-								</Typography>
-
-								<Varients />
-							</Stack>
-
-							<Box
-								sx={{
-									display: "flex",
-									alignItems: "center",
-									// justifyContent: 'space-bet'
-									marginTop: 2,
-									gap: 2,
-								}}
-							>
-								<div className="container_variants_values">
-									{variants?.content?.map((vari) => (
-										<div
-											key={vari.id_variant_attribute}
-											className="container_variant"
-										>
-											<Typography component="p" variant="body1">
-												{vari.name}
-											</Typography>
-											<div>
-												<IconButton color="primary" variant="dot">
-													<EditIcon />
-												</IconButton>
-												<IconButton
-													color="red"
-													variant="dot"
-													onClick={() => handleOpenDelete(vari)}
-												>
-													<DeleteIcon />
-												</IconButton>
-											</div>
-										</div>
-									))}
+									</div>
+									<div className="form_group">
+										<label>Sku</label>
+										<input
+											name="sku"
+											placeholder="Sku"
+											type="text"
+											onChange={handleChange}
+											value={formProduct.sku}
+										/>
+									</div>
+									<div className="form_group">
+										<label>Estoque</label>
+										<input
+											name="stock"
+											placeholder="Estoque"
+											type="number"
+											onChange={handleChange}
+											value={formProduct.stock}
+										/>
+									</div>
 								</div>
-							</Box>
 
-							<Box
-								sx={{
-									display: "flex",
-									alignItems: "center",
-									marginTop: 2,
-									gap: 2,
-								}}
-							>
-								<Switch
-									checked={isOpenVariationValue}
-									onChange={() =>
-										setIsOpenVariationValue(!isOpenVariationValue)
-									}
-									inputProps={{ "aria-label": "controlled" }}
-								/>
-								<Typography variant="body1">
-									Gerenciar preços e estoque para cada variante de produto
-								</Typography>
-							</Box>
+								<div className="form_group">
+									<label>Descrição do produto</label>
+									<div className="card">
+										<Editor
+											value={formProduct.description} // Garanta que a descrição está no estado
+											onTextChange={handleDescriptionChange} // Atualiza a descrição
+											name="description"
+											style={{ height: "320px" }}
+										/>
+									</div>
+								</div>
+							</Formulario>
 						</Content>
 
-						{isOpenVariationValue && (
-							<Content title="Gerenciar variantes">
-								<EditValue />
-							</Content>
-						)}
+						<Content title="Preço do produto">
+							<Formulario>
+								<div className="form_group">
+									<label>Preço</label>
+									<input
+										name="price"
+										placeholder="Ex: R$ 29,99"
+										onChange={handleChange}
+										value={formProduct.price}
+										type="text"
+									/>
+								</div>
+								<div className="form_group">
+									<label>Desconto?</label>
+									<Switch onClick={() => setIsDiscount(!isDiscount)} />
+								</div>
+								{isDiscount && (
+									<div className="form_group">
+										<label>Valor de desconto</label>
+										<input
+											name="discount"
+											placeholder="Ex: R$ 29,99"
+											onChange={handleChange}
+											value={formProduct.discount}
+											type="text"
+										/>
+									</div>
+								)}
+							</Formulario>
+						</Content>
+
+						<Content title="Variações do produto">
+							<Formulario>
+								{variation?.content?.length > 0 ? (
+									<div className="form_group">
+										<ul className="list_variation">
+											{variation?.content?.map((item) => {
+												return (
+													<li key={item.id_variant_attribute}>
+														<div className="container_content">
+															<p>{item.name}</p>
+														</div>
+														<div className="container_action">
+															<IconButton
+																onClick={() =>
+																	handleDeleteVariation(
+																		item.id_variant_attribute
+																	)
+																}
+															>
+																<Badge>
+																	<DeleteIcon />
+																</Badge>
+															</IconButton>
+															<IconButton onClick={() => handleOpen(item)}>
+																<Badge>
+																	<BorderColorIcon />
+																</Badge>
+															</IconButton>
+														</div>
+													</li>
+												);
+											})}
+										</ul>
+									</div>
+								) : (
+									<>
+										<div className="form_group">
+											<p>
+												Seu produto tem diferentes opções como tamanho, cor ou
+												material?
+											</p>
+											<p>Adicione sua variação aqui.</p>
+										</div>
+										<br />
+									</>
+								)}
+
+								<button
+									onClick={() => setOpen(true)}
+									className="button"
+									type="button"
+								>
+									<FaPlusCircle />
+									<p>Adicionar variação</p>
+								</button>
+							</Formulario>
+						</Content>
 					</MainContent>
 					<Aside>
-						<Content title="Categorias">
-							<Categorie
-								formData={formData}
-								setFormData={setFormData}
-								handleChange={handleChange}
-							/>
+						<Content title="Categoria do produto">
+							<FormularioRadio>
+								<Categorie />
+							</FormularioRadio>
 						</Content>
-						<Content title="Marca">
-							<Breads />
+						<Content title="Marca do produto">
+							<FormularioRadio>
+								<Breads />
+							</FormularioRadio>
 						</Content>
 					</Aside>
 				</Container>
-				<Button
-					type="submit"
-					sx={{
-						marginTop: 3,
-					}}
-					variant="contained"
-				>
-					Salvar
-				</Button>
+
+				<button>Salvar</button>
+
+				<ModalVariant open={open} setOpen={setOpen}>
+					<ContainerModal>
+						<div className="header">
+							<h3>Adicionar variação de produto</h3>
+							<p>
+								Você poderá gerenciar preço e estoque para esta opção de produto
+								mais tarde.{" "}
+							</p>
+						</div>
+						<div className="content">
+							<Formulario>
+								<form>
+									<div className="form_flex">
+										<div className="form_group">
+											<label>Nome da variação</label>
+											<input
+												name="name"
+												placeholder="Nome do produto"
+												type="text"
+												onChange={(event) =>
+													setNameVariation(event.target.value)
+												}
+												value={nameVariation}
+											/>
+										</div>
+										<div className="form_flex">
+											<div className="form_group">
+												<button onClick={handleSubmitVariations}>Cadastrar</button>
+											</div>
+											<div className="form_group">
+												<button>Cancelar</button>
+											</div>
+										</div>
+									</div>
+								</form>
+
+								<div className="form_flex" onSubmit={handleSubmit}>
+									<div className="form_group">
+										<label>Variações</label>
+										<select
+											onChange={(event) =>
+												setVarietionOption(event.target.value)
+											}
+											name=""
+											value={variationOption}
+										>
+											{variation?.content?.map((item) => (
+												<option
+													key={item.id_variant_attribute}
+													value={item.id_variant_attribute}
+												>
+													{item.name}
+												</option>
+											))}
+										</select>
+									</div>
+
+									<div className="form_group" style={{ marginBottom: "0" }}>
+										<label>Exibição</label>
+										<div className="form_flex">
+											<div className="form_group">
+												<button onClick={() => setVarientExibir("LIST")}>
+													<LuClipboardList />
+													<p>Lista</p>
+												</button>
+											</div>
+											<div className="form_group">
+												<button onClick={() => setVarientExibir("COLOR")}>
+													<MdOutlineColorLens />
+													<p>Cores</p>
+												</button>
+											</div>
+										</div>
+									</div>
+								</div>
+
+								<AutocompleteVarient
+									setOpen={setOpen}
+									varient={variatExibir}
+									name={variationOption}
+								/>
+							</Formulario>
+						</div>
+					</ContainerModal>
+				</ModalVariant>
+
+				<ModalVariant open={openVariation} setOpen={setOpenVariation}>
+					<ContainerModal>
+						<div className="header">
+							<h3>Variação {variationData.name}</h3>
+							<Divider />
+							<div className="container_header">
+								{/* Texto de Introdução */}
+								<p>Gerencie as opções e imagens das variações do produto.</p>
+
+								{/* Tabela de Variações com Scroll */}
+								<Divider />
+								<div
+									style={{
+										maxHeight: "600px",
+										overflowY: "auto",
+										width: "100%",
+									}}
+								>
+									<ContainerVariations>
+										<Formulario>
+											<div className="form_flex">
+												<div className="form_group">
+													<label>Selecione a variação</label>
+													<select
+														onChange={(e) => {
+															const selectedValue =
+																valueVariation?.content?.find(
+																	(variation) =>
+																		variation.id_variant_attribute_value ===
+																		Number(e.target.value)
+																);
+
+															// Atualizando o estado com um array de objetos
+															setDataVariatiosValue((prevState) => [
+																...prevState, // Mantém os dados anteriores
+																{
+																	id_father: variatExibir,
+																	name: selectedValue?.value, // Adiciona o nome da variação
+																	id: selectedValue?.id_variant_attribute_value, // Adiciona o id da variação
+																},
+															]);
+														}}
+													>
+														<option value="">Selecione uma opção</option>
+														{valueVariation?.content?.map((value) => {
+
+															return (
+																<option
+																	key={value.id_variant_attribute_value}
+																	value={value.id_variant_attribute_value} // Usando o id da variação
+																>
+																	{value.value}
+																</option>
+															);
+														})}
+													</select>
+												</div>
+											</div>
+										</Formulario>
+									</ContainerVariations>
+
+									<Table>
+										<TableHead>
+											<TableRow>
+												<TableCell>Produto Inicial</TableCell>
+												<TableCell>Opções Selecionadas</TableCell>
+												<TableCell>Imagens</TableCell>
+											</TableRow>
+										</TableHead>
+
+										<TableBody>
+											{dataVariationsValue
+												?.filter((i) => i.id_father === variatExibir)
+												?.map((item) => {
+													console.log(item);
+													return (
+														<TableRow key={item.id}>
+															<TableCell>
+															{dataImagesSelect.map((image) => (
+																<input 
+																	key={image.id}
+																	type="radio"
+																	name="image_main"
+																	onChange={() => setIndexImage(image.id)}
+																/>
+																))}
+																
+															</TableCell>
+															<TableCell>
+																<span
+																	className="variation-option-icon"
+																	style={{
+																		backgroundColor: item.name.toLowerCase(),
+																	}}
+																></span>
+
+																<span>{item.name}</span>
+															</TableCell>
+															<TableCell
+																sx={{
+																	display: "flex",
+																	alignItems: "center",
+																	gap: ".4rem",
+																	textDecoration: "none",
+																}}
+																component={Link}
+																to={`?variation=1&image=${item.id_father}`}
+															>
+																<FileManager name="+" />
+
+																{dataImagesSelect.map((image) => (
+																	<div
+																		key={image.id}
+																		className="container_image"
+																	>
+																		<img src={image.url} alt={image.name} />
+																	</div>
+																))}
+															</TableCell>
+														</TableRow>
+													);
+												})}
+										</TableBody>
+									</Table>
+								</div>
+							</div>
+						</div>
+					</ContainerModal>
+				</ModalVariant>
 			</form>
-
-			<Dialog
-				open={isOpenDeleteVariant}
-				onClose={() => setIsOpenDeleteVariant(false)}
-				aria-labelledby="alert-dialog-title"
-				aria-describedby="alert-dialog-description"
-			>
-				<DialogTitle id="alert-dialog-title">
-					{"Você deseja deletar a variação?"}
-				</DialogTitle>
-
-				<DialogActions
-					sx={{
-						display: "flex",
-						justifyContent: "start",
-						alignContent: "center",
-						padding: ".6rem 1rem",
-					}}
-				>
-					<Button onClick={() => setIsOpenDeleteVariant(false)}>
-						Cancelar
-					</Button>
-					<Button onClick={handleDelete} autoFocus>
-						Confirmar
-					</Button>
-				</DialogActions>
-			</Dialog>
 		</>
 	);
 };

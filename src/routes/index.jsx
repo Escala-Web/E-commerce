@@ -7,13 +7,9 @@ import { Dashboard } from "../pages/Administrativo/Dashboard";
 import { Pedidos } from "../pages/Administrativo/Pedidos";
 import { DashboardLayout } from "./layouts/Dashboard";
 import { TemplateLayout } from "./layouts/TemplateLayout";
-import { ConteudoTemplateAdministrador } from "../pages/Administrativo/Template/pages/Conteudo";
 import { Products } from "../pages/Administrativo/Products";
 
 import { SeoPageAdm } from "../pages/Administrativo/Seo";
-import { CreatePageAdministrador } from "../pages/Administrativo/Template/pages/CreatePage";
-import { useApi } from "../hooks/useApi";
-import { Pesonalizar } from "../pages/Administrativo/Template/pages/Personaliza";
 import { ResetPassword } from "../pages/templates/template01/pages/ResetPassword";
 import { ResetPasswordAccess } from "../pages/templates/template01/pages/ResetPasswordAccess";
 import { HomeEcommece } from "../pages/Ecommerce/pages/Home";
@@ -23,7 +19,6 @@ import { ActiveAccountPage } from "../pages/Ecommerce/pages/ActiveAccount";
 import { Seo } from "../core/seo";
 import { CategoryPageAdm } from "../pages/Administrativo/Category";
 import { CreateCategoryPageAdm } from "../pages/Administrativo/Category/CreateCategory";
-import { useCategory } from "../hooks/useCategory";
 import { CartPage } from "../pages/Ecommerce/pages/Cart";
 import { RegisterEcommerce } from "../pages/Ecommerce/pages/Register/RegisterEcommerce";
 import { CreatePageProduct } from "../pages/Administrativo/Products/Create/Create";
@@ -32,15 +27,13 @@ import { ProductsTemplate } from "../pages/Ecommerce/pages/Products";
 import { OrdersTemplates02 } from "../pages/templates/template02/pages/Admin/Orders";
 import { ProductTemplate02 } from "../pages/templates/template02/pages/Product";
 import { NotFount } from "../pages/NotFount";
-import { TemplateHeaderLayout } from "./layouts/Template";
-import { AdministrativoThemes } from "../pages/Administrativo/Template/pages/Themes";
 import { LayoutsAdm } from "../pages/Administrativo/Template/pages/Layouts";
+import { ClientAdm } from "../pages/Administrativo/Clients";
+import { BannerAdm } from "../pages/Administrativo/Template/pages/Banner";
 
 export const RoutesApp = () => {
 	const { login } = useContext(AuthContext);
 
-
-	const { category } = useCategory();
 
 	return (
 		<BrowserRouter>
@@ -53,27 +46,25 @@ export const RoutesApp = () => {
 							<Route path="pedidos" element={<Pedidos />} />
 							<Route path="produtos" element={<Products />} />
 							<Route path="categoria" element={<CategoryPageAdm />} />
+							<Route path="clientes" element={<ClientAdm />} />
 							<Route
 								path="categoria/create"
 								element={<CreateCategoryPageAdm />}
 							/>
 							<Route path="produtos/create" element={<CreatePageProduct />} />
 							<Route path="seo" element={<SeoPageAdm />} />
-							<Route
-								path=":theme/editor"
-								element={<ConteudoTemplateAdministrador />}
-							/>
-							<Route
-								path=":theme/editor/create-page"
-								element={<CreatePageAdministrador />}
-							/>
-							<Route
-								path=":theme/editor/personalizar/:page"
-								element={<Pesonalizar />}
-							/>
+							
+						
+						
+
+							
+							
 							<Route path="/administrativo/templates" 
 								element={<LayoutsAdm/>}
 							/>
+							<Route path="/administrativo/templates/banner" element={<BannerAdm />} />
+
+							
 						</Route>
 
 						{/* <Route path="/administrativo/template" element={<TemplateHeaderLayout/> }>
@@ -83,7 +74,7 @@ export const RoutesApp = () => {
 						<Route path="/admin">
 							<Route index element={<AdminPage />} />
 						</Route>
-						<Route path="*" element={<NotFount />}/>
+						{/* <Route path="*" element={<NotFount />}/> */}
 					</>
 				)}
 

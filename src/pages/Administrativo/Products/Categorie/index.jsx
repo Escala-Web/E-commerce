@@ -1,107 +1,109 @@
-import {
-	Box,
-	Button,
-	Checkbox,
-	FormControlLabel,
-	FormGroup,
-	Radio,
-	TextField,
-} from "@mui/material";
-import { useCategoryAll } from "../../../../hooks/Categories/useCategory";
-import { FaPlus } from "react-icons/fa";
+import { Divider } from "@mui/material";
+import { Formulario } from "../Create/styles";
+import { useCategories } from "../../../../hooks/Category/useCategories";
 import { useContext, useEffect, useState } from "react";
-import { useCreateCategory } from "../../../../hooks/Categories/useCreateCategory";
 import { ProductContext } from "../../../../context/Product";
 
 export const Categorie = () => {
-	const { categories } = useCategoryAll();
-	const { handleChange } = useContext(ProductContext);
+	const [name, setName] = useState('');
 
-	const [addCategorie, setAddCategorie] = useState(false);
+	const { findAll, create } = useCategories();
+	const [isOpenCategory, setIsOpenCategory] = useState(false);
+	const { data: category, isError, error } = findAll;
+	const [categoryValue, setCategoryValue] = useState('');
 
-	const [categorie, setCategorie] = useState({
-		name: "",
-		description: "",
-		parent_category: null,
-	});
+	function handleSubmit() {
+		create.mutate({
+			name: name,
+			parent_category: null
+		})
 
-	const { mutate: createCategory, isSuccess } = useCreateCategory();
-
-	function handleEnter() {
-		createCategory({
-			name: categorie.name,
-			description: categorie.description,
-			parent_category: categorie.parent_category,
-		});
+		setName('');
+		setIsOpenCategory(false)
 	}
+
+	
+	const { setFormData } = useContext(ProductContext);
+
+	useEffect(() => {
+		setFormData((prevForm) => ({
+			...prevForm,
+			id_category: categoryValue
+		}))
+	}, [categoryValue])
+
+	console.log(categoryValue)
 
 	return (
 		<>
-			<FormGroup>
-				{categories?.map((cat) => (
-					<div
-						key={cat.id_category}
-						style={{ display: "flex", flexDirection: "column" }}
-					>
-						<FormControlLabel
-							control={<Checkbox />}
-							label={cat.name}
-							name="id_category"
-							value={cat.id_category}
-							onChange={handleChange}
-						/>
-
-						{/* {cat.children?.length > 0 && (
-							<>
-								{cat?.children?.map((chil) => (
-									<FormControlLabel
-                                        key={chil.id}
-										sx={{ marginLeft: 2 }}
-										control={<Checkbox />}
-										label={chil.name}
+			<div className="container_filter">
+				<div className="container_form">
+					{category?.parents?.flatMap((cat) => (
+						<div key={cat.id_category}>
+							<div className="form_grup">
+								<input
+									type="radio"
+									className="input_radio"
+									id={cat.id_category}
+									name="category"
+							
+									onChange={(event) => setCategoryValue(cat.id_category)}
+								/>
+								<label htmlFor={cat.id_category}>{cat.name}</label>
+							</div>
+							{cat?.children?.map((chil) => (
+								<div key={chil.id_category} className="form_grup children">
+									<input
+										type="radio"
+										className="input_radio"
+										id={chil.id_category}
+										name="category"
+						
+										onChange={() => setCategoryValue(chil.id_category)}
 									/>
-								))}
-							</>
-						)} */}
-					</div>
-				))}
-			</FormGroup>
-
-			{addCategorie && (
-				<Box
-					sx={{
-						display: "flex",
-						alignItems: "center",
-						marginTop: 2,
-						gap: 2,
-					}}
-				>
-					<TextField
-						id="standard-multiline-flexible"
-						label="Nova categoria"
-						multiline
-						maxRows={4}
-						variant="outlined"
-						size="small"
-						value={categorie.name}
-						onChange={(e) => setCategorie({ name: e.target.value })}
-					/>
-					<Button onClick={handleEnter}>Adicionar</Button>
-				</Box>
-			)}
-
-			<Button
-				onClick={() => setAddCategorie(!addCategorie)}
-				sx={{
-					display: "flex",
-					gap: ".4rem",
-					marginTop: 2,
-				}}
-				variant="text"
-			>
-				<FaPlus size={12} />
-				Incluir categoria
-			</Button>
+									<label htmlFor={chil.id_category}>{chil.name}</label>
+								</div>
+							))}
+						</div>
+					))}
+				</div>
+				{isOpenCategory ? (
+					<Formulario>
+						<Divider />
+						<form>
+							<div className="form_flex" style={{ marginTop: "1rem" }}>
+								<div className="form_group">
+									<label>Nome da categoria</label>
+									<input
+										type="text"
+										name="name"
+										placeholder="Nome da categoria"
+										onChange={(event) => setName(event.target.value)}
+										value={name}
+									/>
+								</div>
+							</div>
+							<div className="form_flex">
+								<div className="form_group">
+									<button type="button" onClick={handleSubmit}>Criar categoria</button>
+									<button
+										type="button"
+										onClick={() => setIsOpenCategory(false)}
+									>
+										Cancelar
+									</button>
+								</div>
+							</div>
+						</form>
+					</Formulario>
+				) : (
+					<>
+						<button type="button" onClick={() => setIsOpenCategory(true)}>
+							Criar categoria
+						</button>
+					</>
+				)}
+			</div>
 		</>
 	);
 };

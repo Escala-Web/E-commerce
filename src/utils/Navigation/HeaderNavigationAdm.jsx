@@ -7,8 +7,6 @@ import PersonIcon from "@mui/icons-material/Person";
 import ViewQuiltIcon from "@mui/icons-material/ViewQuilt";
 import SettingsIcon from "@mui/icons-material/Settings";
 import PriceChangeIcon from "@mui/icons-material/PriceChange";
-import CopyrightIcon from "@mui/icons-material/Copyright";
-import CategoryIcon from "@mui/icons-material/Category";
 import EmailIcon from "@mui/icons-material/Email";
 import AccountBalanceIcon from "@mui/icons-material/AccountBalance";
 
@@ -43,40 +41,40 @@ export const headerNavigationAdm = [
 				title: "Registrar Produto",
 				icon: <LabelImportantIcon />,
 			},
-			{
-				segment: "brands",
-				title: "Marcas",
-				icon: <CopyrightIcon />,
-				children: [
-					{
-						segment: "produtos",
-						title: "Minhas Marcas",
-						icon: <CopyrightIcon />,
-					},
-					{
-						segment: "produtos",
-						title: "Registrar Marca",
-						icon: <CopyrightIcon />,
-					},
-				],
-			},
-			{
-				segment: "category",
-				title: "Categorias",
-				icon: <CategoryIcon />,
-				children: [
-					{
-						segment: "produtos",
-						title: "Minhas Categorias",
-						icon: <CategoryIcon />,
-					},
-					{
-						segment: "produtos",
-						title: "Registrar Categoria",
-						icon: <CategoryIcon />,
-					},
-				],
-			},
+			// {
+			// 	segment: "brands",
+			// 	title: "Marcas",
+			// 	icon: <CopyrightIcon />,
+			// 	children: [
+			// 		{
+			// 			segment: "produtos",
+			// 			title: "Minhas Marcas",
+			// 			icon: <CopyrightIcon />,
+			// 		},
+			// 		{
+			// 			segment: "produtos",
+			// 			title: "Registrar Marca",
+			// 			icon: <CopyrightIcon />,
+			// 		},
+			// 	],
+			// },
+			// {
+			// 	segment: "category",
+			// 	title: "Categorias",
+			// 	icon: <CategoryIcon />,
+			// 	children: [
+			// 		{
+			// 			segment: "produtos",
+			// 			title: "Minhas Categorias",
+			// 			icon: <CategoryIcon />,
+			// 		},
+			// 		{
+			// 			segment: "produtos",
+			// 			title: "Registrar Categoria",
+			// 			icon: <CategoryIcon />,
+			// 		},
+			// 	],
+			// },
 		],
 	},
 	{
@@ -85,7 +83,7 @@ export const headerNavigationAdm = [
 		icon: <ShoppingCartIcon />,
 	},
 	{
-		segment: "administrativo/pedidos",
+		segment: "administrativo/clientes",
 		title: "Clientes",
 		icon: <PersonIcon />,
 	},

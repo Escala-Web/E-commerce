@@ -1,25 +1,21 @@
 import { Link, useParams } from "react-router-dom"
-import { Container, LinkStyle, Title } from "./styles"
+import { Container } from "./styles"
 import { MdKeyboardDoubleArrowRight } from "react-icons/md";
 
-export const Breadcrumb = ({ page }) => {
-    const { category } = useParams();
+export const Breadcrumb = ({ page, productQTD }) => {
+  
   
     return (
       <>
         <Container>
-          <Title>
-            <LinkStyle to="/">Página Inicial</LinkStyle>
+          <div className="container_title">
+            <Link to="/">Página Inicial</Link>
             <MdKeyboardDoubleArrowRight className="icon-breadcrumb" />
-            {page ? (
-              page
-            ) : (
-              category
-                .toLowerCase()
-                .replace(/-/g, ' ')
-                .replace(/\b\w/g, (char) => char.toUpperCase())
-            )}
-          </Title>
+            <p>{page}</p>
+          </div>
+          <div className="container_total">
+            <p>Produtos encontrados ({productQTD?.total})</p>
+          </div>
         </Container>
       </>
     );

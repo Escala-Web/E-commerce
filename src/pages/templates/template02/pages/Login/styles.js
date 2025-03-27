@@ -15,7 +15,6 @@ export const Container = styled.div`
 
     background-color: ${({theme}) => theme.colors.background};
 
-    background-color: ${({ theme }) => theme.colors.accent};
 
     @media (max-width: 1220px){
         /* background-color: aqua; */

@@ -1,42 +1,20 @@
 import * as React from "react";
-import { extendTheme, styled } from "@mui/material/styles";
-import DashboardIcon from "@mui/icons-material/Dashboard";
-import ShoppingCartIcon from "@mui/icons-material/ShoppingCart";
-import BarChartIcon from "@mui/icons-material/BarChart";
-import DescriptionIcon from "@mui/icons-material/Description";
-import LayersIcon from "@mui/icons-material/Layers";
+import { extendTheme } from "@mui/material/styles";
 import { AppProvider } from "@toolpad/core/AppProvider";
 import { DashboardLayout } from "@toolpad/core/DashboardLayout";
 import { PageContainer } from "@toolpad/core/PageContainer";
-import Grid from "@mui/material/Grid2";
 import { Dashboard } from "../../pages/Administrativo/Dashboard";
 import { Pedidos } from "../../pages/Administrativo/Pedidos";
 import { LojaPage } from "../../pages/Administrativo/Loja";
-import StoreIcon from "@mui/icons-material/Store";
 import { Products } from "../../pages/Administrativo/Products";
-import LabelImportantIcon from "@mui/icons-material/LabelImportant";
-import SellIcon from "@mui/icons-material/Sell";
-import AddBoxIcon from "@mui/icons-material/AddBox";
 import { CreatePageProduct } from "../../pages/Administrativo/Products/Create/Create";
-import PersonIcon from "@mui/icons-material/Person";
-import ViewQuiltIcon from "@mui/icons-material/ViewQuilt";
-import SettingsIcon from "@mui/icons-material/Settings";
-import { Box, Button } from "@mui/material";
-import zIndex from "@mui/material/styles/zIndex";
-import { ContainerHeader } from "./styles";
-import { HomeEcommece } from "../../pages/Ecommerce/pages/Home";
-import PriceChangeIcon from "@mui/icons-material/PriceChange";
-import AccountCircleIcon from "@mui/icons-material/AccountCircle";
-import CopyrightIcon from "@mui/icons-material/Copyright";
-import CategoryIcon from "@mui/icons-material/Category";
-import EmailIcon from "@mui/icons-material/Email";
-import AccountBalanceIcon from "@mui/icons-material/AccountBalance";
 import { LogoTipo } from "../Logo";
 import { headerNavigationAdm } from "../../utils/Navigation/HeaderNavigationAdm";
 import { headerNavigationTemplate } from '../../utils/Navigation/HeaderNavigationTemplate'
-import { AdministrativoThemes } from "../../pages/Administrativo/Template/pages/Themes";
 import { LayoutsAdm } from "../../pages/Administrativo/Template/pages/Layouts";
 import { useLocation, useNavigate } from "react-router-dom";
+import { ClientAdm } from "../../pages/Administrativo/Clients";
+import { BannerAdm } from "../../pages/Administrativo/Template/pages/Banner";
 
 
 const demoTheme = extendTheme({
@@ -84,7 +62,10 @@ export const Header = (props) => {
 		"/administrativo/loja": <LojaPage />,
 		"/administrativo/produtos": <Products />,
 		"/administrativo/produtos/create": <CreatePageProduct />,
+		"/administrativo/clientes": <ClientAdm />,
+
 		"/administrativo/templates": <LayoutsAdm />,
+		"/administrativo/templates/banner": <BannerAdm />,
 	};
 
 	// Remove este const quando copiar para o seu projeto.

@@ -15,11 +15,11 @@ import { toast } from "react-toastify";
 import { AuthContext } from "../../../../../context/Auth";
 import { useLogin } from "../../../../../hooks/useLogin";
 
-export const LoginPageTemplate01 = () => {
+export const LoginPageTemplate01 = ({ user }) => {
 	const [email, setEmail] = useState("");
 	const [password, setPassword] = useState("");
 
-	const { onSubmitAdmin } = useLogin(email, password);
+	const { onSubmitAdmin, onSubmitUser } = useLogin(email, password);
 
 	return (
 		<>
@@ -30,7 +30,7 @@ export const LoginPageTemplate01 = () => {
 					</ContainerInfoRegister>
 				</ContainerInfos>
 				<ContainerLogin>
-					<Formulario submit={onSubmitAdmin} w="60%" p="4rem 2rem" title="Login">
+					<Formulario submit={user === 'user' ? onSubmitUser : onSubmitAdmin} w="60%" p="4rem 2rem" title="Login">
 						<input
 							placeholder="E-mail"
 							name="email"

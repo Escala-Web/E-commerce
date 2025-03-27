@@ -10,10 +10,13 @@ export const Container = styled.div`
 
 	.button-modal {
 		background-color: rgb(60, 148, 243);
-		padding: 0.8rem 2rem;
+		padding: 0.4rem 1rem;
 		cursor: pointer;
 		color: #fff;
 		border-radius: 6px;
+
+		font-size: 14px;
+		font-weight: 400;
 	}
 `;
 

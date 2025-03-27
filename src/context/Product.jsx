@@ -1,19 +1,21 @@
 import { createContext, useState } from "react";
 import { useCreateProduct } from "../hooks/Products/useCreateProduct";
 import { toast } from "react-toastify";
+import { useProducts } from "../hooks/Products/useProducts";
+import { formatDate } from "@fullcalendar/core/index.js";
 
 export const ProductContext = createContext();
 
 export const ProductProvider = ({ children }) => {
-  const [formData, setFormData] = useState({
-    id_category: "",
-    name: "",
-    description: "",
-    id_branch: "",
-    variations: [],
-  });
+  const [formData, setFormData] = useState({});
 
-  const { mutate: createProduct } = useCreateProduct();
+  const [varietions, setVarietions] = useState([]);
+
+  console.log(formData)
+
+
+  const { create } = useProducts();
+  const { mutate: createProduct } = create;
 
   const [images, setImages] = useState([])
 
@@ -52,18 +54,40 @@ export const ProductProvider = ({ children }) => {
     });
   };
 
+  function Submit() {
 
-  function Submit(event) {
-    event.preventDefault();
-    createProduct({
-      id_category: Number(formData.id_category),
-      products: {
-        name: formData.name,
-        description: 'Descricao Teste',
-        id_branch: Number(formData.id_branch),
-        variations: formData.variations
+    const images = formData?.images?.map((item) => {
+      return {
+        id_media: item.id,
+        is_main: item.is_image === item.id ? true : false,
+        position: ''
       }
     })
+
+    const variations = formData?.variant?.map((item) => ({
+      sku: formData?.product?.sku,
+      price: formData?.product?.price,
+      stock: formData?.product?.stock,
+      is_default: false,
+      discount: formData?.product?.discount,
+      value_variant: item.id,
+      pictures: images,
+    }));
+
+  
+    const jsonCreate = {
+      id_category: formData?.id_category,
+      products: {
+        name: formData?.product?.name,
+        description: formData?.product?.description,
+        id_brand: formData?.id_brand,
+        variations
+      },
+    };
+
+
+    console.log(jsonCreate)
+    createProduct(jsonCreate)
 
     
   }
@@ -77,7 +101,9 @@ export const ProductProvider = ({ children }) => {
         Submit,
         addVariation,
         updateVariation,
-        setImages
+        setImages,
+        setVarietions,
+        varietions
       }}
     >
       {children}

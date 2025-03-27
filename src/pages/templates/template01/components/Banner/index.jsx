@@ -41,15 +41,14 @@ export const BannerPageOne = () => {
 						onSwiper={(swiper) => swiper}
 						onSlideChange={() => "slide change"}
 					>
-						{banner.map((b) => {
+						{banner.map((b, index) => {
 							return (
-								<SwiperSlide>
+								<SwiperSlide key={index}>
 									<img
 										style={{
 											width: "100%",
-											// height: "620px",
 											height: "620px",
-											borderRadius: "30px",
+											objectFit: "cover",
 										}}
 										src={b.image}
 										alt="second banner 1"
@@ -77,8 +76,7 @@ export const BannerPageOne = () => {
 								<img
 									style={{
 										width: "100%",
-										height: "390px",
-										borderRadius: "30px",
+										height: "300px",
 										objectFit: "cover",
 									}}
 									src={b.image}

@@ -15,6 +15,8 @@ export const useResetPassword = (password) => {
 
     async function resetPassword() {
 
+        console.log(login)
+
         try {
             const { data } = await https.put(`/${login[0].type === 'USER' ? 'user' : 'admin'}/reset-password`, {
                 token: token,
@@ -23,7 +25,10 @@ export const useResetPassword = (password) => {
             navigate('/login');
             toast.success(data.message);
 
+            console.log(data)
+
         } catch (error) {
+            console.log(error)
             toast.error(error.response.data.message)
         }
 

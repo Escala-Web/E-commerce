@@ -1,100 +1,90 @@
-import {
-	Box,
-	Button,
-	Checkbox,
-	FormControlLabel,
-	FormGroup,
-	TextField,
-} from "@mui/material";
-import { FaPlus } from "react-icons/fa";
 import { useContext, useEffect, useState } from "react";
-import { useCreateBread } from "../../../../hooks/Breads/useCreateBreads";
-import { https } from "../../../../config/https";
+import { useBreads } from "../../../../hooks/Breads/useBreads";
+import { useCategories } from "../../../../hooks/Category/useCategories";
+import { Formulario } from "../Create/styles";
+import { Divider } from "@mui/material";
 import { ProductContext } from "../../../../context/Product";
 
 export const Breads = () => {
-	const [breads, setBreads] = useState([]);
-	const [name, setName] = useState("");
 
-    const { handleChange } = useContext(ProductContext);
+	const [name, setName] = useState('');
 
-	const { mutate: createCategory, isSuccess } = useCreateBread();
+	const { findAll, create } = useBreads();
+	const { data: brands } = findAll;
 
-	const [addBrand, setAddBrand] = useState(false);
+	const [brandValue, setBrandValue] = useState('');
 
-	async function findAll() {
-		try {
-			const { data } = await https.get("/brands");
-			setBreads(data);
-		} catch (error) {
-			console.log(error);
-		}
-	}
+	const [isOpenBrand, setIsOpenBrand] = useState(false);
 
 	function handleSubmit() {
-		createCategory({
-			name: name,
-		});
-		setAddBrand(false);
-		setName("");
+		create.mutate({
+			name: name
+		})
 	}
 
+
+	const { setFormData } = useContext(ProductContext);
+
 	useEffect(() => {
-		findAll();
-	}, [isSuccess]);
+			setFormData((prevForm) => ({
+				...prevForm,
+				id_brand: brandValue
+			}))
+		}, [brandValue])
 
 	return (
 		<>
-			<FormGroup>
-				<div style={{ display: "flex", flexDirection: "column" }}>
-					{breads?.content?.map((bran) => (
-						<FormControlLabel
-							key={bran.id}
-							control={<Checkbox />}
-							label={bran.name}
-							value={bran.id_branch}
-							name="id_branch"
-                            onChange={handleChange}
-						/>
+			<div className="container_filter">
+				<div className="container_form">
+					{brands?.content?.map((cat) => (
+						<div key={cat.id_brand}>
+							<div className="form_grup">
+								<input
+									type="radio"
+									className="input_radio"
+									id={cat.id_brand}
+									name="category"
+									onChange={() => setBrandValue(cat.id_brand)}
+								/>
+								<label htmlFor={cat.id_brand}>{cat.name}</label>
+							</div>
+						</div>
 					))}
 				</div>
-			</FormGroup>
-
-			{addBrand && (
-				<Box
-					sx={{
-						display: "flex",
-						alignItems: "center",
-						marginTop: 2,
-						gap: 2,
-					}}
-				>
-					<TextField
-						id="standard-multiline-flexible"
-						label="Nova Marca"
-						multiline
-						maxRows={4}
-						variant="outlined"
-						size="small"
-						value={name}
-						onChange={(event) => setName(event.target.value)}
-					/>
-					<Button onClick={handleSubmit}>Adicionar</Button>
-				</Box>
-			)}
-
-			<Button
-				onClick={() => setAddBrand(!addBrand)}
-				sx={{
-					display: "flex",
-					gap: ".4rem",
-					marginTop: 2,
-				}}
-				variant="text"
-			>
-				<FaPlus size={12} />
-				Incluir Marca
-			</Button>
+				{isOpenBrand ? (
+					<Formulario>
+						<Divider />
+						<form>
+							<div className="form_flex" style={{ marginTop: "1rem" }}>
+								<div className="form_group">
+									<label>Nome da categoria</label>
+									<input
+										type="text"
+										name="name"
+										placeholder="Nome da categoria"
+										onChange={(event) => setName(event.target.value)}
+										value={name}
+									/>
+								</div>
+							</div>
+							<div className="form_flex">
+								<div className="form_group">
+									<button type="button" onClick={handleSubmit}>Criar Marca</button>
+									<button type="button" onClick={() => setIsOpenBrand(false)}>
+										Cancelar
+									</button>
+								</div>
+							</div>
+						</form>
+					</Formulario>
+				) : (
+					<>
+						<button type="button" onClick={() => setIsOpenBrand(true)}>
+							Criar Marca
+						</button>
+					</>
+				)}
+			</div>
 		</>
 	);
 };

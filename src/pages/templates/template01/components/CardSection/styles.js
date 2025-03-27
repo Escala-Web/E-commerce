@@ -3,7 +3,8 @@ import styled from "styled-components";
 export const Container = styled.div`
 
     background-color: ${({theme}) => theme.colors.primary};
-    padding: 1rem 2rem;
+    padding: 1rem;
+    width: 100%;
 
     margin: ${({m}) => m};
 
@@ -11,17 +12,38 @@ export const Container = styled.div`
 
     border-radius: 6px;
 
-`;
+    .container_title {
+    
+    text-transform: capitalize;
 
-export const ContainerHeaderTitle = styled.div`
+    position: relative;
+    z-index: 1; 
 
     h3 {
-        color: ${({theme}) => theme.colors.text_primary};
-        font-size: 2.2rem;
-
+        position: relative;
+        z-index: 2;
+        font-size: 1.8rem;
+        font-weight: 600;
         opacity: .9;
-
-        margin-bottom: 2rem;
+        text-transform: capitalize;
+        color: ${({ theme }) => theme.colors.background_secondary};
+        /* color: #1a1a1a; */
     }
+
+    &::before {
+        content: '';
+        width: 9.5%;
+        height: 3px;
+        /* background-color: ${({ theme }) => theme.colors.secondary}; */
+
+        border-radius: 20px;
+
+        position: absolute;
+        bottom: 4px;
+        left: 0;
+        z-index: 0; 
+    }
+}
+
 
 `;

@@ -6,7 +6,8 @@ export const blueTheme = {
 		background: "#f1f6f9",  // Fundo suave, para não cansar os olhos
 		text_primary: "#333",  // Texto principal em um tom escuro
 		text_secondary: "#fff",  // Texto secundário em tom mais claro
-		accent: "#00b4d8",  // Azul claro, usado para detalhes e hover de botões
+		accent: "#f2f2f2",  // Azul claro, usado para detalhes e hover de botões
+		background_secondary: '#333333'
 	},
 };
 
@@ -19,6 +20,7 @@ export const greenTheme = {
 		text_primary: "#2c3e50",  // Texto primário em tom escuro
 		text_secondary: "#fff",  // Texto secundário claro
 		accent: "#4caf50",  // Verde de destaque para hover e elementos interativos
+		background_secondary: '#1e1e1e'
 	},
 };
 
@@ -31,6 +33,7 @@ export const redTheme = {
 		text_primary: "#333",  // Texto escuro para fácil leitura
 		text_secondary: "#fff",  // Texto branco em áreas destacadas
 		accent: "#ff6347",  // Vermelho mais suave, usado em detalhes e hover
+		background_secondary: '#1e1e1e'
 	},
 };
 
@@ -43,6 +46,7 @@ export const purpleTheme = {
 		text_primary: "#2c3e50",  // Texto escuro para boa legibilidade
 		text_secondary: "#fff",  // Texto em branco para destaque
 		accent: "#9b59b6",  // Roxo mais suave, usado para hover e detalhes
+		background_secondary: '#1e1e1e'
 	},
 };
 
@@ -55,6 +59,7 @@ export const orangeTheme = {
 		text_primary: "#333",  // Texto principal em tom escuro
 		text_secondary: "#fff",  // Texto secundário claro para contraste
 		accent: "#ff7043",  // Laranja suave para hover e detalhes
+		background_secondary: '#1e1e1e'
 	},
 };
 
@@ -68,5 +73,6 @@ export const blackTheme = {
 		text_primary: "#1e1e1e",
 		text_secondary: "#fff",
 		accent: "#f4f4f4",
+		background_secondary: '#1e1e1e'
 	},
 };
