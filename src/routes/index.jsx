@@ -1,5 +1,5 @@
 import { BrowserRouter, Navigate, Route, Routes } from "react-router-dom";
-import { useContext } from "react";
+import { lazy, useContext, useEffect, useState } from "react";
 import { AuthContext } from "../context/Auth";
 
 // Importação dos componentes das páginas
@@ -26,13 +26,16 @@ import { CategoriesPage } from "../pages/Ecommerce/pages/Categories";
 import { ProductsTemplate } from "../pages/Ecommerce/pages/Products";
 import { OrdersTemplates02 } from "../pages/templates/template02/pages/Admin/Orders";
 import { ProductTemplate02 } from "../pages/templates/template02/pages/Product";
-import { NotFount } from "../pages/NotFount";
 import { LayoutsAdm } from "../pages/Administrativo/Template/pages/Layouts";
 import { ClientAdm } from "../pages/Administrativo/Clients";
 import { BannerAdm } from "../pages/Administrativo/Template/pages/Banner";
 
+import {Loading} from "../pages/Ecommerce/components/Loading";
+
+
 export const RoutesApp = () => {
 	const { login } = useContext(AuthContext);
+
 
 
 	return (
@@ -52,29 +55,17 @@ export const RoutesApp = () => {
 								element={<CreateCategoryPageAdm />}
 							/>
 							<Route path="produtos/create" element={<CreatePageProduct />} />
-							<Route path="seo" element={<SeoPageAdm />} />
-							
-						
-						
-
-							
-							
+							<Route path="seo" element={<SeoPageAdm />} />					
 							<Route path="/administrativo/templates" 
 								element={<LayoutsAdm/>}
 							/>
 							<Route path="/administrativo/templates/banner" element={<BannerAdm />} />
-
-							
 						</Route>
-
-						{/* <Route path="/administrativo/template" element={<TemplateHeaderLayout/> }>
-							<Route index element={<AdministrativoThemes />}/>
-						</Route> */}
 
 						<Route path="/admin">
 							<Route index element={<AdminPage />} />
 						</Route>
-						{/* <Route path="*" element={<NotFount />}/> */}
+
 					</>
 				)}
 
@@ -93,7 +84,6 @@ export const RoutesApp = () => {
 					<Route path="/administrativo" element={<Navigate to="/" />} />
 					<Route path="/produtos" element={<ProductsTemplate />} />
 					<Route path="/produto/:product" element={<ProductTemplate02 />} />
-					
 
 					<Route path=":category" element={<CategoriesPage />}/>
 				</Route>

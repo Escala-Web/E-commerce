@@ -1,7 +1,6 @@
 import { AuthProvider } from "./context/Auth";
 import { TemplateProvider } from "./context/Template";
-import { ThemeColorContext, ThemeColorProvider } from "./context/ThemeContext";
-import { useContext } from "react";
+import { ThemeColorProvider } from "./context/ThemeContext";
 import { AppInit } from "./core";
 import { FavoriteProvider } from "./context/Favorite";
 import { HelmetProvider } from "react-helmet-async";
@@ -10,6 +9,7 @@ import { ProductProvider } from "./context/Product";
 import { FileManagerProvider } from "./context/FileManager";
 
 function App() {
+
 	return (
 		<ThemeColorProvider>
 			<HelmetProvider>

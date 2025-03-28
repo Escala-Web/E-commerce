@@ -16,7 +16,7 @@ export const SectionOfTheDay = () => {
 				<Section w="70%">
 					<ContainerSection>
 						<ContainerSubTitle>
-							<h3>Ultimos dias de Promoções</h3>
+							<h3>Promoções do dia</h3>
 						</ContainerSubTitle>
 						<ContainerContent>
 							<BannerOfTheDay />

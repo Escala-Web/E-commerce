@@ -31,10 +31,11 @@ export const useCreateFolder = () => {
 	return useMutation({
 		mutationFn: createFolder,
 		onSuccess: (data) => {
+		
 			queryClient.invalidateQueries("findAllFolder");
 		},
 		onError: (error) => {
-			// console.log(error);
+			console.log(error);
 		},
 	});
 };

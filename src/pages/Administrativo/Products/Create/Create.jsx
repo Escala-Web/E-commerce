@@ -93,14 +93,10 @@ export const CreatePageProduct = () => {
 	}
 	const { data: valueVariation } = findValueVariant(variatExibir);
 
-	console.log(valueVariation)
-
 	function handleOpen(item) {
 
-		console.log(item)
-		// Atualiza o id selecionado
 		setVarientExibir(item.id_variant_attribute);
-		setOpenVariation(true); // Abre o modal
+		setOpenVariation(true); 
 	}
 
 	const { pictures } = useContext(FileManagerContext);
@@ -142,7 +138,7 @@ export const CreatePageProduct = () => {
 
 	  useEffect(() => {
         if (variation && variation.content && variation.content.length > 0) {
-            setVarietionOption(variation.content[0].id_variant_attribute); // Definir o primeiro item como padrão
+            setVarietionOption(variation.content[0].id_variant_attribute);
         }
     }, [variation]);
 	  

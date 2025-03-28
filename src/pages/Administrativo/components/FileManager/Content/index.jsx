@@ -40,7 +40,6 @@ export const Content = ({ isPage, id }) => {
 	return (
 		<>
 			<SideBar>
-			
 				<TextField
 					id="outlined-search"
 					label="O que você procura?"
@@ -81,21 +80,14 @@ export const Content = ({ isPage, id }) => {
 						setData={setIdFoldersAndFiles}
 						isPage={isPage}
 					/>
-				</div>
-				<div className="container_add_file">
-					{page === "0" && (
-						<>
-							<>
-								{isUploadsFiles && (
-									<UploadsOfFiles
-										setIsUploadsFiles={setIsUploadsFiles}
-										folder={idFoldersAndFiles}
-									/>
-								)}
-							</>
-						</>
+					{isUploadsFiles && (
+						<UploadsOfFiles
+							setIsUploadsFiles={setIsUploadsFiles}
+							folder={idFoldersAndFiles}
+						/>
 					)}
 				</div>
+				
 			</Container>
 		</>
 	);

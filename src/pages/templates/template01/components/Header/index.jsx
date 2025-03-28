@@ -1,5 +1,4 @@
-import logo from "../../../../../assets/logo_nsa.png";
-import { useContext, useState } from "react";
+import React, { useContext, useState } from "react";
 import { AuthContext } from "../../../../../context/Auth";
 import { ContainerHeader, ContainerNavibar } from "./styles";
 import { Search } from "../Search";
@@ -7,26 +6,21 @@ import { FaUserAlt } from "react-icons/fa";
 import { Link, useNavigate } from "react-router-dom";
 import { FiHeart } from "react-icons/fi";
 import { MdOutlineShoppingCart } from "react-icons/md";
-import { Logo } from "../Logo";
+import logo from "../../../../../assets/logo/logo-nova.png";
 import { FaBarsStaggered } from "react-icons/fa6";
 import Box from "@mui/material/Box";
 import Drawer from "@mui/material/Drawer";
-import Button from "@mui/material/Button";
 import List from "@mui/material/List";
 import Divider from "@mui/material/Divider";
 import ListItem from "@mui/material/ListItem";
 import ListItemButton from "@mui/material/ListItemButton";
 import ListItemIcon from "@mui/material/ListItemIcon";
 import ListItemText from "@mui/material/ListItemText";
-import InboxIcon from "@mui/icons-material/MoveToInbox";
-import MailIcon from "@mui/icons-material/Mail";
 import { Avatar } from "@mui/material";
-import {
-	navigationSite,
-	navigationSiteAdm,
-} from "../../../../../utils/Navigation/HeaderNavigation";
+import { navigationSite, navigationSiteAdm } from "../../../../../utils/Navigation/HeaderNavigation";
+import { Logo } from "../Logo";
 
-export const HeaderPageTemplate01 = () => {
+export const HeaderPageTemplate01 = React.memo(() => {
 	const { login } = useContext(AuthContext);
 	const navigate = useNavigate();
 
@@ -47,10 +41,10 @@ export const HeaderPageTemplate01 = () => {
 							<div className="header_login_icon">
 								<FaUserAlt />
 							</div>
-							{login.length == 0 ? (
+							{login === null ? (
 								<p>
 									<Link to="/login">Entre</Link> ou <br />
-									<Link to="/">Cadastra-se</Link>
+									<Link to="/">Cadastre-se</Link>
 								</p>
 							) : (
 								<p onClick={() => navigate("/custumer")}>
@@ -120,7 +114,7 @@ export const HeaderPageTemplate01 = () => {
 					<ContainerNavibar>
 						<div>
 							<div className="container_nav">
-								{login.length > 0 ? (
+								{login !== null ? (
 									<>
 										<Avatar>{login[0].user.split("")[0]}</Avatar>
 										<p>Olá, {login[0].user.split(" ")[0]}</p>
@@ -143,7 +137,7 @@ export const HeaderPageTemplate01 = () => {
 									</ListItem>
 								))}
 							</List>
-							{login.length > 0 && (
+							{login !== null ? (
 								<>
 									<Divider />
 									<List>
@@ -157,7 +151,7 @@ export const HeaderPageTemplate01 = () => {
 										))}
 									</List>
 								</>
-							)}
+							) : ''}
 						</div>
 						<div className="container_enter">
 							<Link to="/login" className="link enter">
@@ -172,4 +166,5 @@ export const HeaderPageTemplate01 = () => {
 			</Drawer>
 		</>
 	);
-};
+});
+

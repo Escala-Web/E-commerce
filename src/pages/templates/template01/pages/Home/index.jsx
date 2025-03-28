@@ -7,26 +7,31 @@ import { SectionOfTheDay } from "../../components/SectionOfTheDay";
 import { ContainerGlobal } from "../../../../../styles/styleGlobal";
 import { CardBreads } from "../../components/CardBrands";
 import { CardDestaques } from "../../components/CardDestaques";
+import { Container } from "./styles";
 
 export const HomePage01 = () => {
 	return (
 		<>
 			<BannerPageOne />
-			<ContainerGlobal>
-				<CardSection title="Principais Categorias" m="2rem auto">
-					<CardCategory />
-				</CardSection>
+		
+				<ContainerGlobal>
+					<div className="container">
+					<CardSection title="Principais Categorias" m="2rem auto">
+						<CardCategory />
+					</CardSection>
 
-				{/* <SectionOfTheDay />
+					<SectionOfTheDay />
 
-				<CardSection title="Principais Marcas" m="2rem 0">
+					{/* <CardSection title="Principais Marcas" m="2rem 0">
 					<CardBreads />
 				</CardSection>
 
 				<CardSection title="Destaques do dia" m="2rem auto 2rem">
 					<CardDestaques />
 				</CardSection> */}
-			</ContainerGlobal>
+					</div>
+				</ContainerGlobal>
+			
 		</>
 	);
 };

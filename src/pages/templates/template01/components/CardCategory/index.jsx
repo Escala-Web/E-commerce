@@ -4,13 +4,17 @@ import { Container } from "./styles";
 import { CardProduct } from "../CardProduct";
 import { useProducts } from "../../../../../hooks/Products/useProducts";
 import { useEffect, useRef, useState } from "react";
-import { IoIosArrowDropleftCircle, IoIosArrowDroprightCircle } from "react-icons/io";
+import {
+	IoIosArrowDropleftCircle,
+	IoIosArrowDroprightCircle,
+} from "react-icons/io";
+import { Skeleton } from "@mui/material";
 
 export const CardCategory = () => {
 	const { findAll } = useCategories();
 	const [idCategory, setIdCategory] = useState(196);
 	const { getAllByProducts } = useProducts("category", idCategory, 1);
-	const { data: category } = findAll;
+	const { data: category, isLoading } = findAll;
 
 	const { data: productCategories } = getAllByProducts;
 
@@ -32,46 +36,63 @@ export const CardCategory = () => {
 
 	useEffect(() => {
 		const interval = setInterval(() => {
-		  if (scrollRef.current) {
-			scrollRef.current.scrollBy({ left: 284, behavior: "smooth" });
-	
-			const { scrollLeft, scrollWidth, clientWidth } = scrollRef.current;
-			if (scrollLeft + clientWidth >= scrollWidth) {
-			  scrollRef.current.scrollTo({ left: 0, behavior: "smooth" });
+			if (scrollRef.current) {
+				scrollRef.current.scrollBy({ left: 284, behavior: "smooth" });
+
+				const { scrollLeft, scrollWidth, clientWidth } = scrollRef.current;
+				if (scrollLeft + clientWidth >= scrollWidth) {
+					scrollRef.current.scrollTo({ left: 0, behavior: "smooth" });
+				}
 			}
-		  }
 		}, 3000);
-	
+
 		return () => clearInterval(interval);
-	  }, []);
+	}, []);
+
+	console.log(category);
+
+	if (isLoading) {
+		console.log(category?.parents?.length);
+	}
 
 	return (
 		<>
 			<Container>
 				<>
 					<div className="container_category">
-						{category?.parents?.map((cat) => (
-							<div className="card_category" key={cat.id_category}>
-								<button onClick={() => setIdCategory(cat.id_category)}>
-									{cat.name}
-								</button>
-							</div>
-						))}
+						{isLoading
+							? Array(category?.parents?.length || 5)
+									.fill()
+									.map(
+										(
+											_,
+											index // Usando o tamanho dinâmico de "parents" ou um número padrão (5)
+										) => (
+											<div className="card_category" key={index}>
+												<Skeleton variant="rounded" width={210} height={60} />
+											</div>
+										)
+									)
+							: category?.parents?.map((cat) => (
+									<div className="card_category" key={cat.id_category}>
+										<button onClick={() => setIdCategory(cat.id_category)}>
+											{cat.name}
+										</button>
+									</div>
+								))}
 					</div>
-			
-					<button className="left" onClick={scrollLeft}>
-					<IoIosArrowDropleftCircle />
 
+					<button className="left" onClick={scrollLeft}>
+						<IoIosArrowDropleftCircle />
 					</button>
 					<CardProduct
-						data={productCategories?.content.slice(0, 8)}
+						data={productCategories?.content?.slice(0, 8)}
 						flex={false}
 						scroll={scrollRef}
 					/>
 					<button className="right" onClick={scrollRight}>
 						<IoIosArrowDroprightCircle />
 					</button>
-	
 				</>
 			</Container>
 		</>

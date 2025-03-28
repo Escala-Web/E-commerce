@@ -6,6 +6,7 @@ export const ContainerRouter = styled.div`
     display: flex;
 
     background-color: ${({theme}) => theme.colors.background};
+    /* background-color: aqua; */
 
     /* opacity: .7; */
 

@@ -11,18 +11,14 @@ export const Container = styled.div`
     gap: 1.4rem;
 
     margin-top: 1rem;
-
-    /* overflow: hidden; */
-
-    /* overflow-x: scroll; */
     padding: .6rem 0;
 
     scrollbar-color: transparent;
 
-    border: 1px solid ${({ theme }) => theme.colors.accent};
+    /* border: 1px solid ${({ theme }) => theme.colors.accent}; */
 
     display: flex;
-    align-items: center;
+    align-items: start;
     justify-content: center;
 
     ::-webkit-scrollbar {
@@ -50,10 +46,17 @@ export const Container = styled.div`
         color: ${({ theme }) => theme.colors.secondary};
         text-decoration: none;
 
+        display: flex;
+        align-items: center;
+        justify-content: center;
+
         font-weight: 500;
         font-size: 14px;
 
         background-color: transparent;
+
+        width: 210px;
+        height: 60px;
 
         cursor: pointer;
     }

@@ -1,8 +1,5 @@
 import { Navigation, Pagination, Scrollbar, A11y } from "swiper/modules";
-
 import { Swiper, SwiperSlide } from "swiper/react";
-
-// Import Swiper styles
 import "swiper/css";
 import "swiper/css/navigation";
 import "swiper/css/pagination";
@@ -10,13 +7,12 @@ import "swiper/css/scrollbar";
 import { useContext } from "react";
 import { TemplateContext } from "../../../../../context/Template";
 import { Container, ContainerMobile, Section } from "./styles";
-import bannerL from "../../../../../assets/bannerL.png";
 
 export const BannerPageOne = () => {
-	// const { banner } = useContext(TemplateContext);
-	"banner01"
+	// Use the context if needed
+	const { banner } = useContext(TemplateContext) || []; // Use fallback if no context
 
-	const banner = [
+	const defaultBanner = [
 		{
 			image:
 				"https://mir-s3-cdn-cf.behance.net/project_modules/1400/371cef178509439.64e8f951aab97.jpg",
@@ -26,6 +22,8 @@ export const BannerPageOne = () => {
 				"https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQ_n2m61wSsm_oTQdkcPrf1FMVyxYQ2eOEE0g&s",
 		},
 	];
+
+	const bannerImages = banner.length > 0 ? banner : defaultBanner;
 
 	return (
 		<>
@@ -38,27 +36,29 @@ export const BannerPageOne = () => {
 						navigation
 						pagination={{ clickable: true }}
 						scrollbar={{ draggable: true }}
-						onSwiper={(swiper) => swiper}
-						onSlideChange={() => "slide change"}
+						sx={{
+							width: "100%",
+							height: "620px",
+						}}
 					>
-						{banner.map((b, index) => {
-							return (
-								<SwiperSlide key={index}>
-									<img
-										style={{
-											width: "100%",
-											height: "620px",
-											objectFit: "cover",
-										}}
-										src={b.image}
-										alt="second banner 1"
-									/>
-								</SwiperSlide>
-							);
-						})}
+						{bannerImages.map((b, index) => (
+							<SwiperSlide key={index}>
+								<img
+									style={{
+										width: "100%",
+										height: "620px",
+										objectFit: "cover",
+									}}
+									className="swiper-image"
+									src={b.image}
+									alt={`banner ${index + 1}`}
+								/>
+							</SwiperSlide>
+						))}
 					</Swiper>
 				</Section>
 			</Container>
+
 			<ContainerMobile>
 				<Swiper
 					modules={[Navigation, Pagination, A11y]}
@@ -67,24 +67,16 @@ export const BannerPageOne = () => {
 					navigation
 					pagination={{ clickable: true }}
 					scrollbar={{ draggable: true }}
-					onSwiper={(swiper) => swiper}
-					onSlideChange={() => "slide change"}
 				>
-					{banner.map((b) => {
-						return (
-							<SwiperSlide>
-								<img
-									style={{
-										width: "100%",
-										height: "300px",
-										objectFit: "cover",
-									}}
-									src={b.image}
-									alt="second banner 1"
-								/>
-							</SwiperSlide>
-						);
-					})}
+					{bannerImages.map((b, index) => (
+						<SwiperSlide key={index}>
+							<img
+								className="swiper-image-mobile"
+								src={b.image}
+								alt={`banner mobile ${index + 1}`}
+							/>
+						</SwiperSlide>
+					))}
 				</Swiper>
 			</ContainerMobile>
 		</>
